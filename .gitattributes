@@ -1,2 +1,68 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+# Python
+
+**pycache**/
+*.py[cod]
+*.so
+
+# Virtual Environment
+
+venv/
+.venv/
+env/
+
+# Environment Variables
+
+.env
+
+# Jupyter Notebook
+
+.ipynb_checkpoints/
+
+# Build Files
+
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Logs
+
+*.log
+
+# Database
+
+*.db
+*.sqlite3
+
+# Excel / Generated Files
+
+*.xlsx
+*.csv
+
+# OS Files
+
+.DS_Store
+Thumbs.db
+
+# VS Code
+
+.vscode/
+
+# PyCharm
+
+.idea/
+
+# Coverage
+
+.coverage
+htmlcov/
+
+# Pytest
+
+.pytest_cache/
+
+.env
+db.sqlite3
+__pycache__/
+staticfiles/
