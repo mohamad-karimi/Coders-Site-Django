@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'website.apps.WebsiteConfig',
     'instructor.apps.InstructorConfig',
     'dashboard.apps.DashboardConfig',
+    'course.apps.CourseConfig',
 ]
 
 MIDDLEWARE = [
