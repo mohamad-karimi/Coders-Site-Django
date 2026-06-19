@@ -9922,7 +9922,7 @@ textarea.form-control-lg {
 }
 
 .px-4 {
-  padding-left: 1.6rem !important;
+  padding-left: 7rem !important;
   padding-right: 1.6rem !important;
 }
 
@@ -14749,6 +14749,7 @@ textarea.form-control-lg {
   .my-xl-0 {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
+    margin-right: -450px;
   }
   .my-xl-1 {
     margin-top: 0.25rem !important;
