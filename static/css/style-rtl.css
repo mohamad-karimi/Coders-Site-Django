@@ -22020,8 +22020,6 @@ a.text-primary-hover:hover, button.text-primary-hover:hover {
 html[dir=rtl] .choices,
 html[dir=rtl] select option,
 html[dir=rtl] .choices__input {
-  direction: ltr;
-  unicode-bidi: bidi-override;
   text-align: right;
 }
 
@@ -22596,4 +22594,10 @@ html[dir=rtl] .choices__input {
 
 * {
     font-family: 'IRANSansWeb', sans-serif;
+}
+.footer-divider{
+    border-top: 1px solid #e9ecef;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 0;
 }
