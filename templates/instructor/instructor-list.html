@@ -16,7 +16,7 @@
 							<div class="d-flex justify-content-center">
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb breadcrumb-dark breadcrumb-dots mb-0">
-										<li class="breadcrumb-item"><a href="#">خانه</a></li>
+										<li class="breadcrumb-item"><a href="{% url 'website:home' %}">خانه</a></li>
 										<li class="breadcrumb-item active" aria-current="page">لیست مدرسان</li>
 									</ol>
 								</nav>
@@ -652,18 +652,15 @@
 							<div class="row align-items-center">
 								<!-- Title -->
 								<div class="col-lg-7">
-									<h3 class="text-white">مدرس شوید!</h3>
+									<h3 class="text-white">دوره ها</h3>
 									<p class="text-white mb-3 mb-lg-0">
-										با سرعت مناسب تصمیم‌گیری کرده و شرایط را مدیریت کنید. تردید در مسیر یادگیری
-										طبیعی است.
-										تمرین و آموزش باعث رشد و پیشرفت شما می‌شود و تجربه‌ای ارزشمند برایتان ایجاد
-										می‌کند.
+										دوره های موجود را مشاهده کید و سطح دانش خور را گسترش دهید
 									</p>
 								</div>
 
 								<!-- Button -->
 								<div class="col-lg-5 text-lg-end">
-									<a href="#" class="btn btn-dark mb-0">امروز تدریس را شروع کنید</a>
+									<a href="{% url 'course:course_list' %}" class="btn btn-dark mb-0">مشاهده دوره ها</a>
 								</div>
 							</div>
 						</div>

@@ -148,7 +148,7 @@
 												بسپار</label>
 										</div>
 										<div class="text-primary-hover">
-											<a href="forgot-password.html" class="text-secondary">
+											<a href="{% url 'authentication:password_reset' %}" class="text-secondary">
 												<u>رمز عبور را فراموش کرده‌اید؟</u>
 											</a>
 										</div>
@@ -190,7 +190,7 @@
 
 								<!-- Sign up link -->
 								<div class="mt-4 text-center">
-									<span>حساب کاربری ندارید؟ <a href="sign-up.html">اینجا ثبت‌نام کنید</a></span>
+									<span>حساب کاربری ندارید؟ <a href="{% url 'authentication:signup' %}">اینجا ثبت‌نام کنید</a></span>
 								</div>
 							</div>
 						</div> <!-- Row END -->
