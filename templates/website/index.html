@@ -224,7 +224,7 @@
 						</ul>
 
 						<div class="d-sm-flex align-items-center justify-content-center justify-content-lg-start">
-							<a href="#" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0">شروع کنید</a>
+							<a href="{% url 'course:course_list' %}" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0">شروع کنید</a>
 
 							<div class="d-flex align-items-center justify-content-center py-2 ms-0 ms-sm-4">
 								<a data-glightbox data-gallery="office-tour"
@@ -1540,17 +1540,15 @@
 
 										<!-- Title -->
 										<div class="col-lg-7">
-											<h3 class="text-white">تبدیل به مدرس شوید!</h3>
+											<h3 class="text-white">مدرس هارو مشاهده کنید!</h3>
 											<p class="text-white mb-3 mb-lg-0">
-												با سرعت و راحتی دوره‌های خود را ایجاد و منتشر کنید و دانش خود را با
-												دیگران به اشتراک بگذارید.
-												فرصتی برای رشد شخصی و کسب درآمد از آموزش.
+												مدرس ها را مشاهده و به آن هایی که علاقمند شدید دوره های آن ها را می توانید مشاهده کنید.
 											</p>
 										</div>
 
 										<!-- Content and input -->
 										<div class="col-lg-5 text-lg-end">
-											<a href="#" class="btn btn-outline-warning mb-0">شروع تدریس از امروز</a>
+											<a href="{% url 'instructor:instructor_list' %}" class="btn btn-outline-warning mb-0">مدرس ها</a>
 										</div>
 
 									</div>
