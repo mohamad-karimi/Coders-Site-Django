@@ -109,7 +109,7 @@
 		<nav class="navbar navbar-expand-xl">
 			<div class="container-fluid px-3 px-xl-5">
 				<!-- Logo START -->
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="{% url 'website:home' %}">
 					<img class="light-mode-item navbar-brand-item" src="{% static 'images/logo.png' %}" alt="logo">
 					{% comment %} <img class="dark-mode-item navbar-brand-item" src="{% static 'images/logo-light.svg' %}" alt="logo"> {% endcomment %}
 				</a>
@@ -159,7 +159,7 @@
 									<hr class="dropdown-divider">
 								</li>
 								<li> <a class="dropdown-item bg-primary text-primary bg-opacity-10 rounded-2 mb-0"
-										href="#">مشاهده همه دسته‌بندی‌ها</a></li>
+										href="{% url 'course:course_categories' %}">مشاهده همه دسته‌بندی‌ها</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -193,9 +193,10 @@
 					<ul class="navbar-nav navbar-nav-scroll me-auto">
 
 						<!-- Home -->
-						 <li>
-							<a class="nav-link dropdown" href="#" id="pagesMenu" data-bs-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false">خانه</a>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'website:home' %}">
+								خانه
+							</a>
 						</li>
 
 						<!-- Course -->
@@ -207,37 +208,47 @@
 
 							<ul class="dropdown-menu" aria-labelledby="pagesMenu">
 								<li>
-									<a class="dropdown-item" href="course-grid.html">همه دوره ها</a>
+									<a class="dropdown-item" href="{% url 'course:course_list' %}">همه دوره ها</a>
 								</li>
 
 								<li>
-									<a class="dropdown-item" href="course-categories.html">دسته‌بندی دوره‌ها</a>
+									<a class="dropdown-item" href="{% url 'course:course_categories' %}">دسته‌بندی دوره‌ها</a>
 								</li>
 							</ul>
 						</li>
 
 						<!-- instructor -->
 						<li class="nav-item">
-							<a class="nav-link" href="#">مدرس ها</a>
+							<a class="nav-link" href="{% url 'instructor:instructor_list' %}">
+								مدرس ها
+							</a>
 						</li>
 
 						<!-- Blog -->
 						<li class="nav-item">
-							<a class="nav-link" href="#">بلاگ</a>
+							<a class="nav-link" href="{% url 'blog:blog_grid' %}">
+								 بلاگ
+							</a>
 						</li>
 
 						<!-- Help -->
 						<li class="nav-item">
-							<a class="nav-link" href="#">سوالات متداول</a>
+							<a class="nav-link" href="{% url 'website:faq' %}">
+								 سوالات متداول
+							</a>
 						</li>
 
 						<!-- About -->
 						<li class="nav-item">
-							<a class="nav-link" href="#">درباره ما</a>
+							<a class="nav-link" href="{% url 'website:about' %}">
+								  درباره ما
+							</a>
 						</li>
 
 						<li class="nav-item">
-							<a class="nav-link" href="#">تماس با ما</a>
+							<a class="nav-link" href="{% url 'website:contact' %}">
+								  تماس با ما
+							</a>
 						</li>
 					</ul>
 					<!-- Nav Main menu END -->
@@ -344,7 +355,7 @@
 				<!-- Widget 1 START -->
 				<div class="col-lg-3">
 					<!-- لوگو -->
-					<a class="me-0" href="index.html">
+					<a class="me-0" href="{% url 'website:home' %}">
 						<img class="light-mode-item h-40px" src="{% static 'images/logo.png' %}" alt="لوگوی سایت کدنویسان">
 						{% comment %} <img class="dark-mode-item h-40px" src="{% static 'images/logo-light.svg' %}"
 							alt="لوگوی نسخه تاریک سایت کدنویسان"> {% endcomment %}
@@ -388,8 +399,8 @@
 						<div class="col-6 col-md-4">
 							<h5 class="mb-2 mb-md-4">شرکت</h5>
 							<ul class="nav flex-column">
-								<li class="nav-item"><a class="nav-link" href="#">درباره ما</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">تماس با ما</a></li>
+								<li class="nav-item"><a class="nav-link" href="{% url 'website:about' %}">درباره ما</a></li>
+								<li class="nav-item"><a class="nav-link" href="{% url 'website:contact' %}">تماس با ما</a></li>
 							</ul>
 						</div>
 
@@ -397,8 +408,8 @@
 						<div class="col-6 col-md-4">
 							<h5 class="mb-2 mb-md-4">جامعه</h5>
 							<ul class="nav flex-column">
-								<li class="nav-item"><a class="nav-link" href="#">سوالات متداول</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">اخبار و وبلاگ</a></li>
+								<li class="nav-item"><a class="nav-link" href="{% url 'website:faq' %}">سوالات متداول</a></li>
+								<li class="nav-item"><a class="nav-link" href="{% url 'blog:blog_grid' %}">اخبار و وبلاگ</a></li>
 							</ul>
 						</div>
 
@@ -406,9 +417,9 @@
 						<div class="col-6 col-md-4">
 							<h5 class="mb-2 mb-md-4">آموزش</h5>
 							<ul class="nav flex-column">
-								<li class="nav-item"><a class="nav-link" href="#">مدرس ها</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">دوره ها</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">دسته بندی دوره ها</a></li>
+								<li class="nav-item"><a class="nav-link" href="{% url 'instructor:instructor_list' %}">مدرس ها</a></li>
+								<li class="nav-item"><a class="nav-link" href="{% url 'course:course_list' %}">دوره ها</a></li>
+								<li class="nav-item"><a class="nav-link" href="{% url 'course:course_categories' %}">دسته بندی دوره ها</a></li>
 							</ul>
 						</div>
 
