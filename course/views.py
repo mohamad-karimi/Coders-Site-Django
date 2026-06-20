@@ -4,8 +4,8 @@ from django.shortcuts import render
 def course_list(request):
     return render(request, 'course/course-list.html')
 
-def course_grid(request):
-    return render(request, 'course/course-grid.html')
+def course_categories(request):
+    return render(request, 'course/course-categories.html')
 
 def course_detail(request):
     return render(request, 'course/course-detail.html')

@@ -22593,9 +22593,8 @@ html[dir=rtl] .choices__input {
 * {
     font-family: 'IRANSansWeb', sans-serif;
 }
-.footer-divider{
-    border-top: 1px solid #e9ecef;
-    width: 100%;
-    margin-top: 40px;
-    margin-bottom: 0;
+
+footer {
+    background-color: #262a2e;
+    border-top: 1px solid rgba(255,255,255,0.06);
 }
