@@ -19384,7 +19384,7 @@ textarea.form-control-lg {
     z-index: 1100 !important;
   }
   .navbar-expand-xl .navbar-brand .navbar-brand-item {
-    height: 36px;
+    height: 50px;
     display: block;
     width: auto;
   }
@@ -22541,9 +22541,6 @@ html[dir=rtl] .choices__input {
 
 [data-bs-theme=dark] .dark-mode-item {
   display: inline-block !important;
-}
-[data-bs-theme=dark] .light-mode-item {
-  display: none !important;
 }
 
 /*User CSS*/
