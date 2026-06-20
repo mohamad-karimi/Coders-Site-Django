@@ -1,6 +1,7 @@
 from django.urls import path
 from website.views import index, contact, about, faq, error_404
 
+app_name = "website"
 urlpatterns = [
     path('', index, name="home"),
     path('contact/', contact, name="contact"),
