@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'course.apps.CourseConfig',
     'blog.apps.BlogConfig',
     'authentication.apps.AuthenticationConfig',
+    'taggit',
 ]
 
 MIDDLEWARE = [
