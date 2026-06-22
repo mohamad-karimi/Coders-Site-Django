@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from course.models import Course
-from instructor.models import Instructor
 
 # Create your views here.
 def course_list(request):

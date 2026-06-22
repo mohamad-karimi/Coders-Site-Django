@@ -6,6 +6,7 @@ class Instructor(models.Model):
     image = models.ImageField(upload_to='instructor/', default='instructor/default.jpg')
     expertise = models.CharField(max_length=50)
     description = models.TextField()
+    short_description = models.CharField(max_length=120, null=True)
     address = models.CharField(max_length=100)
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
