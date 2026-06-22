@@ -2,14 +2,14 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from taggit.managers import TaggableManager
 
-BEGINNER = "beginner"
-INTERMEDIATE = "intermediate"
-ADVANCED = "advanced"
+BEGINNER = "مقدماتی"
+INTERMEDIATE = "متوسط"
+ADVANCED = "حرفه ای"
 
 LEVEL_CHOICES = (
-    (BEGINNER, "Beginner"),
-    (INTERMEDIATE, "Intermediate"),
-    (ADVANCED, "Advanced"),
+    (BEGINNER, "مقدماتی"),
+    (INTERMEDIATE, "متوسط"),
+    (ADVANCED, "حرفه ای"),
 )
 
 # Create your models here.
@@ -29,7 +29,7 @@ class Course(models.Model):
     overview = models.TextField()
     status = models.BooleanField(default=False)
     total_duration = models.PositiveIntegerField()
-    skill_level = models.CharField(max_length=20, choices=LEVEL_CHOICES)
+    skill_level = models.CharField(max_length=20, choices=LEVEL_CHOICES, null=True)
     degree = models.CharField(max_length=50)
     tag = TaggableManager()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="courses")
@@ -47,6 +47,12 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+    
+    @property
+    def lessons_count(self):
+        return Lesson.objects.filter(
+            section__course=self
+        ).count()
 
 class Section(models.Model):
     title = models.CharField(max_length=100)

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
 
 	{% block content %}
 	<!-- **************** MAIN CONTENT START **************** -->
@@ -46,12 +47,8 @@
 							<!-- List and Grid icon -->
 							<div class="col-sm-4 col-xl-6 text-md-end d-none d-md-block">
 								<ul class="list-inline mb-0">
-									<!-- Grid icon -->
-									<li class="list-inline-item"><a href="course-grid.html"
-											class="btn btn-outline-light mb-0 me-2"><i
-												class="fas fa-fw fa-th-large"></i></a></li>
 									<!-- list icon -->
-									<li class="list-inline-item"><a href="course-list.html"
+									<li class="list-inline-item"><a href="{% url 'course:course_list' %}"
 											class="btn btn-outline-light mb-0 me-2"><i
 												class="fas fa-fw fa-list-ul"></i></a></li>
 								</ul>
@@ -87,25 +84,34 @@
 					<div class="col-xl-9 col-xxl-8">
 
 						<!-- Course list START -->
+						 {% for course in course %}
 						<div class="row g-4">
 							<!-- Card list START -->
 							<div class="col-12">
 								<div class="card shadow overflow-hidden p-2">
 									<div class="row g-0">
 										<div class="col-md-5 overflow-hidden">
-											<img src="{% static 'images/courses/4by3/06.jpg' %}" class="rounded-2"
+											<img src="{{ course.image.url }}" class="rounded-2"
 												alt="تصویر دوره آموزش کامل Angular">
 											<!-- Ribbon -->
+											{% if course.is_free %}
 											<div class="card-img-overlay">
 												<div class="ribbon"><span>رایگان</span></div>
 											</div>
+											{% else %}
+											<div class="card-img-overlay">
+												<div class="ribbon"><span>{{ course.final_price|intcomma }}</span>
+													<span style="color: red;">%{{ course.discount_percent}}-</span>
+												</div>
+											</div>
+											{% endif %}
 										</div>
 										<div class="col-md-7">
 											<div class="card-body">
 												<!-- Badge and rating -->
 												<div class="d-flex justify-content-between align-items-center mb-2">
 													<!-- Badge -->
-													<a href="#" class="badge text-bg-primary mb-2 mb-sm-0">توسعه</a>
+													<a href="#" class="badge text-bg-primary mb-2 mb-sm-0">{{ course.category }}</a>
 													<!-- Rating and wishlist -->
 													<div>
 														<span class="h6 fw-light me-3"><i
@@ -115,19 +121,25 @@
 												</div>
 
 												<!-- Title -->
-												<h5 class="card-title"><a href="#">آموزش کامل Angular</a></h5>
-												<p class="text-truncate-2 d-none d-lg-block">ارائه محتوای قابل فهم و
-													حرفه‌ای برای یادگیری عمیق و کاربردی Angular</p>
+												<h5 class="card-title"><a href="#">{{ course.title }}</a></h5>
+												<p class="text-truncate-2 d-none d-lg-block">{{ course.short_description }}</p>
 
 												<!-- Info -->
 												<ul class="list-inline">
-													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-															class="far fa-clock text-danger me-2"></i>21 ساعت و 56 دقیقه
+													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0">
+														<i class="fas fa-clock text-danger me-2"></i>
+														{{ course.total_duration }} ساعت
 													</li>
-													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-															class="fas fa-table text-orange me-2"></i>52 جلسه</li>
-													<li class="list-inline-item h6 fw-light"><i
-															class="fas fa-signal text-success me-2"></i>متوسط</li>
+
+													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0">
+														<i class="fas fa-table text-orange me-2"></i>
+														{{ course.lessons_count }} جلسه
+													</li>
+
+													<li class="list-inline-item h6 fw-light">
+														<i class="fas fa-signal text-success me-2"></i>
+														{{ course.skill_level }}
+													</li>
 												</ul>
 
 												<!-- Price and avatar -->
@@ -152,196 +164,9 @@
 									</div>
 								</div>
 							</div>
-							<!-- Card list END -->
-
-							<!-- Card list START -->
-							<div class="col-12">
-								<div class="card shadow p-2">
-									<div class="row g-0">
-										<div class="col-md-5">
-											<img src="{% static 'images/courses/4by3/01.jpg' %}" class="rounded-2"
-												alt="تصویر دوره آموزش بازاریابی دیجیتال">
-										</div>
-										<div class="col-md-7">
-											<div class="card-body">
-												<!-- Badge and rating -->
-												<div class="d-flex justify-content-between align-items-center mb-2">
-													<!-- Badge -->
-													<a href="#" class="badge text-bg-primary mb-2 mb-sm-0">بازاریابی</a>
-													<!-- Rating and wishlist -->
-													<div>
-														<span class="h6 fw-light me-3"><i
-																class="fas fa-star text-warning me-1"></i>4.5</span>
-														<a href="#" class="h6 fw-light"><i class="far fa-heart"></i></a>
-													</div>
-												</div>
-
-												<!-- Title -->
-												<h5 class="card-title"><a href="#">دوره کامل بازاریابی دیجیتال - ۱۲ دوره
-														در ۱</a></h5>
-												<p class="text-truncate">توضیح کامل و کاربردی مفاهیم بازاریابی دیجیتال
-													برای یادگیری حرفه‌ای</p>
-
-												<!-- Info -->
-												<ul class="list-inline">
-													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-															class="far fa-clock text-danger me-2"></i>6 ساعت و 56 دقیقه
-													</li>
-													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-															class="fas fa-table text-orange me-2"></i>82 جلسه</li>
-													<li class="list-inline-item h6 fw-light"><i
-															class="fas fa-signal text-success me-2"></i>مبتدی</li>
-												</ul>
-
-												<!-- Price and avatar -->
-												<div class="d-sm-flex justify-content-sm-between align-items-center">
-													<!-- Avatar -->
-													<div class="d-flex align-items-center">
-														<div class="avatar">
-															<img class="avatar-img rounded-circle"
-																src="{% static 'images/avatar/10.jpg' %}"
-																alt="تصویر پروفایل مدرس دوره">
-														</div>
-														<p class="mb-0 ms-2"><a href="#" class="h6 fw-light">لری
-																لاوسون</a></p>
-													</div>
-													<!-- Price -->
-													<div class="mt-3 mt-sm-0">
-														<a href="#" class="btn btn-dark">مشاهده بیشتر</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card list END -->
-
-							<!-- Card list START -->
-							<div class="col-12">
-								<div class="card shadow p-2">
-									<div class="row g-0">
-										<div class="col-md-5">
-											<img src="{% static 'images/courses/4by3/11.jpg' %}" class="rounded-2"
-												alt="تصویر دوره کپی‌رایتینگ پیشرفته">
-										</div>
-										<div class="col-md-7">
-											<div class="card-body">
-												<!-- Badge and rating -->
-												<div class="d-flex justify-content-between align-items-center mb-2">
-													<!-- Badge -->
-													<a href="#" class="badge text-bg-primary mb-2 mb-sm-0">توسعه</a>
-													<!-- Rating and wishlist -->
-													<div>
-														<span class="h6 fw-light me-3"><i
-																class="fas fa-star text-warning me-1"></i>4.8</span>
-														<a href="#" class="h6 fw-light"><i class="far fa-heart"></i></a>
-													</div>
-												</div>
-
-												<!-- Title -->
-												<h5 class="card-title"><a href="#">دوره جامع کپی‌رایتینگ - نوشتن متن‌های
-														فروشنده</a></h5>
-												<p class="text-truncate">محتوای حرفه‌ای برای یادگیری مهارت‌های نوشتن
-													متن‌های تبلیغاتی و فروش</p>
-
-												<!-- Info -->
-												<ul class="list-inline">
-													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-															class="far fa-clock text-danger me-2"></i>15 ساعت و 30 دقیقه
-													</li>
-													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-															class="fas fa-table text-orange me-2"></i>72 جلسه</li>
-													<li class="list-inline-item h6 fw-light"><i
-															class="fas fa-signal text-success me-2"></i>همه سطوح</li>
-												</ul>
-
-												<!-- Price and avatar -->
-												<div class="d-sm-flex justify-content-sm-between align-items-center">
-													<!-- Avatar -->
-													<div class="d-flex align-items-center">
-														<div class="avatar">
-															<img class="avatar-img rounded-circle"
-																src="{% static 'images/avatar/04.jpg' %}"
-																alt="تصویر پروفایل مدرس دوره">
-														</div>
-														<p class="mb-0 ms-2"><a href="#" class="h6 fw-light">لوئیس
-																کراوفورد</a></p>
-													</div>
-													<!-- Price -->
-													<div class="mt-3 mt-sm-0">
-														<a href="#" class="btn btn-dark">مشاهده بیشتر</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card list END -->
-
-							<!-- Card list START -->
-							<div class="col-12">
-								<div class="card shadow p-2">
-									<div class="row g-0">
-										<div class="col-md-5">
-											<img src="{% static 'images/courses/4by3/03.jpg' %}" class="rounded-2"
-												alt="تصویر دوره طراحی سیستم در فیگما">
-										</div>
-										<div class="col-md-7">
-											<div class="card-body">
-												<!-- Badge and rating -->
-												<div class="d-flex justify-content-between align-items-center mb-2">
-													<!-- Badge -->
-													<a href="#" class="badge text-bg-primary mb-2 mb-sm-0">طراحی</a>
-													<!-- Rating and wishlist -->
-													<div>
-														<span class="h6 fw-light me-3"><i
-																class="fas fa-star text-warning me-1"></i>4.0</span>
-														<a href="#" class="h6 fw-light"><i class="far fa-heart"></i></a>
-													</div>
-												</div>
-
-												<!-- Title -->
-												<h5 class="card-title"><a href="#">ساخت سیستم طراحی در Figma</a></h5>
-												<p class="text-truncate-2">توضیح کامل برای یادگیری اصول طراحی سیستم و
-													کار حرفه‌ای در فیگما</p>
-
-												<!-- Info -->
-												<ul class="list-inline">
-													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-															class="far fa-clock text-danger me-2"></i>7 ساعت و 50 دقیقه
-													</li>
-													<li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-															class="fas fa-table text-orange me-2"></i>21 جلسه</li>
-													<li class="list-inline-item h6 fw-light"><i
-															class="fas fa-signal text-success me-2"></i>همه سطوح</li>
-												</ul>
-
-												<!-- Price and avatar -->
-												<div class="d-sm-flex justify-content-sm-between align-items-center">
-													<!-- Avatar -->
-													<div class="d-flex align-items-center">
-														<div class="avatar">
-															<img class="avatar-img rounded-circle"
-																src="{% static 'images/avatar/09.jpg' %}"
-																alt="تصویر پروفایل مدرس دوره">
-														</div>
-														<p class="mb-0 ms-2"><a href="#" class="h6 fw-light">فرانسس
-																گوئررو</a></p>
-													</div>
-													<!-- Price -->
-													<div class="mt-3 mt-sm-0">
-														<a href="#" class="btn btn-dark">مشاهده بیشتر</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card list END -->
 						</div>
+						{% endfor %}
+							<!-- Card list END -->
 
 						<!-- Pagination START -->
 						<div class="col-12">
@@ -393,28 +218,21 @@
 													<input class="form-check-input" type="checkbox"
 														id="flexCheckDefault10">
 													<label class="form-check-label"
-														for="flexCheckDefault10">توسعه</label>
+														for="flexCheckDefault10">طراحی وب</label>
 												</div>
 
 												<div class="form-check">
 													<input class="form-check-input" type="checkbox"
 														id="flexCheckDefault11">
 													<label class="form-check-label"
-														for="flexCheckDefault11">طراحی</label>
+														for="flexCheckDefault11">توسعه</label>
 												</div>
 
 												<div class="form-check">
 													<input class="form-check-input" type="checkbox"
 														id="flexCheckDefault12">
 													<label class="form-check-label"
-														for="flexCheckDefault12">حسابداری</label>
-												</div>
-
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault17">
-													<label class="form-check-label"
-														for="flexCheckDefault17">ترجمه</label>
+														for="flexCheckDefault12">طراحی گرافیک</label>
 												</div>
 
 											</div>
@@ -425,28 +243,7 @@
 													<input class="form-check-input" type="checkbox"
 														id="flexCheckDefault13">
 													<label class="form-check-label"
-														for="flexCheckDefault13">مالی</label>
-												</div>
-
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault14">
-													<label class="form-check-label"
-														for="flexCheckDefault14">حقوقی</label>
-												</div>
-
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault15">
-													<label class="form-check-label"
-														for="flexCheckDefault15">عکاسی</label>
-												</div>
-
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault16">
-													<label class="form-check-label"
-														for="flexCheckDefault16">نویسندگی</label>
+														for="flexCheckDefault13">امور مالی</label>
 												</div>
 
 												<div class="form-check">
@@ -523,58 +320,6 @@
 										</ul>
 									</div>
 									<!-- Skill level END -->
-
-									<!-- Language START -->
-									<div class="card card-body shadow p-4 mb-4">
-										<h4 class="mb-3">زبان</h4>
-
-										<ul class="list-inline mb-0 g-3">
-
-											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-2">
-												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-2">انگلیسی</label>
-											</li>
-
-											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-3">
-												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-3">فرانسوی</label>
-											</li>
-
-											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-4">
-												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-4">هندی</label>
-											</li>
-
-											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-5">
-												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-5">روسی</label>
-											</li>
-
-											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-6">
-												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-6">اسپانیایی</label>
-											</li>
-
-											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-7">
-												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-7">بنگالی</label>
-											</li>
-
-											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-8">
-												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-8">پرتغالی</label>
-											</li>
-
-										</ul>
-									</div>
-									<!-- Language END -->
 
 								</form>
 							</div>
