@@ -121,7 +121,7 @@
 												</div>
 
 												<!-- Title -->
-												<h5 class="card-title"><a href="#">{{ course.title }}</a></h5>
+												<h5 class="card-title"><a href="{% url 'course:course_detail' course.slug %}">{{ course.title }}</a></h5>
 												<p class="text-truncate-2 d-none d-lg-block">{{ course.short_description }}</p>
 
 												<!-- Info -->
@@ -155,7 +155,7 @@
 													</div>
 													<!-- Price -->
 													<div class="mt-3 mt-sm-0">
-														<a href="#" class="btn btn-dark">مشاهده بیشتر</a>
+														<a href="{% url 'course:course_detail' course.slug %}" class="btn btn-dark">مشاهده بیشتر</a>
 													</div>
 												</div>
 											</div>

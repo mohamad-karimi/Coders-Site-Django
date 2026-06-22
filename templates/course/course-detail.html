@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
 
 	{% block content %}
 	<!-- **************** MAIN CONTENT START **************** -->
@@ -13,19 +14,17 @@
 
 						<!-- Badge -->
 						<h6 class="mb-3 font-base bg-primary text-white py-2 px-4 rounded-2 d-inline-block">
-							دیجیتال مارکتینگ
+							{{ course.category }}
 						</h6>
 
 						<!-- Title -->
 						<h1>
-							دوره کامل دیجیتال مارکتینگ - ۱۲ دوره در ۱
+							{{ course.title }}
 						</h1>
 
 						<!-- Description -->
 						<p>
-							او با ارائه محتوایی وابسته و رضایت‌بخش، فردی خوش‌مشرب و قابل‌قبول بود.
-							اگرچه در برخی موارد، تعهدات خصوصی باعث سرخوردگی می‌شد،
-							اما در نهایت بسیاری از مشکلات حل شد. احساسات او بیشتر صمیمی و همراه با برخوردی دوستانه بود.
+							{{ course.short_description }}
 						</p>
 
 						<!-- Content -->
@@ -42,17 +41,12 @@
 
 							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0">
 								<i class="fas fa-signal text-success me-2"></i>
-								تمام سطوح
+								{{ course.skill_level }}
 							</li>
 
 							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0">
 								<i class="bi bi-patch-exclamation-fill text-danger me-2"></i>
-								آخرین به‌روزرسانی ۰۹/۲۰۲۱
-							</li>
-
-							<li class="list-inline-item h6 mb-0">
-								<i class="fas fa-globe text-info me-2"></i>
-								انگلیسی
+								آخرین بروزرسانی در {{ course.jalali_date_formatted }}  
 							</li>
 						</ul>
 
@@ -138,73 +132,7 @@
 									<div class="tab-pane fade show active" id="course-pills-1" role="tabpanel"
 										aria-labelledby="course-pills-tab-1">
 										<!-- Course detail START -->
-										<h5 class="mb-3">توضیحات دوره</h5>
-										<p class="mb-3">به <strong>بسته دوره کامل دیجیتال مارکتینگ - ۱۲ دوره در ۱ (بیش
-												از ۳۶ ساعت محتوا)</strong> خوش آمدید</p>
-										<p class="mb-3">در این آموزش عملی و کاملاً کاربردی، شما یاد می‌گیرید که چگونه به
-											یک متخصص بازاریابی دیجیتال تبدیل شوید با این <strong>بسته دوره نهایی که شامل
-												۱۲ دوره بازاریابی دیجیتال در ۱ است!</strong></p>
-										<p class="mb-3">اگر می‌خواهید بدانید چه مهارت‌هایی باید در یک سرفصل دوره
-											بازاریابی دیجیتال پایه در هند یا هر جای دیگری از جهان پوشش داده شود، خواندن
-											این مطلب به شما کمک می‌کند. قبل از اینکه وارد سرفصل پیشرفته <strong><a
-													href="#" class="text-reset text-decoration-underline">دوره بازاریابی
-													دیجیتال</a></strong> شویم، بیایید نگاهی به حوزه بازاریابی دیجیتال و
-											آینده آن بیندازیم.</p>
-										<p class="mb-0">ما تمرکز زیادی روی درک روانشناسی رفتار و محرک‌های تأثیرگذاری
-											داریم که برای تبدیل شدن به یک بازاریاب دیجیتال حرفه‌ای بسیار مهم هستند. ما
-											می‌دانیم که تئوری برای ساخت یک پایه محکم ضروری است، اما تئوری به تنهایی کار
-											را پیش نمی‌برد؛ به همین دلیل این دوره پر از مثال‌های عملی و کاربردی است که
-											می‌توانید قدم به قدم دنبال کنید.</p>
-
-										<!-- List content -->
-										<h5 class="mt-4">آنچه یاد خواهید گرفت</h5>
-										<ul class="list-group list-group-borderless mb-3">
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>معرفی دوره
-												بازاریابی دیجیتال
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>چرخه عمر مشتری
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>بهینه‌سازی موتور
-												جستجو (SEO) چیست
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>تبلیغات فیسبوک
-												(Facebook Ads)
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>چت‌بات پیام‌رسان
-												فیسبوک
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>ابزارهای بهینه‌سازی
-												موتور جستجو
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>چرا سئو مهم است
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>ساختار URL
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>اسنیپت‌های ویژه
-												(Featured Snippet)
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>نکات و ترفندهای سئو
-											</li>
-											<li class="list-group-item h6 fw-light d-flex mb-0">
-												<i class="fas fa-check-circle text-success me-2"></i>گوگل تگ منیجر
-											</li>
-										</ul>
-
-										<p class="mb-0">این بخش ممکن است کمی نامرتبط به نظر برسد. اندازه مثل بدن کسی
-											بود. آیا رفتار و میزان توجه پسرها ارزش هزینه را دارد؟ رفتار قابل قبول ممکن
-											است دختران را ناراحت کند و باعث شود از او درخواست کند. اثر تحسین، خواسته‌ها
-											را تغییر می‌دهد. استفاده پرانرژی بعداً مورد توجه قرار گرفت. او این بخش را
-											بیشتر در آخر انجام داد.</p>
+										 {{ course.overview }}
 										<!-- Course detail END -->
 									</div>
 									<!-- Content END -->
@@ -216,671 +144,61 @@
 										<div class="accordion accordion-icon accordion-bg-light" id="accordionExample2">
 											<!-- آیتم -->
 											<div class="accordion-item mb-3">
-												<h6 class="accordion-header font-base" id="heading-1">
+
+												{% for section in course.sections.all %}
+
+												<h6 class="accordion-header font-base" id="heading-{{ forloop.counter }}">
 													<button
 														class="accordion-button fw-bold rounded d-sm-flex d-inline-block collapsed"
-														type="button" data-bs-toggle="collapse"
-														data-bs-target="#collapse-1" aria-expanded="true"
-														aria-controls="collapse-1">
-														مقدمه‌ای بر بازاریابی دیجیتال
-														<span class="small ms-0 ms-sm-2">(۳ درس)</span>
+														type="button"
+														data-bs-toggle="collapse"
+														data-bs-target="#collapse-{{ forloop.counter }}"
+														aria-expanded="false"
+														aria-controls="collapse-{{ forloop.counter }}">
+														
+														{{ section.title }}
+														<span class="small ms-0 ms-sm-2">
+															{{ section.lessons.all|length }}
+														</span>
 													</button>
 												</h6>
-												<div id="collapse-1" class="accordion-collapse collapse show"
-													aria-labelledby="heading-1" data-bs-parent="#accordionExample2">
-													<div class="accordion-body mt-3">
-														<!-- درس -->
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">مقدمه</span>
-															</div>
-															<p class="mb-0">۲ دقیقه و ۱۰ ثانیه</p>
-														</div>
 
-														<hr> <!-- جداکننده -->
+												<div id="collapse-{{ forloop.counter }}"
+													class="accordion-collapse collapse"
+													aria-labelledby="heading-{{ forloop.counter }}"
+													data-bs-parent="#accordionExample2">
 
-														<!-- درس -->
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">
-																	بازاریابی دیجیتال چیست</span>
-															</div>
-															<p class="mb-0 text-truncate">۱۵ دقیقه و ۱۰ ثانیه</p>
-														</div>
-
-														<hr> <!-- جداکننده -->
-
-														<!-- درس -->
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">انواع
-																	بازاریابی دیجیتال</span>
-															</div>
-															<p class="mb-0">۱۸ دقیقه و ۱۰ ثانیه</p>
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<!-- آیتم -->
-											<div class="accordion-item mb-3">
-												<h6 class="accordion-header font-base" id="heading-2">
-													<button
-														class="accordion-button fw-bold collapsed rounded d-sm-flex d-inline-block"
-														type="button" data-bs-toggle="collapse"
-														data-bs-target="#collapse-2" aria-expanded="false"
-														aria-controls="collapse-2">
-														چرخه عمر مشتری
-														<span class="small ms-0 ms-sm-2">(۴ درس)</span>
-													</button>
-												</h6>
-												<div id="collapse-2" class="accordion-collapse collapse"
-													aria-labelledby="heading-2" data-bs-parent="#accordionExample2">
 													<div class="accordion-body mt-3">
 
+														{% for lesson in section.lessons.all %}
+
 														<div class="d-flex justify-content-between align-items-center">
 															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+
+																<a href="{{ lesson.video.url }}"
+																class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
 																	<i class="fas fa-play me-0"></i>
 																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">بازاریابی
-																	دیجیتال چیست</span>
+
+																<span class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">
+																	{{ lesson.title }}
+																</span>
+
 															</div>
-															<p class="mb-0">۱۱ دقیقه و ۲۰ ثانیه</p>
+
+															<p class="mb-0">{{ lesson.duration }}دقیقه</p>
 														</div>
 
 														<hr>
 
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">۱۵
-																	نکته برای نوشتن تیترهای جذاب</span>
-															</div>
-															<p class="mb-0 text-truncate">۲۵ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">چگونه
-																	مثل مشتریان خود بنویسیم</span>
-															</div>
-															<p class="mb-0">۱۱ دقیقه و ۳۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<div>
-																	<a href="#"
-																		class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static"
-																		data-bs-toggle="modal"
-																		data-bs-target="#exampleModal">
-																		<i class="fas fa-play me-0"></i>
-																	</a>
-																</div>
-																<div class="row g-sm-0 align-items-center">
-																	<div class="col-sm-6">
-																		<span
-																			class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-md-400px">چگونه
-																			ویژگی‌ها را به مزایا تبدیل کنیم</span>
-																	</div>
-																	<div class="col-sm-6">
-																		<span class="badge text-bg-orange ms-2 ms-md-0">
-																			<i class="fas fa-lock fa-fw me-1"></i>ویژه
-																		</span>
-																	</div>
-																</div>
-															</div>
-															<p
-																class="mb-0 d-inline-block text-truncate w-70px w-sm-60px">
-																۳۵ دقیقه و ۳۰ ثانیه</p>
-														</div>
+														{% endfor %}
 
 													</div>
 												</div>
+
+												{% endfor %}
+
 											</div>
-
-											<!-- آیتم -->
-											<div class="accordion-item mb-3">
-												<h6 class="accordion-header font-base" id="heading-5">
-													<button
-														class="accordion-button fw-bold collapsed rounded d-sm-flex d-inline-block"
-														type="button" data-bs-toggle="collapse"
-														data-bs-target="#collapse-5" aria-expanded="false"
-														aria-controls="collapse-5">
-														بهینه‌سازی موتور جستجو (SEO)
-														<span class="small ms-0 ms-sm-2">(۱۰ درس)</span>
-													</button>
-												</h6>
-												<div id="collapse-5" class="accordion-collapse collapse"
-													aria-labelledby="heading-5" data-bs-parent="#accordionExample2">
-													<div class="accordion-body mt-3">
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">مقدمه</span>
-															</div>
-															<p class="mb-0">۱ دقیقه و ۱۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">مروری
-																	بر سئو</span>
-															</div>
-															<p class="mb-0 text-truncate">۱۱ دقیقه و ۳ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">بهینه‌سازی
-																	صفحه اصلی سایت</span>
-															</div>
-															<p class="mb-0">۱۵ دقیقه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">نوشتن
-																	عنوان‌هایی که گوگل دوست دارد</span>
-															</div>
-															<p class="mb-0">۲۵ دقیقه و ۳۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">برنامه‌ریزی
-																	کلمات کلیدی سئو</span>
-															</div>
-															<p class="mb-0">۱۸ دقیقه و ۱۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">سئو
-																	فروشگاهی</span>
-															</div>
-															<p class="mb-0">۲۸ دقیقه و ۱۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">لینک‌های
-																	داخلی و خارجی</span>
-															</div>
-															<p class="mb-0">۴۵ دقیقه و ۱۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">سئو
-																	موبایل</span>
-															</div>
-															<p class="mb-0">۸ دقیقه و ۱۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">سئوی
-																	خارج از صفحه (Off-page SEO)</span>
-															</div>
-															<p class="mb-0">۱۸ دقیقه و ۱۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">اندازه‌گیری
-																	عملکرد سئو</span>
-															</div>
-															<p class="mb-0">۳۵ دقیقه و ۱۰ ثانیه</p>
-														</div>
-
-													</div>
-												</div>
-											</div>
-
-											<!-- آیتم -->
-											<div class="accordion-item mb-3">
-												<h6 class="accordion-header font-base" id="heading-6">
-													<button
-														class="accordion-button fw-bold collapsed rounded d-block d-sm-flex d-inline-block"
-														type="button" data-bs-toggle="collapse"
-														data-bs-target="#collapse-6" aria-expanded="false"
-														aria-controls="collapse-6">
-														تبلیغات فیسبوک
-														<span class="small ms-0 ms-sm-2">(۳ درس)</span>
-													</button>
-												</h6>
-												<div id="collapse-6" class="accordion-collapse collapse"
-													aria-labelledby="heading-6" data-bs-parent="#accordionExample2">
-													<div class="accordion-body mt-3">
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">مقدمه</span>
-															</div>
-															<p class="mb-0">۱ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">ساخت
-																	صفحات فیسبوک</span>
-															</div>
-															<p class="mb-0 text-truncate">۲۵ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">آدرس
-																	اختصاصی صفحه فیسبوک</span>
-															</div>
-															<p class="mb-0">۱۱ دقیقه و ۳۰ ثانیه</p>
-														</div>
-
-													</div>
-												</div>
-											</div>
-
-											<!-- آیتم -->
-											<div class="accordion-item mb-3">
-												<h6 class="accordion-header font-base" id="heading-7">
-													<button
-														class="accordion-button fw-bold collapsed rounded d-sm-flex d-inline-block"
-														type="button" data-bs-toggle="collapse"
-														data-bs-target="#collapse-7" aria-expanded="false"
-														aria-controls="collapse-7">
-														بازاریابی یوتیوب
-														<span class="small ms-0 ms-sm-2">(۵ درس)</span>
-													</button>
-												</h6>
-												<div id="collapse-7" class="accordion-collapse collapse"
-													aria-labelledby="heading-7" data-bs-parent="#accordionExample2">
-													<div class="accordion-body mt-3">
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">جریان
-																	ویدئو</span>
-															</div>
-															<p class="mb-0">۲۵ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">ابزار
-																	وبمستر</span>
-															</div>
-															<p class="mb-0 text-truncate">۱۵ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">محتوای
-																	ویژه کانال</span>
-															</div>
-															<p class="mb-0">۳۲ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-													</div>
-												</div>
-											</div>
-
-											<!-- آیتم -->
-											<div class="accordion-item mb-3">
-												<h6 class="accordion-header font-base" id="heading-8">
-													<button
-														class="accordion-button fw-bold collapsed rounded d-sm-flex d-inline-block"
-														type="button" data-bs-toggle="collapse"
-														data-bs-target="#collapse-8" aria-expanded="false"
-														aria-controls="collapse-8">
-														چرا سئو
-														<span class="small ms-0 ms-sm-2">(۸ درس)</span>
-													</button>
-												</h6>
-												<div id="collapse-8" class="accordion-collapse collapse"
-													aria-labelledby="heading-8" data-bs-parent="#accordionExample2">
-													<div class="accordion-body mt-3">
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">درک
-																	سئو</span>
-															</div>
-															<p class="mb-0">۲۰ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">سئوی
-																	داخلی (On-page SEO)</span>
-															</div>
-															<p class="mb-0 text-truncate">۱۵ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">سئو
-																	محلی</span>
-															</div>
-															<p class="mb-0">۱۶ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">اندازه‌گیری
-																	اثرگذاری سئو</span>
-															</div>
-															<p class="mb-0">۱۲ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-													</div>
-												</div>
-											</div>
-
-											<!-- آیتم -->
-											<div class="accordion-item mb-3">
-												<h6 class="accordion-header font-base" id="heading-9">
-													<button
-														class="accordion-button fw-bold collapsed rounded d-sm-flex d-inline-block"
-														type="button" data-bs-toggle="collapse"
-														data-bs-target="#collapse-9" aria-expanded="false"
-														aria-controls="collapse-9">
-														گوگل تگ منیجر
-														<span class="small ms-0 ms-sm-2">(۴ درس)</span>
-													</button>
-												</h6>
-												<div id="collapse-9" class="accordion-collapse collapse"
-													aria-labelledby="heading-9" data-bs-parent="#accordionExample2">
-													<div class="accordion-body mt-3">
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">صفحات
-																	G+ در رتبه بالاتر</span>
-															</div>
-															<p class="mb-0">۱۳ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">افزودن
-																	لینک‌های تماس</span>
-															</div>
-															<p class="mb-0 text-truncate">۷ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">گوگل
-																	هنگ‌اوت</span>
-															</div>
-															<p class="mb-0">۱۲ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">کسب‌وکار
-																	محلی گوگل</span>
-															</div>
-															<p class="mb-0 text-truncate">۷ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-													</div>
-												</div>
-											</div>
-
-											<!-- آیتم -->
-											<div class="accordion-item mb-0">
-												<h6 class="accordion-header font-base" id="heading-10">
-													<button
-														class="accordion-button fw-bold collapsed rounded d-sm-flex d-inline-block"
-														type="button" data-bs-toggle="collapse"
-														data-bs-target="#collapse-10" aria-expanded="false"
-														aria-controls="collapse-10">
-														ادغام با وب‌سایت
-														<span class="small ms-0 ms-sm-2">(۳ درس)</span>
-													</button>
-												</h6>
-												<div id="collapse-10" class="accordion-collapse collapse"
-													aria-labelledby="heading-10" data-bs-parent="#accordionExample2">
-													<div class="accordion-body mt-3">
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">ایجاد
-																	حساب لینکدین</span>
-															</div>
-															<p class="mb-0 text-truncate">۱۳ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">جستجوی
-																	پیشرفته</span>
-															</div>
-															<p class="mb-0">۳۱ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-														<hr>
-
-														<div class="d-flex justify-content-between align-items-center">
-															<div class="position-relative d-flex align-items-center">
-																<a href="#"
-																	class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
-																	<i class="fas fa-play me-0"></i>
-																</a>
-																<span
-																	class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">اپلیکیشن
-																	موبایل لینکدین</span>
-															</div>
-															<p class="mb-0">۲۵ دقیقه و ۲۰ ثانیه</p>
-														</div>
-
-													</div>
-												</div>
-											</div>
-
 										</div>
 										<!-- Course accordion END -->
 									</div>
@@ -894,7 +212,7 @@
 											<div class="row g-0 align-items-center">
 												<div class="col-md-5">
 													<!-- تصویر -->
-													<img src="{% static 'images/instructor/01.jpg' %}"
+													<img src="{{ course.instructor.image.url }}"
 														class="img-fluid rounded-3"
 														alt="تصویر مدرس دوره بازاریابی دیجیتال">
 												</div>
@@ -902,8 +220,8 @@
 													<!-- بدنه کارت -->
 													<div class="card-body">
 														<!-- عنوان -->
-														<h3 class="card-title mb-0">لوییس فرگوسن</h3>
-														<p class="mb-2">مدرس بازاریابی</p>
+														<h3 class="card-title mb-0">{{ course.instructor.name }}</h3>
+														<p class="mb-2">{{ course.instructor.expertise }}</p>
 
 														<!-- دکمه‌های شبکه‌های اجتماعی -->
 														<ul class="list-inline mb-3">
@@ -955,7 +273,7 @@
 																		class="icon-md bg-danger bg-opacity-10 text-danger rounded-circle">
 																		<i class="fas fa-play"></i>
 																	</span>
-																	<span class="h6 fw-light mb-0 ms-2">۲۹ دوره</span>
+																	<span class="h6 fw-light mb-0 ms-2">{{ courses|length }}دوره</span>
 																</div>
 															</li>
 															<li class="list-inline-item">
@@ -976,18 +294,15 @@
 
 										<!-- اطلاعات مدرس -->
 										<h5 class="mb-3">درباره مدرس</h5>
-										<p class="mb-3">این متن درباره مدرس حالت ادبی و توصیفی دارد و نشان‌دهنده توضیحات
-											کلی درباره تجربه و سبک آموزش او است.</p>
-										<p class="mb-3">این بخش ادامه توضیحات قبلی است و درباره شیوه آموزش و نگاه او به
-											یادگیری و انتقال دانش صحبت می‌کند.</p>
+										<p class="mb-3">{{ course.instructor.short_description }}</p>
 
 										<!-- ایمیل و وبسایت -->
 										<div class="col-12">
 											<ul class="list-group list-group-borderless mb-0">
 												<li class="list-group-item pb-0">ایمیل:<a href="#"
-														class="ms-2">hello@email.com</a></li>
+														class="ms-2">{{ course.instructor.email }}</a></li>
 												<li class="list-group-item pb-0">وب‌سایت:<a href="#"
-														class="ms-2">https://eduport.com</a></li>
+														class="ms-2">{{ course.instructor.website }}</a></li>
 											</ul>
 										</div>
 									</div>

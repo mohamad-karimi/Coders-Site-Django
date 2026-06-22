@@ -219,7 +219,7 @@
 										</div>
 
 										<h5 class="card-title fw-normal">
-											<a href="#">{{ course.title }}</a>
+											<a href="{% url 'course:course_detail' course.slug %}">{{ course.title }}</a>
 										</h5>
 
 										<p class="mb-2 text-truncate-2">{{ course.short_description }}</p>

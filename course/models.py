@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from taggit.managers import TaggableManager
 from instructor.models import Instructor
+from django.utils.text import slugify
 
 BEGINNER = "مقدماتی"
 INTERMEDIATE = "متوسط"
@@ -22,6 +23,7 @@ class Category(models.Model):
 
 class Course(models.Model):
     title = models.CharField(max_length=50)
+    slug = models.SlugField(unique=True, null=True, blank=True)
     price = models.PositiveIntegerField(default=0)
     discount_percent = models.PositiveSmallIntegerField(default=0)
     is_free = models.BooleanField(default=False)
@@ -42,6 +44,19 @@ class Course(models.Model):
     class Meta:
         ordering = ["-created_date"]
     
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title, allow_unicode=True)
+
+            base = self.slug
+            counter = 1
+
+            while Instructor.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
+                self.slug = f"{base}-{counter}"
+                counter += 1
+
+        super().save(*args, **kwargs)
+
     @property
     def final_price(self):
         return self.price - (self.price * self.discount_percent // 100)
