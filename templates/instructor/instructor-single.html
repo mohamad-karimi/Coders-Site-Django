@@ -153,7 +153,7 @@
 									<div class="ms-3">
 										<div class="d-flex">
 											<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-												data-purecounter-end="10" data-purecounter-delay="200">{{ num_courses }}</h5>
+												data-purecounter-end="{{ num_courses }}" data-purecounter-delay="200"></h5>
 											<span class="mb-0 h5">+</span>
 										</div>
 										<p class="mb-0 h6 fw-light">کل دوره‌ها</p>
@@ -187,7 +187,7 @@
 									<div class="ms-3">
 										<div class="d-flex">
 											<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-												data-purecounter-end="11" data-purecounter-delay="200">{{ instructor.experience_of_the_year }}</h5>
+												data-purecounter-end="{{ instructor.experience_of_the_year }}" data-purecounter-delay="200"></h5>
 											<span class="mb-0 h5">+</span>
 										</div>
 										<p class="mb-0 h6 fw-light">سال تجربه</p>
@@ -299,7 +299,7 @@
 							<!-- Card body -->
 							<div class="card-body text-center">
 								<!-- Title -->
-								<h5 class="card-title"><a href="#">{{ instructors.name }}</a></h5>
+								<h5 class="card-title"><a href="{% url 'instructor:instructor_single' instructors.slug %}">{{ instructors.name }}</a></h5>
 								<p class="mb-2">{{ instructors.expertise }}</p>
 
 								<!-- Rating -->

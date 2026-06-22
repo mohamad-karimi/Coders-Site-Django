@@ -26,7 +26,7 @@ class Course(models.Model):
     discount_percent = models.PositiveSmallIntegerField(default=0)
     is_free = models.BooleanField(default=False)
     image = models.ImageField(upload_to='course/', default='course/default.jpg')
-    short_description = models.CharField(max_length=100)
+    short_description = models.CharField(max_length=120, null=True)
     overview = models.TextField()
     status = models.BooleanField(default=False)
     total_duration = models.PositiveIntegerField()

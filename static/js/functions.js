@@ -565,14 +565,13 @@ var e = {
 
     // START: 12 AOS Animation
     aosFunc: function () {
-        var aos = e.select('.aos');
-        if (e.isVariableDefined(aos)) {
-            AOS.init({
-                duration: 500,
-                easing: 'ease-out-quart',
-                once: true
-            });
-        }
+        if (typeof AOS === 'undefined') return;
+
+        AOS.init({
+            duration: 500,
+            easing: 'ease-out-quart',
+            once: true
+        });
     },
     // END: AOS Animation
 
@@ -1090,7 +1089,9 @@ var e = {
       pCounter: function () {
         var pCounter = e.select('.purecounter');
         if (e.isVariableDefined(pCounter)) {
-          new PureCounter();
+          window.addEventListener("load", function () {
+              new PureCounter();
+          });
         }
     },
     // END: Purecounter

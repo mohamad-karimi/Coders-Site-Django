@@ -2,7 +2,6 @@ from django.shortcuts import render
 from instructor.models import Instructor
 from django.shortcuts import render, get_object_or_404
 from course.models import Course
-from django.db.models import Count
 
 # Create your views here.
 def IN_list(request):
@@ -24,9 +23,7 @@ def IN_single(request, slug):
         instructor=instructor
     )
 
-    num_courses = Course.objects.filter(
-        instructor=instructor
-    ).count
+    num_courses = instructor.courses.count()
 
     context = {
         "instructor": instructor,
