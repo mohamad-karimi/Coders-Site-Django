@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from taggit.managers import TaggableManager
+from instructor.models import Instructor
 
 BEGINNER = "مقدماتی"
 INTERMEDIATE = "متوسط"
@@ -36,7 +37,7 @@ class Course(models.Model):
     published_date = models.DateTimeField(null=True,)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    # instructor
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, related_name="courses", null=True)
 
     class Meta:
         ordering = ["-created_date"]
