@@ -3,6 +3,8 @@ from django.core.validators import FileExtensionValidator
 from taggit.managers import TaggableManager
 from instructor.models import Instructor
 from django.utils.text import slugify
+from django.utils import timezone
+import jdatetime
 
 BEGINNER = "مقدماتی"
 INTERMEDIATE = "متوسط"
@@ -13,6 +15,14 @@ LEVEL_CHOICES = (
     (INTERMEDIATE, "متوسط"),
     (ADVANCED, "حرفه ای"),
 )
+
+SCORE_CHOICES = [
+    (1, "★☆☆☆☆"),
+    (2, "★★☆☆☆"),
+    (3, "★★★☆☆"),
+    (4, "★★★★☆"),
+    (5, "★★★★★"),
+]
 
 # Create your models here.
 class Category(models.Model):
@@ -98,3 +108,35 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Score(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    score = models.PositiveSmallIntegerField(choices=SCORE_CHOICES)
+    comment = models.TextField()
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="score", null=True)
+    published_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_date"]
+        unique_together = ('email', 'course')
+    
+    @property
+    def jalali_date(self):
+        return jdatetime.datetime.fromgregorian(
+            datetime=self.created_date
+        ).strftime("%Y/%m/%d")
+    
+    def __str__(self):
+        return f"{self.name} - {self.score}"
+    
+class Reply(models.Model):
+    score = models.ForeignKey(Score, on_delete=models.CASCADE, related_name="replies")
+    name = models.CharField(max_length=50)
+    comment = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

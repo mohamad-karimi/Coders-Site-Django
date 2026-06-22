@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.text import slugify
 
 # Create your models here.
 class Instructor(models.Model):
@@ -18,6 +17,12 @@ class Instructor(models.Model):
 
     class Meta:
         ordering = ["name"]
+
+    @property
+    def instructor_avg_score(self):
+        return self.courses.aggregate(
+            avg=models.Avg('score__score')
+        )['avg'] or 0
 
     def __str__(self):
         return self.name

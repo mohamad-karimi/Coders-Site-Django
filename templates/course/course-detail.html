@@ -31,7 +31,7 @@
 						<ul class="list-inline mb-0">
 							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0">
 								<i class="fas fa-star text-warning me-2"></i>
-								۴.۵/۵.۰
+								{{ avg_score }}
 							</li>
 
 							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0">
@@ -46,7 +46,7 @@
 
 							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0">
 								<i class="bi bi-patch-exclamation-fill text-danger me-2"></i>
-								آخرین بروزرسانی در {{ course.jalali_date_formatted }}  
+								آخرین بروزرسانی در {{ course.updated_jalali }}  
 							</li>
 						</ul>
 
@@ -319,23 +319,29 @@
 											<div class="col-md-4 mb-3 mb-md-0">
 												<div class="text-center">
 													<!-- اطلاعات -->
-													<h2 class="mb-0">۴.۵</h2>
+													<h2 class="mb-0">{{ avg_score }}</h2>
+												<ul class="list-inline mb-0">
 
-													<!-- ستاره‌ها -->
-													<ul class="list-inline mb-0">
-														<li class="list-inline-item me-0"><i
-																class="fas fa-star text-warning"></i></li>
-														<li class="list-inline-item me-0"><i
-																class="fas fa-star text-warning"></i></li>
-														<li class="list-inline-item me-0"><i
-																class="fas fa-star text-warning"></i></li>
-														<li class="list-inline-item me-0"><i
-																class="fas fa-star text-warning"></i></li>
-														<li class="list-inline-item me-0"><i
-																class="fas fa-star-half-alt text-warning"></i></li>
-													</ul>
+													{% for i in full %}
+														<li class="list-inline-item me-0">
+															<i class="fas fa-star text-warning"></i>
+														</li>
+													{% endfor %}
 
-													<p class="mb-0">(بر اساس آخرین نظرات)</p>
+													{% if half %}
+														<li class="list-inline-item me-0">
+															<i class="fas fa-star-half-alt text-warning"></i>
+														</li>
+													{% endif %}
+
+													{% for i in empty %}
+														<li class="list-inline-item me-0">
+															<i class="far fa-star text-warning"></i>
+														</li>
+													{% endfor %}
+
+												</ul>
+													<p class="mb-0">(بر اساس میانگین نظرات)</p>
 												</div>
 											</div>
 
@@ -343,120 +349,41 @@
 											<div class="col-md-8">
 												<div class="row align-items-center">
 
+													{% for row in rows %}
+
+													<!-- progress -->
 													<div class="col-6 col-sm-8">
 														<div class="progress progress-sm bg-warning bg-opacity-15">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 100%" aria-valuenow="100"
-																aria-valuemin="0" aria-valuemax="100"></div>
+															<div class="progress-bar bg-warning"
+																role="progressbar"
+																style="width: {{ row.percent }}%"
+																aria-valuenow="{{ row.percent }}"
+																aria-valuemin="0"
+																aria-valuemax="100">
+															</div>
 														</div>
 													</div>
 
+													<!-- stars -->
 													<div class="col-6 col-sm-4">
 														<ul class="list-inline mb-0">
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
+
+															{% for i in "12345" %}
+																{% if forloop.counter <= row.star %}
+																	<li class="list-inline-item me-0 small">
+																		<i class="fas fa-star text-warning"></i>
+																	</li>
+																{% else %}
+																	<li class="list-inline-item me-0 small">
+																		<i class="far fa-star text-warning"></i>
+																	</li>
+																{% endif %}
+															{% endfor %}
+
 														</ul>
 													</div>
 
-													<div class="col-6 col-sm-8">
-														<div class="progress progress-sm bg-warning bg-opacity-15">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 80%" aria-valuenow="80" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</div>
-
-													<div class="col-6 col-sm-4">
-														<ul class="list-inline mb-0">
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-														</ul>
-													</div>
-
-													<div class="col-6 col-sm-8">
-														<div class="progress progress-sm bg-warning bg-opacity-15">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 60%" aria-valuenow="60" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</div>
-
-													<div class="col-6 col-sm-4">
-														<ul class="list-inline mb-0">
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-														</ul>
-													</div>
-
-													<div class="col-6 col-sm-8">
-														<div class="progress progress-sm bg-warning bg-opacity-15">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 40%" aria-valuenow="40" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</div>
-
-													<div class="col-6 col-sm-4">
-														<ul class="list-inline mb-0">
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-														</ul>
-													</div>
-
-													<div class="col-6 col-sm-8">
-														<div class="progress progress-sm bg-warning bg-opacity-15">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</div>
-
-													<div class="col-6 col-sm-4">
-														<ul class="list-inline mb-0">
-															<li class="list-inline-item me-0 small"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0 small"><i
-																	class="far fa-star text-warning"></i></li>
-														</ul>
-													</div>
+													{% endfor %}
 
 												</div>
 											</div>
@@ -464,6 +391,7 @@
 										<!-- نظرات END -->
 
 										<!-- نظرات دانشجویان START -->
+										{% for score in scores %}
 										<div class="row">
 
 											<!-- نظر ۱ -->
@@ -474,7 +402,7 @@
 												</div>
 												<div>
 													<div class="d-sm-flex mt-1 mt-md-0 align-items-center">
-														<h5 class="me-3 mb-0">ژاکلین میلر</h5>
+														<h5 class="me-3 mb-0">{{ score.name}}</h5>
 														<ul class="list-inline mb-0">
 															<li class="list-inline-item me-0"><i
 																	class="fas fa-star text-warning"></i></li>
@@ -489,10 +417,9 @@
 														</ul>
 													</div>
 
-													<p class="small mb-2">۲ روز پیش</p>
+													<p class="small mb-2">{{ score.jalali_date }}</p>
 
-													<p class="mb-2">این متن یک نظر نمونه درباره تجربه دانشجو از دوره است
-														و نشان‌دهنده رضایت یا بازخورد او از محتوا می‌باشد.</p>
+													<p class="mb-2">{{ score.comment}}</p>
 
 													<div class="btn-group" role="group"
 														aria-label="دکمه‌های لایک و دیسلایک">
@@ -512,103 +439,56 @@
 													</div>
 												</div>
 											</div>
-
+											
 											<hr>
 
 											<!-- پاسخ -->
+											{% for reply in score.replies.all %}
 											<div class="d-md-flex mb-4 ps-4 ps-md-5">
 												<div class="avatar avatar-lg me-4 flex-shrink-0">
 													<img class="avatar-img rounded-circle"
 														src="{% static 'images/avatar/02.jpg' %}" alt="تصویر پاسخ‌دهنده">
 												</div>
 												<div>
-													<h5 class="me-3 mb-0">لوییس فرگوسن</h5>
-													<p class="small mb-2">۱ روز پیش</p>
-													<p class="mb-2">این بخش پاسخ مدرس یا کاربر دیگر به نظر قبلی را نشان
-														می‌دهد.</p>
+													<h5 class="me-3 mb-0">{{ reply.name }}</h5>
+													<p class="small mb-2">{{ reply.created_date|naturaltime }}</p>
+													<p class="mb-2">{{ reply.comment }}</p>
 												</div>
 											</div>
 
 											<hr>
-
-											<!-- نظر ۲ -->
-											<div class="d-md-flex my-4">
-												<div class="avatar avatar-xl me-4 flex-shrink-0">
-													<img class="avatar-img rounded-circle"
-														src="{% static 'images/avatar/07.jpg' %}" alt="تصویر پروفایل دانشجو">
-												</div>
-												<div>
-													<div class="d-sm-flex mt-1 mt-md-0 align-items-center">
-														<h5 class="me-3 mb-0">دنیس بارت</h5>
-														<ul class="list-inline mb-0">
-															<li class="list-inline-item me-0"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0"><i
-																	class="fas fa-star text-warning"></i></li>
-															<li class="list-inline-item me-0"><i
-																	class="far fa-star text-warning"></i></li>
-														</ul>
-													</div>
-
-													<p class="small mb-2">۲ روز پیش</p>
-
-													<p class="mb-2">این هم یک نمونه دیگر از نظر دانشجو درباره دوره
-														آموزشی است.</p>
-
-													<div class="btn-group" role="group"
-														aria-label="دکمه‌های لایک و دیسلایک">
-														<input type="radio" class="btn-check" name="btnradio"
-															id="btnradio3">
-														<label class="btn btn-outline-light btn-sm mb-0"
-															for="btnradio3">
-															<i class="far fa-thumbs-up me-1"></i>۲۵
-														</label>
-
-														<input type="radio" class="btn-check" name="btnradio"
-															id="btnradio4">
-														<label class="btn btn-outline-light btn-sm mb-0"
-															for="btnradio4">
-															<i class="far fa-thumbs-down me-1"></i>۲
-														</label>
-													</div>
-												</div>
-											</div>
-
-											<hr>
+											{% endfor %}
 										</div>
+										{% endfor %}
 										<!-- نظرات دانشجویان END -->
 
 										<!-- ثبت نظر START -->
 										<div class="mt-2">
 											<h5 class="mb-4">ثبت نظر</h5>
-											<form class="row g-3">
-
+											<form class="row g-3" method="post" action="{% url 'course:course_detail' course.slug %}">
+												{% csrf_token %}
 												<div class="col-md-6 bg-light-input">
-													<input type="text" class="form-control" id="inputtext"
+													<input type="text" class="form-control" id="inputtext" name="name"
 														placeholder="نام">
 												</div>
 
 												<div class="col-md-6 bg-light-input">
-													<input type="email" class="form-control" placeholder="ایمیل"
+													<input type="email" class="form-control" placeholder="ایمیل" name="email"
 														id="inputEmail4">
 												</div>
 
 												<div class="col-12 bg-light-input">
-													<select id="inputState2" class="form-select js-choice">
-														<option selected="">★★★★★ (۵/۵)</option>
-														<option>★★★★☆ (۴/۵)</option>
-														<option>★★★☆☆ (۳/۵)</option>
-														<option>★★☆☆☆ (۲/۵)</option>
-														<option>★☆☆☆☆ (۱/۵)</option>
+													<select id="inputState2" class="form-select js-choice" name="score">
+														<option value="5">★★★★★</option>
+														<option value="4">★★★★☆</option>
+														<option value="3">★★★☆☆</option>
+														<option value="2">★★☆☆☆</option>
+														<option value="1">★☆☆☆☆</option>
 													</select>
 												</div>
 
 												<div class="col-12 bg-light-input">
-													<textarea class="form-control" id="exampleFormControlTextarea1"
+													<textarea class="form-control" id="exampleFormControlTextarea1" name="comment"
 														placeholder="نظر شما" rows="3"></textarea>
 												</div>
 
