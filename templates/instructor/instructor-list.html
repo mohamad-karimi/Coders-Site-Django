@@ -104,7 +104,7 @@
 										<!-- Title -->
 										<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
 											<div>
-												<h5 class="card-title mb-0"><a href="#">{{ instructor.name }}</a></h5>
+												<h5 class="card-title mb-0"><a href="{% url 'instructor:instructor_single' instructor.slug %}">{{ instructor.name }}</a></h5>
 												<p class="small mb-2 mb-sm-0">{{ instructor.experience_of_the_year }}سال تجربه</p>
 											</div>
 											<span class="h6 fw-light">4.3<i
