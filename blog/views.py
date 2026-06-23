@@ -15,6 +15,7 @@ def blog_grid(request):
 def blog_detail(request, slug):
     post = get_object_or_404(Post, slug=slug, status=True)
 
+    posts = Post.objects.filter(status = True)
     comments = post.comment.all()
 
     if request.method == 'POST':
@@ -50,6 +51,7 @@ def blog_detail(request, slug):
 
     context = {
         "post": post,
+        "posts" : posts,
         "comments" : comments,
     }
     return render(request, 'blog/blog-detail.html', context)

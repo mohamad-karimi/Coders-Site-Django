@@ -36,7 +36,7 @@
               <!-- Content -->
               <div class="col-lg-9 order-1">
                 <!-- Pre title -->
-                <span>۴۰ روز پیش</span><span class="mx-2">|</span><div class="badge text-bg-{{ post.category.color }}">{{ post.category }}</div>
+                <span>{{ post.jalali_date }}</span><span class="mx-2">|</span><div class="badge text-bg-{{ post.category.color }}">{{ post.category }}</div>
                 <!-- Title -->
                 <h1 class="mt-2 mb-0 display-5">{{ post.title }}</h1>
                 <!-- Info -->
@@ -238,81 +238,26 @@
         <!-- Slider START -->
         <div class="tiny-slider arrow-round arrow-hover arrow-dark">
           <div class="tiny-slider-inner" data-autoplay="false" data-arrow="true" data-edge="2" data-dots="false" data-items="3" data-items-lg="2" data-items-sm="1">
+            {% for post in posts %}
             <!-- Slider item -->
             <div class="card bg-transparent">
               <div class="row g-0">
                 <!-- Image -->
                 <div class="col-md-4">
-                  <img src="{% static 'images/event/06.jpg' %}" class="img-fluid rounded-start" alt="تصویر مقاله درباره رازهای پنهان صنعت کسب‌وکار" />
+                  <img src="{{ post.image.url }}" class="img-fluid rounded-start" alt="تصویر مقاله درباره رازهای پنهان صنعت کسب‌وکار" />
                 </div>
 
                 <!-- Card body -->
                 <div class="col-md-8">
                   <div class="card-body">
                     <!-- Title -->
-                    <h6 class="card-title"><a href="#">رازهای کمتر گفته‌شده درباره صنعت کسب‌وکار</a></h6>
-                    <span class="small">۲۱ ژوئیه ۲۰۲۱</span>
+                    <h6 class="card-title"><a href="{% url 'blog:blog_detail' post.slug %}">{{ post.title }}</a></h6>
+                    <span class="small">{{ post.jalali_date }}</span>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Slider item -->
-            <div class="card bg-transparent">
-              <div class="row g-0">
-                <!-- Image -->
-                <div class="col-md-4">
-                  <img src="{% static 'images/event/04.jpg' %}" class="img-fluid rounded-start" alt="تصویر مقاله درباره رشد استارتاپ‌ها و کارآفرینی" />
-                </div>
-
-                <!-- Card body -->
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <!-- Title -->
-                    <h6 class="card-title"><a href="#">چرا امسال سال شکوفایی استارتاپ‌ها خواهد بود</a></h6>
-                    <span class="small">۵۰ دقیقه پیش</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slider item -->
-            <div class="card bg-transparent">
-              <div class="row g-0">
-                <!-- Image -->
-                <div class="col-md-4">
-                  <img src="{% static 'images/event/03.jpg' %}" class="img-fluid rounded-start" alt="تصویر مقاله درباره تأثیر کرونا بر تجربه دانشجویی" />
-                </div>
-
-                <!-- Card body -->
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <!-- Title -->
-                    <h6 class="card-title"><a href="#">کووید-۱۹ و تجربه دانشجویی در دوران دانشگاه</a></h6>
-                    <span class="small">۳۱ اوت ۲۰۲۱</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slider item -->
-            <div class="card bg-transparent">
-              <div class="row g-0">
-                <!-- Image -->
-                <div class="col-md-4">
-                  <img src="{% static 'images/event/05.jpg' %}" class="img-fluid rounded-start" alt="تصویر مقاله درباره رشد استارتاپ‌ها و نوآوری" />
-                </div>
-
-                <!-- Card body -->
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <!-- Title -->
-                    <h6 class="card-title"><a href="#">چرا امسال سال شکوفایی استارتاپ‌ها خواهد بود</a></h6>
-                    <span class="small">۵۰ دقیقه پیش</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
         <!-- Slider END -->
