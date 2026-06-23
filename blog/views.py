@@ -5,6 +5,8 @@ from django.shortcuts import redirect
 from blog.form import CommentForm
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse
+from django.db.models import F
 
 # Create your views here.
 def blog_grid(request,  **kwargs):
@@ -13,7 +15,8 @@ def blog_grid(request,  **kwargs):
         post = post.filter(category__name=kwargs["ca_name"])
     if kwargs.get("au_name"):
         post = post.filter(author__username=kwargs["au_name"])
-    
+    if kwargs.get("ta_name"):
+        post = post.filter(tag__name__iexact=kwargs["ta_name"]).distinct()
     paginator = Paginator(post, 3)
     try:
         page_number = request.GET.get("page")
@@ -28,6 +31,8 @@ def blog_grid(request,  **kwargs):
 
 def blog_detail(request, slug, **kwargs):
     post = get_object_or_404(Post, slug=slug, status=True)
+    post.views += 1
+    post.save(update_fields=['views'])
 
     posts = Post.objects.filter(status = True)
     comments = post.comment.all()
@@ -69,3 +74,25 @@ def blog_detail(request, slug, **kwargs):
         "comments" : comments,
     }
     return render(request, 'blog/blog-detail.html', context)
+
+def like_post(request, pk):
+    post = Post.objects.get(pk=pk)
+
+    liked = request.session.get(f"liked_{pk}", False)
+
+    if liked:
+        post.like = F('like') - 1
+        request.session[f"liked_{pk}"] = False
+        liked = False
+    else:
+        post.like = F('like') + 1
+        request.session[f"liked_{pk}"] = True
+        liked = True
+
+    post.save()
+    post.refresh_from_db()
+
+    return JsonResponse({
+        "likes": post.like,
+        "liked": liked
+    })

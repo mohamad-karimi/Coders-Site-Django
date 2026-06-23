@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load blog_tags %}
 
 {% block content %}
   <!-- **************** MAIN CONTENT START **************** -->
@@ -26,9 +27,12 @@
                   <ul class="list-inline list-unstyled">
                     <li class="list-inline-item d-lg-block my-lg-2">{{ post.jalali_date }}</li>
                     <li class="list-inline-item badge text-bg-orange">
-                      <i class="far text-white fa-heart me-1"></i>{{ post.views }}</li>
+                    <span id="like-btn" data-url="{% url 'blog:like_post' post.id %}" style="cursor:pointer;">
+                        <i id="like-icon" class="far fa-heart text-white"></i>
+                        <span id="like-count">{{ post.like }}</span>
+                    </span>
                     <li class="list-inline-item badge text-bg-info">
-                      <i class="far fa-eye me-1"></i>{{ post.like }}</li>
+                      <i class="far fa-eye me-1"></i>{{ post.views }}</li>
                   </ul>
                 </div>
               </div>
@@ -116,7 +120,7 @@
                 <ul class="list-inline mb-0 social-media-btn">
                   {% for tags in post.tag.all %}
                   <li class="list-inline-item">
-                    <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">{{ tags }}</a>
+                    <a class="btn btn-outline-light btn-sm mb-lg-0" href="{% url 'blog:blog_tag' tags.name %}">{{ tags }}</a>
                   </li>
                   {% endfor %}
                 </ul>
@@ -221,50 +225,10 @@
         </div> <!-- Row END -->
       </div>
     </section>
-    <!--        =======================
-	Main Content END        -->
+    <!--        =======================Main Content END        -->
 
-    <!--        =======================
-	Related blog START        -->
-    <section class="pt-0">
-      <div class="container">
-        <!-- Title -->
-        <div class="row mb-4">
-          <div class="col-12">
-            <h2 class="mb-0">ممکن است این مطالب را نیز دوست داشته باشید</h2>
-          </div>
-        </div>
+    {% latest_posts %}
 
-        <!-- Slider START -->
-        <div class="tiny-slider arrow-round arrow-hover arrow-dark">
-          <div class="tiny-slider-inner" data-autoplay="false" data-arrow="true" data-edge="2" data-dots="false" data-items="3" data-items-lg="2" data-items-sm="1">
-            {% for post in posts %}
-            <!-- Slider item -->
-            <div class="card bg-transparent">
-              <div class="row g-0">
-                <!-- Image -->
-                <div class="col-md-4">
-                  <img src="{{ post.image.url }}" class="img-fluid rounded-start" alt="تصویر مقاله درباره رازهای پنهان صنعت کسب‌وکار" />
-                </div>
-
-                <!-- Card body -->
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <!-- Title -->
-                    <h6 class="card-title"><a href="{% url 'blog:blog_detail' post.slug %}">{{ post.title }}</a></h6>
-                    <span class="small">{{ post.jalali_date }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-        <!-- Slider END -->
-      </div>
-    </section>
-    <!--        =======================
-	Related blog END        -->
   </main>
   <!-- **************** MAIN CONTENT END **************** -->
   <script>

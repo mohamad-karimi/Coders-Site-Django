@@ -1,0 +1,41 @@
+ {% load static %}
+ 
+    <!--=======================Related blog START        -->
+    <section class="pt-0">
+      <div class="container">
+        <!-- Title -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <h2 class="mb-0">آخرین پست ها</h2>
+          </div>
+        </div>
+
+        <!-- Slider START -->
+        <div class="tiny-slider arrow-round arrow-hover arrow-dark">
+          <div class="tiny-slider-inner" data-autoplay="false" data-arrow="true" data-edge="2" data-dots="false" data-items="3" data-items-lg="2" data-items-sm="1">
+            {% for post in posts %}
+            <!-- Slider item -->
+            <div class="card bg-transparent">
+              <div class="row g-0">
+                <!-- Image -->
+                <div class="col-md-4">
+                  <img src="{{ post.image.url }}" class="img-fluid rounded-start" alt="تصویر مقاله درباره رازهای پنهان صنعت کسب‌وکار" />
+                </div>
+
+                <!-- Card body -->
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <!-- Title -->
+                    <h6 class="card-title"><a href="{% url 'blog:blog_detail' post.slug %}">{{ post.title }}</a></h6>
+                    <span class="small">{{ post.jalali_date }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <!-- Slider END -->
+      </div>
+    </section>
+    <!--        =======================Related blog END        -->
