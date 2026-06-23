@@ -4,15 +4,29 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from blog.form import CommentForm
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
-def blog_grid(request):
-    posts = Post.objects.filter(status = True)
+def blog_grid(request,  **kwargs):
+    post = Post.objects.filter(status=True)
+    if kwargs.get("ca_name") != None:
+        post = post.filter(category__name=kwargs["ca_name"])
+    if kwargs.get("au_name"):
+        post = post.filter(author__username=kwargs["au_name"])
+    
+    paginator = Paginator(post, 3)
+    try:
+        page_number = request.GET.get("page")
+        post = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        post = paginator.get_page(1)
+    except EmptyPage:
+        post = paginator.get_page(paginator.num_pages)
 
-    context={"posts":posts}
+    context={"post":post}
     return render(request, 'blog/blog-grid.html', context)
 
-def blog_detail(request, slug):
+def blog_detail(request, slug, **kwargs):
     post = get_object_or_404(Post, slug=slug, status=True)
 
     posts = Post.objects.filter(status = True)

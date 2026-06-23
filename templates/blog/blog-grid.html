@@ -61,36 +61,36 @@
 			<div class="container">
 				<div class="row g-4">
 					<!-- Card item START -->
-					{% for post in posts %}
+					{% for posts in post %}
 					<!-- Card item START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
 						<div class="card bg-transparent h-100 w-100">
 
 							<div class="overflow-hidden rounded-3">
-								<img src="{{ post.image.url }}"
+								<img src="{{ posts.image.url }}"
 									class="card-img"
 									style="height:220px;object-fit:cover;"
 									alt="">
 							</div>
 							<div class="card-img-overlay d-flex align-items-start p-3">
-								<a href="#" class="badge text-bg-{{ post.category.color }} badge-centered">
-									{{ post.category }}
+								<a href="{% url 'blog:blog_category' posts.category.name %}" class="badge text-bg-{{ posts.category.color }} badge-centered">
+									{{ posts.category }}
 								</a>
 							</div>
 							<div class="card-body d-flex flex-column">
 								<h5 class="card-title">
-									<a href="{% url 'blog:blog_detail' post.slug %}">{{ post.title }}</a>
+									<a href="{% url 'blog:blog_detail' posts.slug %}">{{ posts.title }}</a>
 								</h5>
 
 								<p class="text-truncate-2 flex-grow-1">
-									{{ post.content }}
+									{{ posts.content }}
 								</p>
 
 								<div class="d-flex justify-content-between mt-auto">
 									<h6 class="mb-0">
-										<a href="#">{{ post.author.get_full_name }}</a>
+										<a href="{% url 'blog:blog_author' posts.author.username %}">{{ posts.author.get_full_name }}</a>
 									</h6>
-									<span class="small">{{ post.jalali_date }}</span>
+									<span class="small">{{ posts.jalali_date }}</span>
 								</div>
 							</div>
 
@@ -103,14 +103,23 @@
 				<!-- Pagination START -->
 				<nav class="d-flex justify-content-center mt-5" aria-label="navigation">
 					<ul class="pagination pagination-primary-soft rounded mb-0">
-						<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
-									class="fas fa-angle-double-left"></i></a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-						<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#"><i
-									class="fas fa-angle-double-right"></i></a></li>
+						{% if post.has_previous %}
+						<li class="page-item mb-0"><a class="page-link" href="?page={{ post.previous_page_number }}" tabindex="-1"><i
+							class="fas fa-angle-double-left">
+						</i></a></li>
+						{% endif %}	
+						{% for i in post.paginator.page_range %}
+							{% if post.number == i %}
+								<li class="page-item mb-0 active"><a class="page-link" href="?page= {{ i }}">{{i}}</a></li>
+							{% else %}
+								<li class="page-item mb-0"><a class="page-link" href="?page= {{ i }}">{{i}}</a></li>
+							{% endif %}
+						{%endfor%}
+						{% if post.has_previous %}
+						<li class="page-item mb-0"><a class="page-link" href="?page={{ post.next_page_number }}"><i
+							class="fas fa-angle-double-right">
+						</i></a></li>
+						{% endif %}
 					</ul>
 				</nav>
 				<!-- Pagination END -->
