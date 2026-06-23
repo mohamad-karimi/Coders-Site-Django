@@ -151,7 +151,7 @@
 																src="{{ course.instructor.image.url }}"
 																alt="تصویر پروفایل مدرس دوره">
 														</div>
-														<p class="mb-0 ms-2"><a href="#" class="h6 fw-light">{{ course.instructor.name }}</a></p>
+														<p class="mb-0 ms-2"><a href="{% url 'instructor:instructor_single' course.instructor.slug %}" class="h6 fw-light">{{ course.instructor.name }}</a></p>
 													</div>
 													<!-- Price -->
 													<div class="mt-3 mt-sm-0">

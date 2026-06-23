@@ -25,17 +25,29 @@
 									<div class="card-body px-3">
 										<!-- Rating -->
 										<ul class="list-inline">
-											<li class="list-inline-item me-0 small"><i
-													class="fas fa-star text-warning"></i></li>
-											<li class="list-inline-item me-0 small"><i
-													class="fas fa-star text-warning"></i></li>
-											<li class="list-inline-item me-0 small"><i
-													class="fas fa-star text-warning"></i></li>
-											<li class="list-inline-item me-0 small"><i
-													class="fas fa-star text-warning"></i></li>
-											<li class="list-inline-item me-0 small"><i
-													class="fas fa-star-half-alt text-warning"></i></li>
-											<li class="list-inline-item ms-2 h6 fw-light mb-0">4.5/5.0</li>
+
+											{% for i in full %}
+												<li class="list-inline-item me-0 small">
+													<i class="fas fa-star text-warning"></i>
+												</li>
+											{% endfor %}
+
+											{% if half %}
+												<li class="list-inline-item me-0 small">
+													<i class="fas fa-star-half-alt text-warning"></i>
+												</li>
+											{% endif %}
+
+											{% for i in empty %}
+												<li class="list-inline-item me-0 small">
+													<i class="far fa-star text-warning"></i>
+												</li>
+											{% endfor %}
+
+											<li class="list-inline-item ms-2 h6 fw-light mb-0">
+												{{ instructor.instructor_avg_score|floatformat:1 }}
+											</li>
+
 										</ul>
 										<!-- Social media button -->
 										<ul class="list-inline mb-0">
@@ -225,17 +237,28 @@
 										<p class="mb-2 text-truncate-2">{{ course.short_description }}</p>
 
 										<ul class="list-inline mb-0">
-											<li class="list-inline-item me-0 small"><i
-													class="fas fa-star text-warning"></i></li>
-											<li class="list-inline-item me-0 small"><i
-													class="fas fa-star text-warning"></i></li>
-											<li class="list-inline-item me-0 small"><i
-													class="fas fa-star text-warning"></i></li>
-											<li class="list-inline-item me-0 small"><i
-													class="fas fa-star text-warning"></i></li>
-											<li class="list-inline-item me-0 small"><i
-													class="far fa-star text-warning"></i></li>
-											<li class="list-inline-item ms-2 h6 fw-light mb-0">4.0/5.0</li>
+											{% for i in "12345"|make_list %}
+												{% if forloop.counter <= course.full %}
+													<li class="list-inline-item me-0 small">
+														<i class="fas fa-star text-warning"></i>
+													</li>
+												{% endif %}
+											{% endfor %}
+
+											{% if course.half %}
+												<li class="list-inline-item me-0 small">
+													<i class="fas fa-star-half-alt text-warning"></i>
+												</li>
+											{% endif %}
+
+											{% for i in "12345"|make_list %}
+												{% if forloop.counter <= course.empty %}
+													<li class="list-inline-item me-0 small">
+														<i class="far fa-star text-warning"></i>
+													</li>
+												{% endif %}
+											{% endfor %}
+											<li class="list-inline-item ms-2 h6 fw-light mb-0">{{ course.avg_score|default:0 }}</li>
 										</ul>
 
 									</div>
@@ -279,11 +302,11 @@
 						data-items="4" data-items-lg="3" data-items-md="2" data-items-xs="1">
 
 						<!-- Card item START -->
-						{% for instructors in instructors %}
+						{% for instructor in instructors %}
 						<div class="card bg-transparent">
 							<div class="position-relative">
 								<!-- Image -->
-								<img src="{{ instructors.image.url }}" class="card-img"
+								<img src="{{ instructor.image.url }}" class="card-img"
 									alt="تصویر مدرس Jacqueline Miller - توسعه‌دهنده وب">
 								<!-- Overlay -->
 								<div class="card-img-overlay d-flex flex-column p-3">
@@ -292,30 +315,46 @@
 										<a href="#" class="badge text-bg-info rounded-1"><i
 												class="fas fa-user-graduate me-2"></i>25</a>
 										<a href="#" class="badge text-bg-orange rounded-1"><i
-												class="fas fa-clipboard-list me-2"></i>{{ instructors.courses.count }}</a>
+												class="fas fa-clipboard-list me-2"></i>{{ instructor.courses.count }}</a>
 									</div>
 								</div>
 							</div>
 							<!-- Card body -->
 							<div class="card-body text-center">
 								<!-- Title -->
-								<h5 class="card-title"><a href="{% url 'instructor:instructor_single' instructors.slug %}">{{ instructors.name }}</a></h5>
-								<p class="mb-2">{{ instructors.expertise }}</p>
+								<h5 class="card-title"><a href="{% url 'instructor:instructor_single' instructor.slug %}">{{ instructor.name }}</a></h5>
+								<p class="mb-2">{{ instructor.expertise }}</p>
 
 								<!-- Rating -->
 								<ul class="list-inline hstack justify-content-center">
-									<li class="list-inline-item ms-2 h6 mb-0 fw-normal">۴.۵/۵.۰</li>
-									<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
+
+									<li class="list-inline-item ms-2 h6 mb-0 fw-normal">
+										{{ instructor.instructor_avg_score|floatformat:1 }}
 									</li>
-									<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-									</li>
-									<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-									</li>
-									<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-									</li>
-									<li class="list-inline-item me-0 small"><i
-											class="fas fa-star-half-alt text-warning"></i></li>
-								</ul>
+
+									{% for i in "12345"|make_list %}
+										{% if forloop.counter <= instructor.full %}
+											<li class="list-inline-item me-0 small">
+												<i class="fas fa-star text-warning"></i>
+											</li>
+										{% endif %}
+									{% endfor %}
+
+									{% if instructor.half %}
+										<li class="list-inline-item me-0 small">
+											<i class="fas fa-star-half-alt text-warning"></i>
+										</li>
+									{% endif %}
+
+									{% for i in "12345"|make_list %}
+										{% if forloop.counter <= instructor.empty %}
+											<li class="list-inline-item me-0 small">
+												<i class="far fa-star text-warning"></i>
+											</li>
+										{% endif %}
+									{% endfor %}
+
+</ul>
 							</div>
 						</div>
 						<!-- Card item END -->

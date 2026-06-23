@@ -107,7 +107,7 @@
 												<h5 class="card-title mb-0"><a href="{% url 'instructor:instructor_single' instructor.slug %}">{{ instructor.name }}</a></h5>
 												<p class="small mb-2 mb-sm-0">{{ instructor.experience_of_the_year }}سال تجربه</p>
 											</div>
-											<span class="h6 fw-light">4.3<i
+											<span class="h6 fw-light">{{ instructor.instructor_avg_score }}<i
 													class="fas fa-star text-warning ms-1"></i></span>
 										</div>
 
