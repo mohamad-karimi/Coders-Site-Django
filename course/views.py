@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from course.models import Course, ReplayComment
+from course.models import Course, ReplayComment, Enrollment, Comment
 from django.shortcuts import render, get_object_or_404
 import jdatetime
 from course.form import ScoreForm, CommentForm
@@ -111,11 +111,21 @@ def course_detail(request, slug):
             "percent": percent
         })
 
+    instructor = course.instructor
+    total_students = Enrollment.objects.filter(
+        course__instructor=instructor
+    ).count()
+    total_comments = Comment.objects.filter(
+        course__instructor=instructor
+    ).count()
+    
     context = {
         "course": course,
         "courses": courses,
         "scores": scores,
         "comment": comment,
+        "total_students" : total_students,
+        "total_comments" : total_comments,
         "avg_score": avg_score,
         "full": range(full),
         "half": 1 if has_half else 0,

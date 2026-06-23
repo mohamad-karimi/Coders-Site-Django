@@ -180,3 +180,17 @@ class ReplayComment(models.Model):
     
     def __str__(self):
         return str(self.author)
+    
+class Enrollment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="enrollment")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="enrollment") 
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_date"]
+        unique_together = ('user', 'course')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.course.title}"
+    

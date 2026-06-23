@@ -36,7 +36,7 @@
 
 							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0">
 								<i class="fas fa-user-graduate text-orange me-2"></i>
-								۱۲هزار دانشجو
+								{{ course.enrollment.count }} تا دانش آموز
 							</li>
 
 							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0">
@@ -46,7 +46,7 @@
 
 							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0">
 								<i class="bi bi-patch-exclamation-fill text-danger me-2"></i>
-								آخرین بروزرسانی در {{ course.updated_jalali }}  
+								آخرین بروزرسانی در {{ course.published_jalali }}  
 							</li>
 						</ul>
 
@@ -255,7 +255,7 @@
 																		class="icon-md bg-orange bg-opacity-10 text-orange rounded-circle">
 																		<i class="fas fa-user-graduate"></i>
 																	</span>
-																	<span class="h6 fw-light mb-0 ms-2">۹.۱ هزار</span>
+																	<span class="h6 fw-light mb-0 ms-2">{{ total_students }}</span>
 																</div>
 															</li>
 															<li class="list-inline-item">
@@ -273,7 +273,7 @@
 																		class="icon-md bg-danger bg-opacity-10 text-danger rounded-circle">
 																		<i class="fas fa-play"></i>
 																	</span>
-																	<span class="h6 fw-light mb-0 ms-2">{{ courses|length }}دوره</span>
+																	<span class="h6 fw-light mb-0 ms-2">{{ courses|length }} دوره</span>
 																</div>
 															</li>
 															<li class="list-inline-item">
@@ -282,7 +282,7 @@
 																		class="icon-md bg-info bg-opacity-10 text-info rounded-circle">
 																		<i class="fas fa-comment-dots"></i>
 																	</span>
-																	<span class="h6 fw-light mb-0 ms-2">۲۰۵</span>
+																	<span class="h6 fw-light mb-0 ms-2">{{ total_comments }}</span>
 																</div>
 															</li>
 														</ul>

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from instructor.models import Instructor
 from django.shortcuts import render, get_object_or_404
-from course.models import Course
+from course.models import Course, Enrollment
 from django.db.models import Avg
 
 # Create your views here.
@@ -45,10 +45,15 @@ def IN_single(request, slug):
     has_half = (avg_score - full) >= 0.5
     empty = 5 - full - int(has_half)
 
+    total_students = Enrollment.objects.filter(
+        course__instructor=instructor
+    ).count()
+
     context = {
         "instructor": instructor,
         "instructors": instructors,  
         "courses": courses,
+        "total_students" : total_students,
         "num_courses": instructor.courses.count(),
         "full": range(full),
         "half": has_half,
