@@ -1,5 +1,5 @@
 from django.contrib import admin
-from course.models import Course, Category, Section,  Lesson, Score, Reply
+from course.models import Course, Category, Section,  Lesson, Score, Reply, Comment, ReplayComment
 
 # Register your models here.
 @admin.register(Course)
@@ -45,3 +45,19 @@ class ReplyAdmin(admin.ModelAdmin):
     list_display = ["name"]
     search_fields = ["name", "comment"]
     list_filter = ('name',)
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    date_hierarchy = "created_date"
+    empty_value_display = "-empty-"
+    list_display = ["author", "course"]
+    search_fields = ["author", "comment"]
+    list_filter = ('author', "course")
+
+@admin.register(ReplayComment)
+class ReplayCommentAdmin(admin.ModelAdmin):
+    date_hierarchy = "created_date"
+    empty_value_display = "-empty-"
+    list_display = ["author", "question_comment"]
+    search_fields = ["author", "question_comment"]
+    list_filter = ('author', "question_comment")

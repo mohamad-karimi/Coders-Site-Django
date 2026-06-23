@@ -5,6 +5,8 @@ from instructor.models import Instructor
 from django.utils.text import slugify
 from django.utils import timezone
 import jdatetime
+from django.contrib.auth.models import User
+from django.utils import timezone
 
 BEGINNER = "مقدماتی"
 INTERMEDIATE = "متوسط"
@@ -140,3 +142,41 @@ class Reply(models.Model):
 
     def __str__(self):
         return self.name
+
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment")
+    comment = models.TextField()
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="comment") 
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_date"]
+    
+    @property
+    def jalali_date(self):
+        return jdatetime.datetime.fromgregorian(
+            datetime=timezone.localtime(self.created_date)
+        ).strftime("%Y/%m/%d %H:%M")
+    
+    def __str__(self):
+        return str(self.author)
+    
+class ReplayComment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="replaycomment")
+    comment = models.TextField()
+    question_comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="replaycomment") 
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_date"]
+    
+    @property
+    def jalali_date(self):
+        return jdatetime.datetime.fromgregorian(
+            datetime=timezone.localtime(self.created_date)
+        ).strftime("%Y/%m/%d %H:%M")
+    
+    def __str__(self):
+        return str(self.author)

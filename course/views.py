@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from course.models import Course
+from course.models import Course, ReplayComment
 from django.shortcuts import render, get_object_or_404
 import jdatetime
-from course.form import ScoreForm
+from course.form import ScoreForm, CommentForm
 from django.shortcuts import render
 from django.contrib import messages
 from django.db import IntegrityError
@@ -35,27 +35,64 @@ def course_detail(request, slug):
 
 
     courses = Course.objects.all()
+    comment = course.comment.all()
     scores = course.score.all()
 
-    form = ScoreForm()
+    for s in scores:
+        avg = s.score
+
+        s.full = int(avg)
+        s.half = (avg - s.full) >= 0.5
+        s.empty = 5 - s.full - int(s.half)
 
     if request.method == 'POST':
-        form = ScoreForm(request.POST)
 
-        if form.is_valid():
-            try:
-                score_obj = form.save(commit=False)
-                score_obj.course = course
-                score_obj.save()
+        form_type = request.POST.get('form_type')
 
-                messages.success(request, "نظر شما ثبت شد")
+        if form_type == 'score':
+            form = ScoreForm(request.POST)
 
+            if form.is_valid():
+                try:
+                    score_obj = form.save(commit=False)
+                    score_obj.course = course
+                    score_obj.user = request.user
+                    score_obj.save()
+
+                    messages.success(request, "نظر شما ثبت شد")
+                    return redirect('course:course_detail', slug=slug)
+
+                except IntegrityError:
+                    messages.error(request, "شما قبلاً امتیاز داده‌اید")
+            else:
+                messages.error(request, "اطلاعات فرم صحیح نیست")
+        elif form_type == 'comment':
+            form = CommentForm(request.POST)
+
+            if form.is_valid():
+                comment_obj = form.save(commit=False)
+                comment_obj.author = request.user
+                comment_obj.course = course
+                comment_obj.save()
+
+                messages.success(request, "کامنت شما ثبت شد")
                 return redirect('course:course_detail', slug=slug)
+            else:
+                messages.error(request, "اطلاعات فرم صحیح نیست")
+        elif form_type == 'reply':
+            reply_text = request.POST.get('comment')
+            parent_id = request.POST.get('parent_id')
 
-            except IntegrityError:
-                messages.error(request, "شما قبلاً نظر داده‌اید")
-        else:
-            messages.error(request, "اطلاعات فرم صحیح نیست")
+            if reply_text and parent_id:
+                ReplayComment.objects.create(
+                    author=request.user,
+                    comment=reply_text,
+                    question_comment_id=int(parent_id)
+                )
+                messages.success(request, "کامنت شما ثبت شد")
+                return redirect('course:course_detail', slug=slug)
+            else:
+                messages.error(request, "اطلاعات فرم صحیح نیست")
 
     avg_score = course.score.aggregate(avg=Avg('score'))['avg'] or 0
     full = int(avg_score)
@@ -78,6 +115,7 @@ def course_detail(request, slug):
         "course": course,
         "courses": courses,
         "scores": scores,
+        "comment": comment,
         "avg_score": avg_score,
         "full": range(full),
         "half": 1 if has_half else 0,
