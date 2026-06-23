@@ -3,10 +3,20 @@ from instructor.models import Instructor
 from django.shortcuts import render, get_object_or_404
 from course.models import Course, Enrollment
 from django.db.models import Avg
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 def IN_list(request):
     instructor = Instructor.objects.all()
+
+    paginator = Paginator(instructor, 6)
+    try:
+        page_number = request.GET.get("page")
+        instructor = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        instructor = paginator.get_page(1)
+    except EmptyPage:
+        instructor = paginator.get_page(paginator.num_pages)
 
     context = {"instructor":instructor}
     return render(request, 'instructor/instructor-list.html', context)

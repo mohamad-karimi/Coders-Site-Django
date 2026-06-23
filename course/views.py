@@ -8,12 +8,22 @@ from django.contrib import messages
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.db.models import Avg
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 def course_list(request):
     course = Course.objects.filter(status=True).annotate(
         avg_score=Avg('score__score')
     )
+
+    paginator = Paginator(course, 3)
+    try:
+        page_number = request.GET.get("page")
+        course = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        course = paginator.get_page(1)
+    except EmptyPage:
+        course = paginator.get_page(paginator.num_pages)
 
     context = {
         "course": course,
