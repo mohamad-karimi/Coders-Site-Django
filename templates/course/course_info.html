@@ -1,0 +1,44 @@
+{% load static %}
+
+
+								<!-- Course info START -->
+								<div class="card card-body shadow p-4 mb-4">
+									<!-- Title -->
+									<h4 class="mb-3">این دوره شامل موارد زیر است</h4>
+
+									<ul class="list-group list-group-borderless">
+										<li class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="h6 fw-light mb-0">
+												<i class="fas fa-fw fa-book-open text-primary"></i>
+												تعداد جلسات
+											</span>
+											<span>{{ course.lessons_count }}</span>
+										</li>
+
+										<li class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="h6 fw-light mb-0">
+												<i class="fas fa-fw fa-clock text-primary"></i>
+												مدت زمان
+											</span>
+											<span>{{ course.total_duration }}h</span>
+										</li>
+
+										<li class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="h6 fw-light mb-0">
+												<i class="fas fa-fw fa-signal text-primary"></i>
+												سطح مهارت
+											</span>
+											<span>{{ course.skill_level }}</span>
+										</li>
+
+										<li class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="h6 fw-light mb-0">
+												<i class="fas fa-fw fa-medal text-primary"></i>
+												مدرک
+											</span>
+											<span>{{ course.degree }}</span>
+										</li>
+									</ul>
+								</div>
+								<!-- Course info END -->
+							</div>

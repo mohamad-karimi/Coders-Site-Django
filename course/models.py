@@ -38,6 +38,7 @@ class Course(models.Model):
     slug = models.SlugField(unique=True, null=True, blank=True)
     price = models.PositiveIntegerField(default=0)
     discount_percent = models.PositiveSmallIntegerField(default=0)
+    discount_end = models.DateTimeField(null=True, blank=True)
     is_free = models.BooleanField(default=False)
     image = models.ImageField(upload_to='course/', default='course/default.jpg')
     short_description = models.CharField(max_length=120, null=True)

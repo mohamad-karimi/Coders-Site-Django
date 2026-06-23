@@ -111,7 +111,7 @@
 												<!-- Badge and rating -->
 												<div class="d-flex justify-content-between align-items-center mb-2">
 													<!-- Badge -->
-													<a href="#" class="badge text-bg-primary mb-2 mb-sm-0">{{ course.category }}</a>
+													<a href="{% url 'course:course_category' course.category.name %}" class="badge text-bg-primary mb-2 mb-sm-0">{{ course.category }}</a>
 													<!-- Rating and wishlist -->
 													<div>
 														<span class="h6 fw-light me-3"><i

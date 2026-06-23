@@ -9,12 +9,18 @@ from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.db.models import Avg
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.utils import timezone
 
 # Create your views here.
-def course_list(request):
+def course_list(request, **kwargs):
     course = Course.objects.filter(status=True).annotate(
         avg_score=Avg('score__score')
     )
+    if kwargs.get("ca_name") != None:
+        course = course.filter(category__name=kwargs["ca_name"])
+        
+    if kwargs.get("ta_name"):
+        course = course.filter(tag__name__iexact=kwargs["ta_name"]).distinct()
 
     paginator = Paginator(course, 3)
     try:
@@ -129,6 +135,10 @@ def course_detail(request, slug):
         course__instructor=instructor
     ).count()
     
+    remaining_days = None
+    if course.discount_end:
+        remaining_days = (course.discount_end - timezone.now()).days
+
     context = {
         "course": course,
         "courses": courses,
@@ -136,6 +146,7 @@ def course_detail(request, slug):
         "comment": comment,
         "total_students" : total_students,
         "total_comments" : total_comments,
+        "remaining_days": remaining_days,
         "avg_score": avg_score,
         "full": range(full),
         "half": 1 if has_half else 0,

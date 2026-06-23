@@ -1,0 +1,41 @@
+{% load static %}
+{% load humanize %}
+
+								<!-- Recently Viewed START -->
+								<div class="card card-body shadow p-4 mb-4">
+									<!-- Title -->
+									<h4 class="mb-3">جدید ترین دوره ها</h4>
+
+									<!-- Course item START -->
+									{% for courses in course %}
+									<div class="row gx-3 mb-3">
+										<!-- Image -->
+										<div class="col-4">
+											<img class="rounded" src="{{ courses.image.url }}"
+												alt="تصویر دوره تحلیل کسب‌وکار">
+										</div>
+
+										<!-- Info -->
+										<div class="col-8">
+											<h6 class="mb-0">
+												<a href="{% url 'course:course_detail' courses.slug %}">{{ courses.title }}</a>
+											</h6>
+
+											<ul
+												class="list-group list-group-borderless mt-1 d-flex justify-content-between">
+												<li class="list-group-item px-0 d-flex justify-content-between">
+													{% if not courses.is_free %}
+														<span class="text-success">{{ courses.final_price|intcomma }}</span>
+													{% else %}
+														<span class="text-success">رایگان</span>
+													{% endif %}
+													<span class="h6 fw-light">{{ courses.avg_score|default:0 }}<i
+															class="fas fa-star text-warning ms-1"></i></span>
+												</li>
+											</ul>
+										</div>
+									</div>
+									{% endfor %}
+									<!-- Course item END -->
+								</div>
+								<!-- Recently Viewed END -->

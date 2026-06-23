@@ -1,0 +1,82 @@
+{% load static%}
+{% load humanize %}
+
+							<div class="col-md-6 col-lg-12">
+
+								<!-- Video START -->
+								<div class="card shadow p-2 mb-4 z-index-9">
+									<div class="overflow-hidden rounded-3">
+										<img src="{{ course.image.url }}" class="card-img"
+											alt="تصویر دوره آموزشی و معرفی ویدیوی دوره">
+										<!-- Overlay -->
+										<div class="bg-overlay bg-dark opacity-6"></div>
+										<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+											<!-- Video button and link -->
+											<div class="m-auto">
+												<a href="{{ course.video.url }}"
+													class="btn btn-lg text-danger btn-round btn-white-shadow mb-0"
+													data-glightbox="" data-gallery="course-video"
+													aria-label="پخش ویدیو معرفی دوره">
+													<i class="fas fa-play"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+
+									<!-- Card body -->
+									<div class="card-body px-3">
+										<!-- Info -->
+										<div class="d-flex justify-content-between align-items-center">
+											<!-- Price and time -->
+                                            {% if not course.is_free %}
+											<div>
+												<div class="d-flex align-items-center">
+													<h3 class="fw-bold mb-0 me-2">{{ course.final_price|intcomma }}</h3>
+													<span class="text-decoration-line-through mb-0 me-2">{{ course.price|intcomma }} -%</span>
+													<span class="badge text-bg-orange mb-0">{{ course.discount_percent }} %تخفیف </span>
+
+												</div>
+												{% if remaining_days and remaining_days > 0 %}
+													<p class="mb-0 text-danger">
+														<i class="fas fa-stopwatch me-2"></i>
+														{{ remaining_days }} روز تا پایان این قیمت باقی مانده
+													</p>
+												{% endif %}
+											</div>
+                                            {% endif %}
+
+											<!-- Share button with dropdown -->
+											<div class="dropdown">
+												<!-- Share button -->
+												<a href="#" class="btn btn-sm btn-light rounded small" role="button"
+													id="dropdownShare" data-bs-toggle="dropdown" aria-expanded="false"
+													aria-label="اشتراک‌گذاری دوره">
+													<i class="fas fa-fw fa-share-alt"></i>
+												</a>
+
+												<!-- dropdown button -->
+												<ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
+													aria-labelledby="dropdownShare">
+													<li><a class="dropdown-item" href="#"><i
+																class="fab fa-twitter-square me-2"></i>توییتر</a></li>
+													<li><a class="dropdown-item" href="#"><i
+																class="fab fa-facebook-square me-2"></i>فیسبوک</a></li>
+													<li><a class="dropdown-item" href="#"><i
+																class="fab fa-linkedin me-2"></i>لینکدین</a></li>
+													<li><a class="dropdown-item" href="#"><i
+																class="fas fa-copy me-2"></i>کپی لینک</a></li>
+												</ul>
+											</div>
+										</div>
+
+										<!-- Buttons -->
+										<div class="mt-3 d-sm-flex justify-content-sm-between">
+											{% if course.is_free %}
+												<a href="#" class="btn btn-outline-primary mb-0">دوره رایگان</a>
+											{% else %}
+												<a href="#" class="btn btn-success mb-0">خرید دوره</a>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								<!-- Video END -->
