@@ -20,19 +20,15 @@
                     <div class="avatar avatar-xxl">
                       <img class="avatar-img rounded-circle" src="{% static 'images/avatar/09.jpg' %}" alt="تصویر پروفایل فرانسیس گوئررو، ویراستار آموزشی" />
                     </div>
-                    <a href="#" class="h5 stretched-link mt-2 mb-0 d-block">فرانسیس گوئررو</a>
-                    <p class="mb-2">ویراستار در کدنویسان</p>
+                    <a href="#" class="h5 stretched-link mt-2 mb-0 d-block">{{ post.author.get_full_name }}</a>
                   </div>
                   <!-- Info -->
                   <ul class="list-inline list-unstyled">
-                    <li class="list-inline-item d-lg-block my-lg-2">۱۵ نوامبر ۲۰۲۱</li>
-                    <li class="list-inline-item d-lg-block my-lg-2">۵ دقیقه مطالعه</li>
+                    <li class="list-inline-item d-lg-block my-lg-2">{{ post.jalali_date }}</li>
                     <li class="list-inline-item badge text-bg-orange">
-                      <i class="far text-white fa-heart me-1"></i>266
-                    </li>
+                      <i class="far text-white fa-heart me-1"></i>{{ post.views }}</li>
                     <li class="list-inline-item badge text-bg-info">
-                      <i class="far fa-eye me-1"></i>2K
-                    </li>
+                      <i class="far fa-eye me-1"></i>{{ post.like }}</li>
                   </ul>
                 </div>
               </div>
@@ -40,12 +36,11 @@
               <!-- Content -->
               <div class="col-lg-9 order-1">
                 <!-- Pre title -->
-                <span>۴۰ روز پیش</span><span class="mx-2">|</span><div class="badge text-bg-success">تحقیق و پژوهش</div>
+                <span>۴۰ روز پیش</span><span class="mx-2">|</span><div class="badge text-bg-{{ post.category.color }}">{{ post.category }}</div>
                 <!-- Title -->
-                <h1 class="mt-2 mb-0 display-5">هرگز تأثیر و نفوذ کد نویسان را دست‌کم نگیرید</h1>
+                <h1 class="mt-2 mb-0 display-5">{{ post.title }}</h1>
                 <!-- Info -->
-                <p class="mt-2">برای افرادی که با دقت و اطمینان موضوعات را ارزیابی می‌کنند، این موضوع اهمیت ویژه‌ای دارد. حذف هزینه‌های اضافی و درخواست‌های غیرضروری می‌تواند روند کار را ساده‌تر و مؤثرتر کند. رویکردی خاص و هدفمند، بدون تأثیرپذیری از عوامل جانبی، نتایج مطلوب‌تری به همراه خواهد داشت. گاهی تنها با صرف کمی زمان و توجه می‌توان به دستاوردهای ارزشمندی رسید. بسیاری از مسائل با رویکردی منطقی و برنامه‌ریزی‌شده به بهترین شکل حل می‌شوند.</p>
-                <p class="mb-0 mb-lg-3">کسب دانش و تجربه در طول زمان باعث ایجاد دیدگاهی عمیق‌تر و تصمیم‌گیری‌های بهتر می‌شود. پیشرفت مستمر، حتی در گام‌های کوچک، می‌تواند نتایج بزرگی به همراه داشته باشد. فعالیت و تلاش هدفمند، انگیزه و رضایت بیشتری ایجاد می‌کند. بسیاری از افراد با پشتکار و یادگیری مداوم به موفقیت‌های چشمگیری دست یافته‌اند. ایجاد عادت‌های مثبت و مدیریت صحیح منابع، نقش مهمی در دستیابی به اهداف دارد. در نهایت، توجه به جزئیات و بهره‌گیری از فرصت‌ها می‌تواند مسیر موفقیت را هموارتر سازد.</p>
+                <p class="mt-2">{{ post.info }}</p>
               </div>
             </div>
             <!-- Title and Info END -->
@@ -54,7 +49,7 @@
             <div class="row mt-4">
               <div class="col-xl-10 mx-auto">
                 <!-- Card item START -->
-                <div class="card overflow-hidden h-200px h-sm-300px h-lg-400px h-xl-500px rounded-3 text-center" style="background-image:url({% static 'images/event/10.jpg' %}); background-position: center left; background-size: cover;">
+                <div class="card overflow-hidden h-200px h-sm-300px h-lg-400px h-xl-500px rounded-3 text-center" style="background-image:url({{ post.image.url }}); background-position: center left; background-size: cover;">
                   <!-- Card Image overlay -->
                   <div class="bg-overlay bg-dark opacity-4"></div>
                   <div class="card-img-overlay d-flex align-items-center p-2 p-sm-4">
@@ -62,7 +57,12 @@
                       <div class="row justify-content-center">
                         <!-- Video -->
                         <div class="col-12">
-                          <a href="https://www.youtube.com/embed/tXHviS-4ygo" class="btn btn-lg text-danger btn-round btn-white-shadow stretched-link position-static mb-0" data-glightbox="" data-gallery="video-tour"><i class="fas fa-play"></i></a>
+                          <a href="{{ post.video.url }}"
+                            class="btn btn-lg text-danger btn-round btn-white-shadow position-relative"
+                            data-glightbox="type: video"
+                            data-gallery="video-tour">
+                            <i class="fas fa-play"></i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -77,76 +77,14 @@
             <div class="row mt-4">
               <!-- Content -->
               <div class="col-12 mt-4 mt-lg-0">
-                <p>موفقیت زمانی حاصل می‌شود که برنامه‌ریزی دقیق و تلاش مستمر در کنار یکدیگر قرار گیرند. آگاهی از شرایط و تصمیم‌گیری آگاهانه می‌تواند مسیر پیشرفت را هموارتر کند. توجه به جزئیات و استفاده از تجربیات گذشته نقش مهمی در دستیابی به نتایج مطلوب دارد.
-                   <mark>اما در بسیاری از مواقع، قدرت تشخیص و مدیریت صحیح شرایط باعث ایجاد تفاوتی چشمگیر در نتایج نهایی می‌شود.</mark> گاهی اوقات اقدامات کوچک و هدفمند می‌توانند تأثیرات بزرگی در آینده داشته باشند. افرادی که با پشتکار و دیدگاه روشن حرکت می‌کنند، معمولاً فرصت‌های بیشتری برای رشد و موفقیت به دست می‌آورند.</p>
-                <!-- List -->
-                <ul class="list-group list-group-borderless mb-3">
-                  <li class="list-group-item">
-                    <i class="fas fa-check-circle text-success me-2"></i>متنی شفاف و کاربردی برای انتقال بهتر مفاهیم
-                  </li>
-                  <li class="list-group-item d-flex">
-                    <i class="fas fa-check-circle text-success me-2 mt-1"></i>محتوایی که با بازنویسی و بهینه‌سازی مداوم، کیفیت و ارزش بیشتری برای مخاطبان ایجاد می‌کند
-                  </li>
-                  <li class="list-group-item">
-                    <i class="fas fa-check-circle text-success me-2"></i>بازگشت به اصول اساسی و ایجاد بستری مطمئن برای رشد و توسعه
-                  </li>
-                </ul>
-
-                <p class="mb-0">برنامه‌ریزی صحیح و استفاده بهینه از منابع، نقش مهمی در دستیابی به اهداف دارد. افرادی که با دیدگاهی مثبت و رویکردی حرفه‌ای فعالیت می‌کنند، معمولاً نتایج بهتری به دست می‌آورند. توجه به نیازها و رفع چالش‌ها در زمان مناسب، مسیر موفقیت را هموارتر خواهد کرد.</p>
+               <p class="mb-0">{{ post.content }}</p>
               </div>
-
-              <!-- Quote -->
-              <div class="col-lg-10 col-xl-8 mx-auto mt-4">
-                <div class="bg-light rounded-3 p-3 p-md-4">
-                  <!-- Content -->
-                  <q class="lead">پیشرفت پایدار زمانی اتفاق می‌افتد که دانش، تجربه و پشتکار در کنار یکدیگر قرار گیرند. شفافیت در اهداف و استمرار در مسیر، زمینه‌ساز موفقیت‌های بزرگ خواهد بود.</q>
-
-                  <!-- Avatar -->
-                  <div class="d-flex align-items-center mt-3">
-                    <!-- Avatar image -->
-                    <div class="avatar avatar-md">
-                      <img class="avatar-img rounded-circle" src="{% static 'images/avatar/07.jpg' %}" alt="تصویر پروفایل لوئیس کرافورد، نویسنده و فعال شبکه‌های اجتماعی" />
-                    </div>
-
-                    <!-- Info -->
-                    <div class="ms-2">
-                      <h6 class="mb-0"><a href="#">لوئیس کرافورد</a></h6>
-                      <p class="mb-0 small">از طریق توییتر</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Quote and content END -->
-
-            <!-- Image START -->
-            <div class="row g-4 mt-4">
-              <div class="col-sm-6 col-md-4">
-                <a href="{% static 'images/event/07.jpg' %}" data-glightbox data-gallery="image-popup"><img src="{% static 'images/event/07.jpg' %}" class="rounded-3" alt="تصویر رویداد آموزشی و حضور شرکت‌کنندگان در برنامه تخصصی" /></a>
-              </div>
-
-              <div class="col-sm-6 col-md-4">
-                <a href="{% static 'images/event/08.jpg' %}" data-glightbox data-gallery="image-popup"><img src="{% static 'images/event/08.jpg' %}" class="rounded-3" alt="نمایی از برگزاری همایش آموزشی و تعامل شرکت‌کنندگان" /></a>
-              </div>
-
-              <div class="col-sm-6 col-md-4">
-                <a href="{% static 'images/event/06.jpg' %}" data-glightbox data-gallery="image-popup"><img src="{% static 'images/event/06.jpg' %}" class="rounded-3" alt="کارگاه آموزشی تخصصی با حضور مدرس و فراگیران" /></a>
-              </div>
-            </div>
-            <!-- Image END -->
-
+              
             <!-- Content START -->
             <div class="row">
               <div class="row mb-4">
-                <h4 class="mt-4">نقد سازنده درباره کسب‌وکار</h4>
-
-                <div class="col-md-6">
-                  <p class="mb-0">جهت‌گیری‌های مشخص و تصمیم‌گیری‌های مداوم باعث شکل‌گیری ساختاری پایدار و حرفه‌ای در مسیر رشد می‌شود. مشاهده و بررسی دقیق شرایط، همراه با تمرکز بر جزئیات، می‌تواند به بهبود عملکرد کمک کند. برنامه‌ریزی اصولی و نگاه آینده‌نگر نقش مهمی در موفقیت دارد. ایجاد تعادل بین اهداف و منابع موجود، مسیر پیشرفت را هموارتر می‌کند. تحلیل درست موقعیت‌ها و استفاده از تجربیات گذشته نیز در رسیدن به نتایج بهتر بسیار مؤثر است.</p>
-                </div>
-
-                <div class="col-md-6">
-                  <p class="mb-0">مدیریت صحیح منابع و استفاده بهینه از فرصت‌ها می‌تواند بهره‌وری را افزایش دهد. توجه به نیازهای واقعی و تصمیم‌گیری آگاهانه، از عوامل کلیدی در موفقیت هر کسب‌وکار محسوب می‌شود. تلاش مستمر و حفظ انگیزه در طول مسیر باعث دستیابی به نتایج پایدارتر خواهد شد. همچنین همکاری و هماهنگی بین اعضای تیم نقش مهمی در پیشرفت و رشد سازمان دارد.</p>
-                </div>
+                <br><br><br>
+                {{ post.content2 }}
               </div>
             </div>
             <!-- Content END -->
@@ -176,21 +114,11 @@
               <div class="align-items-center">
                 <h6 class="mb-2 me-4 d-inline-block">برچسب‌های محبوب:</h6>
                 <ul class="list-inline mb-0 social-media-btn">
+                  {% for tags in post.tag.all %}
                   <li class="list-inline-item">
-                    <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">وبلاگ</a>
+                    <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">{{ tags }}</a>
                   </li>
-                  <li class="list-inline-item">
-                    <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">کسب‌وکار</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">بوت‌استرپ</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">داده‌کاوی</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">یادگیری عمیق</a>
-                  </li>
+                  {% endfor %}
                 </ul>
               </div>
             </div>

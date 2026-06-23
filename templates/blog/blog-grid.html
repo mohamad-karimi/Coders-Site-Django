@@ -61,251 +61,43 @@
 			<div class="container">
 				<div class="row g-4">
 					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card bg-transparent h-100 d-flex flex-column">
-							<div class="overflow-hidden rounded-3">
-								<img src="{% static 'images/event/02.jpg' %}" class="card-img"
-									alt="تصویر رویداد زندگی دانشجویی">
-								<!-- Overlay -->
-								<div class="bg-overlay bg-dark opacity-4"></div>
-								<div class="card-img-overlay d-flex align-items-start p-3">
-									<!-- badge -->
-									<a href="#" class="badge text-bg-danger">زندگی دانشجویی</a>
-								</div>
-							</div>
-
-							<!-- Card body -->
-							<div class="card-body d-flex flex-column">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">بررسی وام دانشجویی: بسیاری بیش از ۵۰ هزار دلار
-										بدهکارند</a></h5>
-								<p class="text-truncate-2">برخوردهای ناشی از بی‌احتیاطی را او به‌خوبی در همه‌چیز نشان
-									می‌دهد. بخش زیادی از مسیر زندگی من بدون توجه به مسائل مهم گذشته است. این موضوع باعث
-									شده برخی افراد در تصمیم‌گیری‌ها دچار مشکل شوند.</p>
-								<!-- Info -->
-								<div class="d-flex justify-content-between mt-auto">
-									<h6 class="mb-0"><a href="#">فرانسیس گوئررو</a></h6>
-									<span class="small">۳۰ دقیقه پیش</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
+					{% for post in posts %}
 					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card bg-transparent h-100 d-flex flex-column">
-							<div class="overflow-hidden rounded-3">
-								<img src="{% static 'images/event/08.jpg' %}" class="card-img"
-									alt="تصویر مقاله درباره زندگی دانشجویی و انتخاب دانشگاه">
-								<!-- Overlay -->
-								<div class="bg-overlay bg-dark opacity-4"></div>
-								<div class="card-img-overlay d-flex align-items-start p-3">
-									<!-- badge -->
-									<a href="#" class="badge text-bg-success">زندگی دانشجویی</a>
-								</div>
-							</div>
+					<div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
+						<div class="card bg-transparent h-100 w-100">
 
-							<!-- Card body -->
+							<div class="overflow-hidden rounded-3">
+								<img src="{{ post.image.url }}"
+									class="card-img"
+									style="height:220px;object-fit:cover;"
+									alt="">
+							</div>
+							<div class="card-img-overlay d-flex align-items-start p-3">
+								<a href="#" class="badge text-bg-{{ post.category.color }} badge-centered">
+									{{ post.category }}
+								</a>
+							</div>
 							<div class="card-body d-flex flex-column">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">چگونه یک فهرست مناسب برای انتخاب کالج تهیه کنیم</a>
+								<h5 class="card-title">
+									<a href="{% url 'blog:blog_detail' post.slug %}">{{ post.title }}</a>
 								</h5>
-								<p class="text-truncate-2">دانشجویان آینده باید ابتدا به‌صورت گسترده گزینه‌ها را بررسی
-									کنند و سپس فهرست خود را به دانشگاه‌هایی محدود کنند که بیشترین تطابق را با نیازهایشان
-									دارند، به گفته کارشناسان. در نهایت باید انتخاب‌ها به‌دقت فیلتر شوند.</p>
-								<!-- Info -->
+
+								<p class="text-truncate-2 flex-grow-1">
+									{{ post.content }}
+								</p>
+
 								<div class="d-flex justify-content-between mt-auto">
-									<h6 class="mb-0"><a href="#">لویس کرافورد</a></h6>
-									<span class="small">۱۲ ساعت پیش</span>
+									<h6 class="mb-0">
+										<a href="#">{{ post.author.get_full_name }}</a>
+									</h6>
+									<span class="small">{{ post.jalali_date }}</span>
 								</div>
 							</div>
+
 						</div>
 					</div>
+					{% endfor %}
 					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card bg-transparent h-100 d-flex flex-column">
-							<div class="overflow-hidden rounded-3">
-								<img src="{% static 'images/event/09.jpg' %}" class="card-img"
-									alt="تصویر مقاله مرتبط با سفر و گردشگری">
-								<!-- Overlay -->
-								<div class="bg-overlay bg-dark opacity-4"></div>
-								<div class="card-img-overlay d-flex align-items-start p-3">
-									<!-- badge -->
-									<a href="#" class="badge text-bg-purple">سفر</a>
-								</div>
-							</div>
-
-							<!-- Card body -->
-							<div class="card-body d-flex flex-column">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">هرگز تأثیر Eduport را دست‌کم نگیرید</a></h5>
-								<p class="text-truncate-2">دانشجویان آینده باید ابتدا به‌صورت گسترده شروع کنند و سپس
-									فهرست انتخاب‌های خود را محدودتر کنند.</p>
-								<!-- Info -->
-								<div class="d-flex justify-content-between mt-auto">
-									<h6 class="mb-0"><a href="#">جان والاس</a></h6>
-									<span class="small">۵ روز پیش</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card bg-transparent h-100 d-flex flex-column">
-							<div class="overflow-hidden rounded-3">
-								<img src="{% static 'images/event/03.jpg' %}" class="card-img-top"
-									alt="تصویر مقاله مرتبط با تحقیقات و پژوهش">
-								<!-- Overlay -->
-								<div class="bg-overlay bg-dark opacity-4"></div>
-								<div class="card-img-overlay d-flex align-items-start p-3">
-									<!-- badge -->
-									<a href="#" class="badge text-bg-danger">پژوهش</a>
-								</div>
-							</div>
-
-							<!-- Card body -->
-							<div class="card-body d-flex flex-column">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">کووید-۱۹ و تجربه دانشجویی در دانشگاه</a></h5>
-								<p class="text-truncate-2">اتاق‌ها اغلب به‌طور کامل اشغال شده‌اند. شرایط دشوار باعث
-									نگرانی شده است و پیامدهای آن همچنان ادامه دارد.</p>
-								<!-- Info -->
-								<div class="d-flex justify-content-between mt-auto">
-									<h6 class="mb-0"><a href="#">آماندا رید</a></h6>
-									<span class="small">۲۱ ژوئیه ۲۰۲۱</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card bg-transparent h-100 d-flex flex-column">
-							<div class="overflow-hidden rounded-3">
-								<img src="{% static 'images/event/07.jpg' %}" class="card-img-top"
-									alt="تصویر مقاله مرتبط با تحقیق و آموزش کسب‌وکار">
-								<!-- Overlay -->
-								<div class="bg-overlay bg-dark opacity-4"></div>
-								<div class="card-img-overlay d-flex align-items-start p-3">
-									<!-- badge -->
-									<a href="#" class="badge text-bg-success">پژوهش</a>
-								</div>
-							</div>
-
-							<!-- Card body -->
-							<div class="card-body d-flex flex-column">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">بهترین بردهای پینترست برای یادگیری کسب‌وکار</a></h5>
-								<p class="text-truncate-2">بخش زیادی از مسیر یادگیری تحت تأثیر منابع مختلف است. برخی
-									نکات مهم می‌توانند در درک بهتر مفاهیم کسب‌وکار کمک کنند.</p>
-								<!-- Info -->
-								<div class="d-flex justify-content-between mt-auto">
-									<h6 class="mb-0"><a href="#">ساموئل بیشاپ</a></h6>
-									<span class="small">۴۰ روز پیش</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card bg-transparent h-100 d-flex flex-column">
-							<div class="overflow-hidden rounded-3">
-								<img src="{% static 'images/event/04.jpg' %}" class="card-img-top"
-									alt="تصویر مقاله مرتبط با ورزش و المپیک">
-								<!-- Overlay -->
-								<div class="bg-overlay bg-dark opacity-4"></div>
-								<div class="card-img-overlay d-flex align-items-start p-3">
-									<!-- badge -->
-									<a href="#" class="badge text-bg-primary">ورزش</a>
-								</div>
-							</div>
-
-							<!-- Card body -->
-							<div class="card-body d-flex flex-column">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">المپیک تمام شد، حالا چه اتفاقی می‌افتد؟</a></h5>
-								<p class="text-truncate-2">اتاق‌ها اغلب به‌طور کامل اشغال شده‌اند. شرایط دشوار باعث
-									نگرانی شده است و پیامدهای آن همچنان ادامه دارد.</p>
-								<!-- Info -->
-								<div class="d-flex justify-content-between mt-auto">
-									<h6 class="mb-0"><a href="#">کارولین اورتیز</a></h6>
-									<span class="small">۳۱ آگوست ۲۰۲۱</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card bg-transparent h-100 d-flex flex-column">
-							<div class="overflow-hidden rounded-3">
-								<img src="{% static 'images/event/05.jpg' %}" class="card-imgp"
-									alt="تصویر مقاله درباره حمایت از دانشجویان سال اول در دانشگاه">
-								<!-- Overlay -->
-								<div class="bg-overlay bg-dark opacity-4"></div>
-								<div class="card-img-overlay d-flex align-items-start p-3">
-									<!-- badge -->
-									<a href="#" class="badge text-bg-info">داستان دانشجویی</a>
-								</div>
-							</div>
-
-							<!-- Card body -->
-							<div class="card-body d-flex flex-column">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">حمایت دانشگاه از دانشجویان سال اول</a></h5>
-								<p class="text-truncate-2">دانشجویان آینده باید ابتدا به‌صورت گسترده گزینه‌ها را بررسی
-									کنند و سپس فهرست خود را محدودتر کنند.</p>
-
-								<!-- Info -->
-								<div class="d-flex justify-content-between mt-auto">
-									<h6 class="mb-0"><a href="#">لوری استیونز</a></h6>
-									<span class="small">۳ ماه پیش</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card bg-transparent h-100 d-flex flex-column">
-							<div class="overflow-hidden rounded-3">
-								<img src="{% static 'images/event/06.jpg' %}" class="card-imgp"
-									alt="تصویر مقاله مرتبط با بازاریابی و عادات حرفه‌ای">
-								<!-- Overlay -->
-								<div class="bg-overlay bg-dark opacity-4"></div>
-								<div class="card-img-overlay d-flex align-items-start p-3">
-									<!-- badge -->
-									<a href="#" class="badge text-bg-orange">بازاریابی</a>
-								</div>
-							</div>
-
-							<!-- Card body -->
-							<div class="card-body d-flex flex-column">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">عادت‌های بدی که افراد این صنعت باید ترک کنند</a></h5>
-								<p class="text-truncate-2">دانشجویان آینده باید ابتدا به‌صورت گسترده شروع کنند و سپس
-									فهرست خود را محدودتر کنند.</p>
-
-								<!-- Info -->
-								<div class="d-flex justify-content-between mt-auto">
-									<h6 class="mb-0"><a href="#">لوییس کرافورد</a></h6>
-									<span class="small">۱۰ روز پیش</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
 				</div> <!-- Row end -->
 
 				<!-- Pagination START -->
