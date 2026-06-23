@@ -67,3 +67,42 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Comment(models.Model):
+    author = models.CharField(max_length=50)
+    email = models.EmailField()
+    comment = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comment") 
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_date"]
+    
+    @property
+    def jalali_date(self):
+        return jdatetime.datetime.fromgregorian(
+            datetime=timezone.localtime(self.created_date)
+        ).strftime("%Y/%m/%d %H:%M")
+    
+    def __str__(self):
+        return str(self.author)
+    
+class ReplayComment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_replies")
+    comment = models.TextField()
+    question_comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="blog_replies") 
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_date"]
+    
+    @property
+    def jalali_date(self):
+        return jdatetime.datetime.fromgregorian(
+            datetime=timezone.localtime(self.created_date)
+        ).strftime("%Y/%m/%d %H:%M")
+    
+    def __str__(self):
+        return str(self.author)

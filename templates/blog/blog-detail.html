@@ -128,98 +128,95 @@
 
             <!-- Comment review and form START -->
             <div class="row mt-4">
-              <!-- Comment START -->
+
+              <!-- Comments -->
               <div class="col-md-7">
-                <h3>۳ دیدگاه</h3>
+                <h3>{{ comments|length }} دیدگاه</h3>
 
-                <!-- Comment level 1 -->
-                <div class="my-4 d-flex">
-                  <img class="avatar avatar-md rounded-circle me-3" src="{% static 'images/avatar/01.jpg' %}" alt="تصویر پروفایل فرانسیس گوئررو" />
-                  <div>
-                    <div class="mb-2">
-                      <h5 class="m-0">فرانسیس گوئررو</h5>
-                      <span class="me-3 small">۱۱ ژوئن ۲۰۲۱ در ساعت ۶:۰۱ صبح</span>
-                    </div>
-                    <p>ارائه رضایت‌بخش و انتقال محتوای وابسته با رفتاری محترمانه و قابل قبول انجام شد. شرایط به‌خوبی مدیریت شد و نتیجه مطلوبی حاصل گردید. تصمیم‌گیری‌ها با دقت و توجه کافی صورت گرفت.</p>
-                    <a href="#" class="btn btn-sm btn-light mb-0">پاسخ</a>
-                  </div>
-                </div>
+                {% for comment in comments %}
 
-                <!-- Comment children level 2 -->
-                <div class="my-4 d-flex ps-2 ps-md-4">
-                  <img class="avatar avatar-md rounded-circle me-3" src="{% static 'images/avatar/02.jpg' %}" alt="تصویر پروفایل لوئیس فرگوسن" />
-                  <div>
-                    <div class="mb-2">
-                      <h5 class="m-0">لوئیس فرگوسن</h5>
-                      <span class="me-3 small">۱۱ ژوئن ۲۰۲۱ در ساعت ۶:۵۵ صبح</span>
-                    </div>
-                    <p>آگاهی از شرایط و درک درست موقعیت باعث تصمیم‌گیری‌های بهتر می‌شود. استفاده از روش‌های اصولی و دقیق می‌تواند عملکرد را بهبود بخشد. توجه به جزئیات نقش مهمی در موفقیت دارد.</p>
-                    <a href="#" class="btn btn-sm btn-light mb-0">پاسخ</a>
-                  </div>
-                </div>
+                  <div class="my-4 d-flex">
+                    <img class="avatar avatar-md rounded-circle me-3"
+                        src="{% static 'images/avatar/01.jpg' %}">
 
-                <!-- Comment children level 3 -->
-                <div class="my-4 d-flex ps-3 ps-md-5">
-                  <img class="avatar avatar-md rounded-circle me-3" src="{% static 'images/avatar/01.jpg' %}" alt="تصویر پروفایل فرانسیس گوئررو" />
-                  <div>
-                    <div class="mb-2">
-                      <h5 class="m-0">فرانسیس گوئررو</h5>
-                      <span class="me-3 small">۱۲ ژوئن ۲۰۲۱ در ساعت ۷:۳۰ صبح</span>
-                    </div>
-                    <p>آگاهی از شرایط و تصمیم‌گیری درست.</p>
-                    <a href="#" class="btn btn-sm btn-light mb-0">پاسخ</a>
-                  </div>
-                </div>
+                    <div>
+                      <div class="mb-2">
+                        <h5 class="m-0">{{ comment.author }}</h5>
+                        <span class="me-3 small">{{ comment.jalali_date }}</span>
+                      </div>
 
-                <!-- Comment level 1 -->
-                <div class="my-4 d-flex">
-                  <img class="avatar avatar-md rounded-circle me-3" src="{% static 'images/avatar/04.jpg' %}" alt="تصویر پروفایل جودی نگوین" />
-                  <div>
-                    <div class="mb-2">
-                      <h5 class="m-0">جودی نگوین</h5>
-                      <span class="me-3 small">۱۸ ژوئن ۲۰۲۱ در ساعت ۱۱:۵۵ صبح</span>
+                      <p>{{ comment.comment }}</p>
+
+                      <a href="javascript:void(0)"
+                        onclick="toggleReplyForm({{ comment.id }})">
+                        پاسخ
+                      </a>
                     </div>
-                    <p>برنامه‌ریزی منظم و اجرای مداوم باعث پیشرفت پایدار می‌شود. مشاهده و تحلیل دقیق شرایط، امکان تصمیم‌گیری بهتر را فراهم می‌کند. تلاش مستمر نقش مهمی در رسیدن به اهداف دارد.</p>
-                    <a href="#" class="btn btn-sm btn-light mb-0">پاسخ</a>
                   </div>
-                </div>
+
+                  <!-- Reply Form -->
+                  <div id="reply-form-{{ comment.id }}" style="display:none;">
+                    <form method="post">
+                      {% csrf_token %}
+
+                      <input type="hidden" name="form_type" value="reply">
+                      <input type="hidden" name="parent_id" value="{{ comment.id }}">
+
+                      <textarea name="comment" class="form-control" placeholder="پاسخ"></textarea>
+
+                      <button class="btn btn-primary btn-sm mt-2">ارسال</button>
+                    </form>
+                  </div>
+
+                  {% for reply in comment.blog_replies.all %}
+                    <div class="my-3 d-flex ps-4">
+                      <img class="avatar avatar-md rounded-circle me-3"
+                          src="{% static 'images/avatar/02.jpg' %}">
+
+                      <div>
+                        <h6>{{ reply.author.username }}</h6>
+                        <small>{{ reply.jalali_date }}</small>
+                        <p>{{ reply.comment }}</p>
+                      </div>
+                    </div>
+                  {% endfor %}
+
+                {% endfor %}
               </div>
-              <!-- Comment END -->
-
-              <!-- Form START -->
+            <!-- Comment review and form END -->
               <div class="col-md-5">
-                <!-- Title -->
                 <h3 class="mt-3 mt-sm-0">نظر خود را بنویسید!</h3>
-                <small>آدرس ایمیل شما منتشر نخواهد شد. فیلدهای الزامی مشخص شده‌اند *</small>
 
-                <form class="row g-3 mt-2 mb-5">
-                  <!-- Name -->
+                <form class="row g-3 mt-2 mb-5"
+                      method="post"
+                      action="{% url 'blog:blog_detail' post.slug %}">
+
+                  {% csrf_token %}
+
+                  <input type="hidden" name="form_type" value="comment">
                   <div class="col-lg-6">
                     <label class="form-label">نام *</label>
-                    <input type="text" class="form-control" aria-label="نام" />
+                    <input type="text" name="author" class="form-control">
                   </div>
 
-                  <!-- Email -->
                   <div class="col-lg-6">
                     <label class="form-label">ایمیل *</label>
-                    <input type="email" class="form-control" />
+                    <input type="email" name="email" class="form-control">
                   </div>
 
-                  <!-- Comment -->
                   <div class="col-12">
-                    <label class="form-label">دیدگاه شما *</label>
-                    <textarea class="form-control" rows="3"></textarea>
+                    <label class="form-label">دیدگاه *</label>
+                    <textarea name="comment" class="form-control"></textarea>
                   </div>
 
-                  <!-- Button -->
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary mb-0">ارسال دیدگاه</button>
+                    <button type="submit" class="btn btn-primary">ارسال دیدگاه</button>
                   </div>
+
                 </form>
               </div>
-              <!-- Form END -->
+
             </div>
-            <!-- Comment review and form END -->
           </div>
         </div> <!-- Row END -->
       </div>
@@ -325,4 +322,15 @@
 	Related blog END        -->
   </main>
   <!-- **************** MAIN CONTENT END **************** -->
+  <script>
+	function toggleReplyForm(id) {
+		const el = document.getElementById("reply-form-" + id);
+
+		if (el.style.display === "none") {
+			el.style.display = "block";
+		} else {
+			el.style.display = "none";
+		}
+	}
+	</script>
 {% endblock %}
