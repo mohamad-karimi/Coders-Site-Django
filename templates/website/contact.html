@@ -98,25 +98,26 @@
 					<h2 class="mt-4 mt-md-0">بیایید صحبت کنیم</h2>
 					<p>برای درخواست قیمت یا هماهنگی جلسه، مستقیماً با ما تماس بگیرید یا فرم را پر کنید تا در سریع‌ترین زمان پاسخ دهیم.</p>
 						
-					<form>
+					<form method="post" action="{% url 'website:contact' %}">
+						{% csrf_token %}
 						<!-- Name -->
 						<div class="mb-4 bg-light-input">
 							<label for="yourName" class="form-label">نام شما *</label>
-							<input type="text" class="form-control form-control-lg" id="yourName">
+							<input type="text" class="form-control form-control-lg" id="yourName" name="name">
 						</div>
 						<!-- Email -->
 						<div class="mb-4 bg-light-input">
 							<label for="emailInput" class="form-label">آدرس ایمیل *</label>
-							<input type="email" class="form-control form-control-lg" id="emailInput">
+							<input type="email" class="form-control form-control-lg" id="emailInput" name="email">
 						</div>
 						<!-- Message -->
 						<div class="mb-4 bg-light-input">
 							<label for="textareaBox" class="form-label">پیام *</label>
-							<textarea class="form-control" id="textareaBox" rows="4"></textarea>
+							<textarea class="form-control" id="textareaBox" rows="4" name="message"></textarea>
 						</div>
 						<!-- Button -->
 						<div class="d-grid">
-							<button class="btn btn-lg btn-primary mb-0" type="button">ارسال پیام</button>
+							<button class="btn btn-lg btn-primary mb-0" type="submit">ارسال پیام</button>
 						</div>	
 					</form>
 				</div>
