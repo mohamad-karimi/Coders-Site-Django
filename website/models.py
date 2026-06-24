@@ -65,3 +65,14 @@ class Answer(models.Model):
     
     def __str__(self):
         return str(self.question)
+    
+class MentorUser(models.Model):
+    name = models.CharField(max_length=25)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=25)
+    confirm_password = models.CharField(max_length=25)
+    avatar = models.ImageField(upload_to='mentor/', default='mentor/default.jpg')
+    expertise = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name

@@ -1,7 +1,7 @@
 from django import template
 from course.models import Course
 from django.utils import timezone
-from django.db.models import Count
+from course.models import Score
 from django.db.models import Avg
 
 register = template.Library()
@@ -49,3 +49,7 @@ def latest_course(count=4):
         avg_score=Avg('score__score')
     )
     return {"course" : course}
+
+@register.simple_tag
+def random_review():
+    return Score.objects.select_related("course").order_by("?").first()

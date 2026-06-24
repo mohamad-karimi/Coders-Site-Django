@@ -531,6 +531,7 @@
 								</figure>
 
 								<div class="bg-body shadow text-center p-4 rounded-3 position-relative mb-5 mb-md-0">
+									{% random_review as review %}
 									<!-- Avatar -->
 									<div class="avatar avatar-xl mb-3">
 										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/01.jpg' %}"
@@ -541,29 +542,30 @@
 									<blockquote>
 										<p>
 											<span class="me-1 small"><i class="fas fa-quote-left"></i></span>
-											نور مهتاب و روزنامه باعث لذت و رضایت او شده بود و بسته به شرایط تغییر
-											می‌کرد. صدای زمان‌بندی شده او را به گسترش میان جوانان پر سر و صدا سوق داد.
-											در عروسی‌ها باور به خنده وجود داشت
+											{{ review.comment }}
 											<span class="ms-1 small"><i class="fas fa-quote-right"></i></span>
 										</p>
 									</blockquote>
 
 									<!-- Rating -->
 									<ul class="list-inline mb-2">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i
-												class="fas fa-star-half-alt text-warning"></i></li>
+
+										{% for i in "12345"|make_list %}
+											{% if forloop.counter <= review.score %}
+												<li class="list-inline-item me-0 small">
+													<i class="fas fa-star text-warning"></i>
+												</li>
+											{% else %}
+												<li class="list-inline-item me-0 small">
+													<i class="far fa-star text-warning"></i>
+												</li>
+											{% endif %}
+										{% endfor %}
+
 									</ul>
 
 									<!-- Info -->
-									<h6 class="mb-0">کارولین اورتیز</h6>
+									<h6 class="mb-0">{{ review.name  }}</h6>
 								</div>
 							</div>
 
@@ -578,43 +580,21 @@
 									</div>
 
 									<!-- Title -->
-									<h6 class="mb-3">بیش از 100 منتور تأییدشده</h6>
+									<h6 class="mb-3"> بیش از {{ mentorusers.count }} منتور تایید شده</h6>
 
 									<!-- Mentor Item -->
+									{% for mentoruser in mentorusers %}
 									<div class="d-flex align-items-center mb-3">
 										<div class="avatar avatar-sm">
-											<img class="avatar-img rounded-1" src="{% static 'images/avatar/09.jpg' %}"
-												alt="تصویر منتور لوری استیونز">
+											<img class="avatar-img rounded-1" src="{{ mentoruser.avatar.url }}"
+												alt="{{ mentoruser.name }}">
 										</div>
 										<div class="ms-2">
-											<h6 class="mb-0">لوری استیونز</h6>
-											<p class="mb-0 small">مدرس فیزیک</p>
+											<h6 class="mb-0">{{ mentoruser.name }}</h6>
+											<p class="mb-0 small"> مدرس {{ mentoruser.expertise }}</p>
 										</div>
 									</div>
-
-									<!-- Mentor Item -->
-									<div class="d-flex align-items-center mb-3">
-										<div class="avatar avatar-sm">
-											<img class="avatar-img rounded-1" src="{% static 'images/avatar/04.jpg' %}"
-												alt="تصویر منتور بیلی واسکز">
-										</div>
-										<div class="ms-2">
-											<h6 class="mb-0">بیلی واسکز</h6>
-											<p class="mb-0 small">مدرس شیمی</p>
-										</div>
-									</div>
-
-									<!-- Mentor Item -->
-									<div class="d-flex align-items-center">
-										<div class="avatar avatar-sm">
-											<img class="avatar-img rounded-1" src="{% static 'images/avatar/02.jpg' %}"
-												alt="تصویر منتور لری لاوسون">
-										</div>
-										<div class="ms-2">
-											<h6 class="mb-0">لری لاوسون</h6>
-											<p class="mb-0 small">مدرس فناوری</p>
-										</div>
-									</div>
+									{% endfor %}
 
 								</div>
 							</div>
@@ -635,28 +615,35 @@
 								<div class="p-3 bg-primary d-inline-block rounded-4 shadow-lg text-center"
 									style="background:url({% static 'images/pattern/02.png' %}) no-repeat center center; background-size:cover;">
 
-									<h5 class="text-white mb-0">4.5 از 5.0</h5>
+									<h5 class="text-white mb-0">{{ overall_avg }}</h5>
 
 									<ul class="list-inline mb-2">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i
-												class="fas fa-star-half-alt text-warning"></i></li>
+										{% for i in full %}
+											<li class="list-inline-item me-0">
+												<i class="fas fa-star text-warning"></i>
+											</li>
+										{% endfor %}
+
+										{% if half %}
+											<li class="list-inline-item me-0">
+												<i class="fas fa-star-half-alt text-warning"></i>
+											</li>
+										{% endif %}
+
+										{% for i in empty %}
+											<li class="list-inline-item me-0">
+												<i class="far fa-star text-warning"></i>
+											</li>
+										{% endfor %}
 									</ul>
 
-									<p class="text-white mb-0">بر اساس 3265 امتیاز</p>
+									<p class="text-white mb-0"> براساس {{ total_scores }} نظر</p>
 								</div>
 							</div>
 
 							<!-- Review -->
 							<div class="col-md-5 mt-n6 mb-0 mb-md-5">
-								<div class="bg-body shadow text-center p-4 rounded-3">
+								<div class="bg-body shadow text-center p-4 rounded-3 random-review">
 
 									<div class="avatar avatar-xl mb-3">
 										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/03.jpg' %}"
@@ -666,26 +653,28 @@
 									<blockquote>
 										<p>
 											<span class="me-1 small"><i class="fas fa-quote-left"></i></span>
-											در عروسی‌ها خنده و شادی وجود داشت، هرچند روزنامه مهتابی باعث لذت و رضایت
-											می‌شد و شرایط را دلپذیر می‌کرد.
+											{{ review.comment }}
 											<span class="ms-1 small"><i class="fas fa-quote-right"></i></span>
 										</p>
 									</blockquote>
 
 									<ul class="list-inline mb-2">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i
-												class="fas fa-star-half-alt text-warning"></i></li>
+
+										{% for i in "12345"|make_list %}
+											{% if forloop.counter <= review.score %}
+												<li class="list-inline-item me-0 small">
+													<i class="fas fa-star text-warning"></i>
+												</li>
+											{% else %}
+												<li class="list-inline-item me-0 small">
+													<i class="far fa-star text-warning"></i>
+												</li>
+											{% endif %}
+										{% endfor %}
+
 									</ul>
 
-									<h6 class="mb-0">دنیس بارتلت</h6>
+									<h6 class="mb-0">{{ review.name }}</h6>
 								</div>
 							</div>
 						</div>
@@ -704,7 +693,6 @@
 							غیرمعمول داشتند. تصویری برای تلاش و شادی که باعث هیجان و گفتگو شد.
 						</p>
 
-						<a href="#" class="btn btn-primary mb-0">مشاهده نظرات</a>
 					</div>
 
 				</div>

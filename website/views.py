@@ -2,10 +2,10 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
 from website.form import ContactForm, QuestionForm
-from course.models import Course, Enrollment
+from course.models import Course, Enrollment, Score
 from blog.models import Post
 from itertools import chain
-from website.models import Question, Answer
+from website.models import Question, Answer, MentorUser
 from django.db.models import Count
 from website.models import CATEGORY_CHOICES
 from instructor.models import Instructor
@@ -16,16 +16,35 @@ from instructor.models import Instructor
 
 # Create your views here.
 def index(request):
-    course = Course.objects.prefetch_related('sections__lessons')
+    course = Course.objects.prefetch_related('sections__lessons').annotate(
+        avg_score=Avg('score__score')
+    )
+    mentorusers = MentorUser.objects.all()
     instructor = Instructor.objects.all
     total_students = Enrollment.objects.all().count()
     total_courses_with_degree = course.filter(degree="بله").count()
 
+    overall_avg = course.aggregate(
+        overall=Avg('avg_score')
+    )['overall'] or 0
+    overall_avg = round(overall_avg * 2) / 2
+    full = int(overall_avg)
+    has_half = (overall_avg - full) >= 0.5
+    empty = 5 - full - int(has_half)
+
+    total_scores = Score.objects.count()
+
     context = {
         "course" : course,
+        "mentorusers" : mentorusers,
         "total_students" : total_students,
         "instructor" : instructor,
         "total_courses_with_degree" : total_courses_with_degree,
+        "overall_avg" : overall_avg,
+        "total_scores" : total_scores,
+        "full": range(full),
+        "half": has_half,
+        "empty": range(empty),
     }
     return render(request, 'website/index.html', context)
 
