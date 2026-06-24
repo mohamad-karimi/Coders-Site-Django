@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
 from website.form import ContactForm, QuestionForm
-from course.models import Course
+from course.models import Course, Enrollment
 from blog.models import Post
 from itertools import chain
 from website.models import Question, Answer
@@ -12,10 +12,22 @@ from instructor.models import Instructor
 from django.db.models import Avg
 from django.utils import timezone
 from django.db.models import Q
+from instructor.models import Instructor
 
 # Create your views here.
 def index(request):
-    return render(request, 'website/index.html')
+    course = Course.objects.prefetch_related('sections__lessons')
+    instructor = Instructor.objects.all
+    total_students = Enrollment.objects.all().count()
+    total_courses_with_degree = course.filter(degree="بله").count()
+
+    context = {
+        "course" : course,
+        "total_students" : total_students,
+        "instructor" : instructor,
+        "total_courses_with_degree" : total_courses_with_degree,
+    }
+    return render(request, 'website/index.html', context)
 
 def contact(request):
     if request.method == 'POST':

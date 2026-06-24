@@ -23,6 +23,9 @@ def course_list(request, **kwargs):
     if kwargs.get("ta_name"):
         courses = courses.filter(tag__name__iexact=kwargs["ta_name"]).distinct()
 
+    if kwargs.get("sk_name") is not None:
+        courses = courses.filter(skill_level=kwargs["sk_name"])
+
     paginator = Paginator(courses, 3)
     try:
         page_number = request.GET.get("page")
