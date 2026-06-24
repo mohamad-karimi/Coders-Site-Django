@@ -171,70 +171,6 @@
 								<i class="bi bi-patch-check-fill text-success me-2"></i>راه‌اندازی و نصب بسیار سریع
 							</li>
 						</ul>
-
-						<!-- Progress bar START -->
-						<div class="row mt-3 g-4">
-							<!-- Progress item -->
-							<div class="col-md-6">
-								<div class="overflow-hidden">
-									<h6>مشتریان سازمانی</h6>
-									<div class="progress progress-sm bg-primary bg-opacity-10">
-										<div class="progress-bar bg-primary aos" role="progressbar"
-											data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000"
-											data-aos-easing="ease-in-out" style="width: 85%" aria-valuenow="85"
-											aria-valuemin="0" aria-valuemax="100">
-											<span class="progress-percent-simple ms-auto h6 fw-light">85%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Progress item -->
-							<div class="col-md-6">
-								<div class="overflow-hidden">
-									<h6>دوره‌های دقیق</h6>
-									<div class="progress progress-sm bg-primary bg-opacity-10">
-										<div class="progress-bar bg-primary aos" role="progressbar"
-											data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000"
-											data-aos-easing="ease-in-out" style="width: 90%;" aria-valuenow="90"
-											aria-valuemin="0" aria-valuemax="100">
-											<span class="progress-percent-simple ms-auto h6 fw-light">90%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Progress item -->
-							<div class="col-md-6">
-								<div class="overflow-hidden">
-									<h6>زبان‌ها</h6>
-									<div class="progress progress-sm bg-primary bg-opacity-10">
-										<div class="progress-bar bg-primary aos" role="progressbar"
-											data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000"
-											data-aos-easing="ease-in-out" style="width: 75%;" aria-valuenow="75"
-											aria-valuemin="0" aria-valuemax="100">
-											<span class="progress-percent-simple ms-auto h6 fw-light">75%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Progress item -->
-							<div class="col-md-6">
-								<div class="overflow-hidden">
-									<h6>مدرسین</h6>
-									<div class="progress progress-sm bg-primary bg-opacity-10">
-										<div class="progress-bar bg-primary aos" role="progressbar"
-											data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000"
-											data-aos-easing="ease-in-out" style="width: 95%;" aria-valuenow="95"
-											aria-valuemin="0" aria-valuemax="100">
-											<span class="progress-percent-simple ms-auto h6 fw-light">95%</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Progress bar END -->
 					</div>
 				</div>
 			</div>
@@ -381,131 +317,40 @@
 						<div class="tiny-slider arrow-round arrow-creative arrow-blur arrow-hover mt-2 mt-sm-5">
 							<div class="tiny-slider-inner" data-autoplay="true" data-arrow="true" data-dots="false"
 								data-items="4" data-items-lg="3" data-items-md="2">
-
+								
+								{% for instructor in instructors %}
 								<div class="text-center">
 
 									<div class="avatar avatar-xxl mb-3">
-										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/01.jpg' %}"
-											alt="تصویر پروفایل عضو تیم">
+										<img class="avatar-img rounded-circle" src="{{ instructor.image.url }}"
+											alt="{{ instructor.name }}">
 									</div>
 
-									<h6 class="mb-0"><a href="#">Carolyn Ortiz</a></h6>
-									<p class="mb-0 small">طراح</p>
+									<h6 class="mb-0"><a href="{% url 'instructor:instructor_single' instructor.slug %}">{{ instructor.name }}</a></h6>
+									<p class="mb-0 small">{{ instructor.expertise }}</p>
 
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i
-												class="fas fa-star-half-alt text-warning"></i></li>
+									<ul class="list-inline">
+
+										{% for i in "12345"|make_list %}
+											{% if forloop.counter <= instructor.full %}
+												<li class="list-inline-item me-0 small">
+													<i class="fas fa-star text-warning"></i>
+												</li>
+											{% elif instructor.half and forloop.counter == instructor.full|add:1 %}
+												<li class="list-inline-item me-0 small">
+													<i class="fas fa-star-half-alt text-warning"></i>
+												</li>
+											{% elif forloop.counter <= instructor.full|add:1|add:instructor.empty %}
+												<li class="list-inline-item me-0 small">
+													<i class="far fa-star text-warning"></i>
+												</li>
+											{% endif %}
+										{% endfor %}
+
 									</ul>
 
 								</div>
-
-								<div class="text-center">
-
-									<div class="avatar avatar-xxl mb-3">
-										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/02.jpg' %}"
-											alt="تصویر پروفایل عضو تیم">
-									</div>
-
-									<h6 class="mb-0"><a href="#">Dennis Barrett</a></h6>
-									<p class="mb-0 small">استاد IT</p>
-
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i
-												class="fas fa-star-half-alt text-warning"></i></li>
-									</ul>
-
-								</div>
-
-								<div class="text-center">
-
-									<div class="avatar avatar-xxl mb-3">
-										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/09.jpg' %}"
-											alt="تصویر پروفایل عضو تیم">
-									</div>
-
-									<h6 class="mb-0"><a href="#">Frances Guerrero</a></h6>
-									<p class="mb-0 small">توسعه‌دهنده</p>
-
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-									</ul>
-
-								</div>
-
-								<div class="text-center">
-
-									<div class="avatar avatar-xxl mb-3">
-										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/04.jpg' %}"
-											alt="تصویر پروفایل عضو تیم">
-									</div>
-
-									<h6 class="mb-0"><a href="#">Larry Lawson</a></h6>
-									<p class="mb-0 small">طراح</p>
-
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i
-												class="fas fa-star-half-alt text-warning"></i></li>
-									</ul>
-
-								</div>
-
-								<div class="text-center">
-
-									<div class="avatar avatar-xxl mb-3">
-										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/10.jpg' %}"
-											alt="تصویر پروفایل عضو تیم">
-									</div>
-
-									<h6 class="mb-0"><a href="#">Louis Crawford</a></h6>
-									<p class="mb-0 small">استاد پزشکی</p>
-
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-										</li>
-										<li class="list-inline-item me-0 small"><i
-												class="fas fa-star-half-alt text-warning"></i></li>
-									</ul>
-
-								</div>
+								{% endfor %}
 
 							</div>
 						</div>

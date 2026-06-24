@@ -8,6 +8,8 @@ from itertools import chain
 from website.models import Question, Answer
 from django.db.models import Count
 from website.models import CATEGORY_CHOICES
+from instructor.models import Instructor
+from django.db.models import Avg
 
 # Create your views here.
 def index(request):
@@ -28,7 +30,21 @@ def contact(request):
     return render(request, 'website/contact.html')
 
 def about(request):
-    return render(request, 'website/about.html')
+    instructors = Instructor.objects.annotate(
+        avg_score=Avg('courses__score__score')
+    )
+
+    for obj in instructors:
+        avg = obj.avg_score or 0 
+
+        obj.full = int(avg)
+        obj.half = (avg - obj.full) >= 0.5
+        obj.empty = 5 - obj.full - int(obj.half)
+
+    context = {
+        "instructors" : instructors,
+        }
+    return render(request, 'website/about.html', context)
 
 def faq(request):
     courses = Course.objects.prefetch_related('tag').all()
