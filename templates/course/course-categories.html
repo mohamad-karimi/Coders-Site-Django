@@ -45,14 +45,6 @@
 							<!-- Title -->
 							<h1 class="mb-3">چه چیزی می‌خواهید یاد بگیرید؟</h1>
 							<p class="mb-3">مهارت‌های خود را با معتبرترین دوره‌ها و گواهینامه‌های آنلاین ارتقا دهید</p>
-
-							<!-- Search -->
-							<form class="bg-body rounded p-2">
-								<div class="input-group">
-									<input class="form-control border-0 me-1" type="search" placeholder="جستجوی دوره">
-									<button type="button" class="btn btn-dark mb-0 rounded">جستجو</button>
-								</div>
-							</form>
 						</div>
 
 						<!-- Image -->
@@ -81,59 +73,19 @@
 			<div class="row g-4">
 
 				<!-- Item -->
+				{% for categories in category %}
 				<div class="col-sm-6 col-md-4 col-xl-3">
-					<div class="card card-body bg-orange bg-opacity-10 text-center position-relative btn-transition p-4">
-						<div class="icon-xl bg-body mx-auto rounded-circle mb-3">
-							<img src="{% static 'images/element/online.svg' %}" alt="آیکون آموزش آنلاین و فناوری اطلاعات">
+					<div class="card card-body
+					{% cycle 'bg-success' 'bg-orange' 'bg-danger' 'bg-purple' 'bg-info' 'bg-blue' 'bg-warning' 'bg-dark' 'bg-primary' %}
+					bg-opacity-10 text-center position-relative btn-transition p-4">
+							<div class="icon-xl bg-body mx-auto rounded-circle mb-3">
+							<img src="{{ categories.image.url }}" alt="{{ categories.name }}">
 						</div>
-						<h5 class="mb-2"><a href="#" class="stretched-link">طراحی وب</a></h5>
-						<h6 class="mb-0">۲۲ دوره</h6>
+						<h5 class="mb-2"><a href="{% url 'course:course_category' categories.name %}" class="stretched-link">{{ categories.name }}</a></h5>
+						<h6 class="mb-0">{{ categories.course_count }}</h6>
 					</div>
 				</div>
-
-				<!-- Item -->
-				<div class="col-sm-6 col-md-4 col-xl-3">
-					<div class="card card-body bg-purple bg-opacity-10 text-center position-relative btn-transition p-4">
-						<div class="icon-xl bg-body mx-auto rounded-circle mb-3">
-							<img src="{% static 'images/element/coding.svg' %}" alt="آیکون توسعه وب و برنامه‌نویسی">
-						</div>
-						<h5 class="mb-2"><a href="#" class="stretched-link">توسعه وب</a></h5>
-						<h6 class="mb-0">۲۵ دوره</h6>
-					</div>
-				</div>
-
-				<!-- Item -->
-				<div class="col-sm-6 col-md-4 col-xl-3">
-					<div class="card card-body bg-info bg-opacity-10 text-center position-relative btn-transition p-4">
-						<div class="icon-xl bg-body mx-auto rounded-circle mb-3">
-							<img src="{% static 'images/element/profit.svg' %}" alt="آیکون مدیریت مالی و امور مالی">
-						</div>
-						<h5 class="mb-2"><a href="#" class="stretched-link">امور مالی</a></h5>
-						<h6 class="mb-0">۲۰ دوره</h6>
-					</div>
-				</div>
-
-				<!-- Item -->
-				<div class="col-sm-6 col-md-4 col-xl-3">
-					<div class="card card-body bg-dark bg-opacity-10 text-center position-relative btn-transition p-4">
-						<div class="icon-xl bg-body mx-auto rounded-circle mb-3">
-							<img src="{% static 'images/element/artist.svg' %}" alt="آیکون هنر و طراحی خلاقانه">
-						</div>
-						<h5 class="mb-2"><a href="#" class="stretched-link">طراحی گرافیک</a></h5>
-						<h6 class="mb-0">۳۵ دوره</h6>
-					</div>
-				</div>
-
-				<!-- Item -->
-				<div class="col-sm-6 col-md-4 col-xl-3">
-					<div class="card card-body bg-success bg-opacity-10 text-center position-relative btn-transition p-4">
-						<div class="icon-xl bg-body mx-auto rounded-circle mb-3">
-							<img src="{% static 'images/element/marketing.svg' %}" alt="آیکون بازاریابی و دیجیتال مارکتینگ">
-						</div>
-						<h5 class="mb-2"><a href="#" class="stretched-link">بازاریابی</a></h5>
-						<h6 class="mb-0">۳۰ دوره</h6>
-					</div>
-				</div>
+				{% endfor %}
 
 			</div>
 		</div>

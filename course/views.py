@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from course.models import Course, ReplayComment, Enrollment, Comment
+from course.models import Course, ReplayComment, Enrollment, Comment, Category
 from django.shortcuts import render, get_object_or_404
 import jdatetime
 from course.form import ScoreForm, CommentForm
@@ -10,6 +10,8 @@ from django.shortcuts import redirect
 from django.db.models import Avg
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
+from django.db.models import Count
+from django.db.models import Q
 
 # Create your views here.
 def course_list(request, **kwargs):
@@ -37,7 +39,14 @@ def course_list(request, **kwargs):
     return render(request, 'course/course-list.html', context)
 
 def course_categories(request):
-    return render(request, 'course/course-categories.html')
+    category = Category.objects.annotate(
+        course_count=Count('courses')
+    )
+
+    context = {
+        "category": category,
+    }
+    return render(request, 'course/course-categories.html', context)
 
 def course_detail(request, slug):
     course = get_object_or_404(
