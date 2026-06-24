@@ -25,6 +25,8 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
+def post_media_upload_path(instance, filename):
+    return f"blog/post_{instance.slug}/{filename}"
 class Post(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, null=True, blank=True)
@@ -32,8 +34,8 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post")
     content = models.TextField()
     content2 = models.TextField(null=True)
-    image = models.ImageField(upload_to="blog/image", default="blog/image/default.jpg")
-    video = models.FileField(upload_to='blog/video', validators=[FileExtensionValidator(['mp4'])], null=True)
+    image = models.ImageField(upload_to=post_media_upload_path, default="blog/image/default.jpg")
+    video = models.FileField(upload_to=post_media_upload_path, validators=[FileExtensionValidator(['mp4'])], null=True)
     tag = TaggableManager()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="post")
     views = models.IntegerField(default=0)

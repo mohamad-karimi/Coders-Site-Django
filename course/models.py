@@ -94,10 +94,12 @@ class Section(models.Model):
     def __str__(self):
         return self.title
 
+def lesson_upload_path(instance, filename):
+    return f"lesson/course_{instance.section.course.slug}/{filename}"
 class Lesson(models.Model):
     title = models.CharField(max_length=100)
     video = models.FileField(
-        upload_to='lesson/',
+        upload_to=lesson_upload_path,
         validators=[FileExtensionValidator(['mp4'])],
         null=True
     )

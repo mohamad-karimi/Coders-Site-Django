@@ -154,23 +154,9 @@
 								aria-expanded="false"><i class="bi bi-ui-radios-grid me-2"></i><span>دسته ها</span></a>
 							<ul class="dropdown-menu" aria-labelledby="categoryMenu">
 								<!-- Dropdown submenu -->
-								<li> <a class="dropdown-item" href="#">طراحی وب</a></li>
-								<li class="dropdown-submenu dropend">
-									<a class="dropdown-item dropdown-toggle" href="#">توسعه</a>
-									<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
-										<!-- dropdown submenu open right -->
-										<li> <a class="dropdown-item" href="#">CSS</a> </li>
-										<li> <a class="dropdown-item" href="#">JavaScript</a> </li>
-										<li> <a class="dropdown-item" href="#">Angular</a> </li>
-										<li> <a class="dropdown-item" href="#">PHP</a> </li>
-										<li> <a class="dropdown-item" href="#">HTML</a> </li>
-										<li> <a class="dropdown-item" href="#">React</a> </li>
-									</ul>
-								</li>
-								<li> <a class="dropdown-item" href="#">طراحی گرافیک</a></li>
-								<!-- Dropdown submenu -->
-								<li><a class="dropdown-item" href="#">بازاریابی</a></li>
-								<li> <a class="dropdown-item" href="#">امور مالی </a></li>			
+								{% for category in categories_for_header %}
+								<li> <a class="dropdown-item" href="{% url 'course:course_category' category.name %}">{{ category.name }}</a></li>	
+								{% endfor %}	
 								<li>
 									<hr class="dropdown-divider">
 								</li>
@@ -181,29 +167,7 @@
 					</ul>
 					<!-- Nav category menu END -->
 
-					<!-- Nav Search START -->
-					<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
-						<div class="nav-item w-100">
-
-							<form class="position-relative w-100">
-
-							<button
-								type="submit"
-								class="position-absolute top-50 start-0 translate-middle-y border-0 bg-transparent px-3">
-								<i class="fas fa-search fs-6"></i>
-							</button>
-
-							<input 
-								class="form-control bg-transparent pe-5 ps-5"
-								type="search"
-								placeholder="جست و جو"
-								aria-label="Search">
-
-							</form>
-
-						</div>
-					</div>
-					<!-- Nav Search END -->
+					{% include 'website/search.html' %}
 
 					<!-- Nav Main menu START -->
 					<ul class="navbar-nav navbar-nav-scroll me-auto">

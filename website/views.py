@@ -10,6 +10,8 @@ from django.db.models import Count
 from website.models import CATEGORY_CHOICES
 from instructor.models import Instructor
 from django.db.models import Avg
+from django.utils import timezone
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
@@ -124,3 +126,15 @@ def faq(request):
 
 def error_404(request):
     return render(request, 'website/error-404.html')
+
+def search(request):
+    courses = Course.objects.filter(
+        status=True, published_date__lte=timezone.now())
+    if request.method == "GET":
+        if s := request.GET.get("s"):
+            courses = courses.filter(Q(title__icontains=s) |
+                                 Q(overview__icontains=s))
+        print(courses.count())
+        print(list(courses.values_list("title", flat=True)))
+    context = {"courses": courses}
+    return render(request, "course/course-list.html", context)

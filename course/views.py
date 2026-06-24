@@ -14,26 +14,26 @@ from django.db.models import Count
 
 # Create your views here.
 def course_list(request, **kwargs):
-    course = Course.objects.filter(status=True).annotate(
+    courses = Course.objects.filter(status=True).annotate(
         avg_score=Avg('score__score')
     )
     if kwargs.get("ca_name") != None:
-        course = course.filter(category__name=kwargs["ca_name"])
+        courses = courses.filter(category__name=kwargs["ca_name"])
         
     if kwargs.get("ta_name"):
-        course = course.filter(tag__name__iexact=kwargs["ta_name"]).distinct()
+        courses = courses.filter(tag__name__iexact=kwargs["ta_name"]).distinct()
 
-    paginator = Paginator(course, 3)
+    paginator = Paginator(courses, 3)
     try:
         page_number = request.GET.get("page")
-        course = paginator.get_page(page_number)
+        courses = paginator.get_page(page_number)
     except PageNotAnInteger:
-        course = paginator.get_page(1)
+        courses = paginator.get_page(1)
     except EmptyPage:
-        course = paginator.get_page(paginator.num_pages)
+        courses = paginator.get_page(paginator.num_pages)
 
     context = {
-        "course": course,
+        "courses": courses,
     }
     return render(request, 'course/course-list.html', context)
 
