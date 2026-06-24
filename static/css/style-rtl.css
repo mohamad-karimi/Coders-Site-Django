@@ -2600,6 +2600,11 @@ progress {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
+
+.faq-form .form-control {
+    margin-right: -140px !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .form-control {
     -webkit-transition: none;
@@ -3238,16 +3243,16 @@ textarea.form-control-lg {
 }
 
 .input-group {
+  width: 693px;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-  width: 100%;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 .input-group > .form-control,
 .input-group > .form-select,
@@ -3259,6 +3264,12 @@ textarea.form-control-lg {
   width: 1%;
   min-width: 0;
 }
+.small-select {
+    max-width: 140px;
+    font-size: 13px;
+    padding: 4px 8px;
+}
+
 .input-group > .form-control:focus,
 .input-group > .form-select:focus,
 .input-group > .form-floating:focus-within {

@@ -1,10 +1,26 @@
 from django.contrib import admin
-from website.models import contact
+from website.models import Contact, Question, Answer
 # Register your models here.
-@admin.register(contact)
+@admin.register(Contact)
 class contactAdmin(admin.ModelAdmin):
     date_hierarchy = "created_date"
     empty_value_display = "-empty-"
     list_display = ["name", "email"]
     search_fields = ["name", "message"]
     list_filter = ('email',)
+
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    date_hierarchy = "created_date"
+    empty_value_display = "-empty-"
+    list_display = ["name"]
+    search_fields = ["name", "text"]
+    list_filter = ('name',)
+
+@admin.register(Answer)
+class AnswerAdmin(admin.ModelAdmin):
+    date_hierarchy = "created_date"
+    empty_value_display = "-empty-"
+    list_display = ["question"]
+    search_fields = ["question", "text"]
+    list_filter = ('question',)

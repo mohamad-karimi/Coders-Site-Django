@@ -11,7 +11,6 @@ from django.db.models import Avg
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
 from django.db.models import Count
-from django.db.models import Q
 
 # Create your views here.
 def course_list(request, **kwargs):
