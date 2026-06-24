@@ -1,0 +1,107 @@
+{% load static %}
+{% load humanize %}
+
+		<!-- =======================Trending courses START -->
+		<section class="pb-5 pt-0 pt-lg-5">
+			<div class="container">
+				<!-- Title -->
+				<div class="row mb-4">
+					<div class="col-lg-8 mx-auto text-center">
+						<h2 class="fs-1">جدیدترین دوره ها</h2>
+						<p class="mb-0">جدیدترین 🔥 دوره‌های بازار را بررسی کنید</p>
+					</div>
+				</div>
+				<div class="row">
+					<!-- Slider START -->
+					<div class="tiny-slider arrow-round arrow-blur arrow-hover">
+						<div class="tiny-slider-inner pb-1" data-autoplay="true" data-arrow="true" data-edge="2"
+							data-dots="false" data-items="3" data-items-lg="2" data-items-sm="1">
+                            {% for course in course %}
+							<!-- Card item START -->
+							<div>
+								<div class="card action-trigger-hover border bg-transparent">
+									<!-- Image -->
+									<img src="{{ course.image.url }}" class="card-img-top"
+										alt="تصویر دوره بازاریابی دیجیتال">
+
+									<!-- Ribbon -->
+                                    {% if course.is_free %}
+									<div class="ribbon mt-3"><span>رایگان</span></div>
+                                    {% endif %}
+
+									<!-- Card body -->
+									<div class="card-body pb-0">
+										<!-- Badge and favorite -->
+										<div class="d-flex justify-content-between mb-3">
+											<span class="hstack gap-2">
+												<a href="{% url 'course:course_category' course.category %}"
+													class="badge bg-primary bg-opacity-10 text-primary">{{ course.category }}</a>
+												<a href="{% url 'course:course_skill_level' course.skill_level %}" class="badge text-bg-dark">{{ course.skill_level }}</a>
+											</span>
+										</div>
+
+										<!-- Title -->
+										<h5 class="card-title"><a href="{% url 'course:course_detail' course.slug %}">{{ course.title }}</a>
+										</h5>
+
+										<!-- Rating -->
+										<div class="d-flex justify-content-between mb-2">
+											<div class="hstack gap-2">
+												<p class="text-warning m-0">{{ course.avg_score|default:0 }}<i
+														class="fas fa-star text-warning ms-1"></i></p>
+												<span class="small">({{ course.score.count }})</span>
+											</div>
+											<div class="hstack gap-2">
+												<p class="h6 fw-light mb-0 m-0">{{ course.enrollment.count }}</p>
+												<span class="small">(دانشجو)</span>
+											</div>
+										</div>
+
+										<!-- Time -->
+										<div class="hstack gap-3">
+											<span class="h6 fw-light mb-0"><i
+													class="far fa-clock text-danger me-2"></i>{{ course.total_duration }} ساعت</span>
+											<span class="h6 fw-light mb-0"><i
+													class="fas fa-table text-orange me-2"></i>{{ course.lessons_count }} جلسه</span>
+										</div>
+									</div>
+
+									<!-- Card footer -->
+									<div class="card-footer pt-0 bg-transparent">
+										<hr>
+										<!-- Avatar and Price -->
+										<div class="d-flex justify-content-between align-items-center">
+											<!-- Avatar -->
+											<div class="d-flex align-items-center">
+												<div class="avatar avatar-sm">
+													<img class="avatar-img rounded-1" src="{% static 'images/avatar/10.jpg' %}"
+														alt="تصویر مدرس دوره">
+												</div>
+												<p class="mb-0 ms-2"><a href="{% url 'instructor:instructor_single' course.instructor.slug %}" class="h6 fw-light mb-0"> {{ course.instructor.name }}</a>
+												</p>
+											</div>
+
+											<!-- Price -->
+											<div>
+                                                {% if course.is_free %}
+												<h4 class="text-success mb-0 item-show">رایگان</h4>
+                                                {% else %}
+                                                <h4 class="text-success mb-0 item-show">{{ course.final_price|intcomma }}</h4>
+												<a href="#" class="btn btn-sm btn-success-soft item-show-hover">
+													<i class="fas fa-shopping-cart me-2"></i>افزودن به سبد خرید
+												</a>
+                                                {% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Card item END -->
+                            {% endfor %}
+						</div>
+					</div>
+					<!-- Slider END -->
+				</div>
+			</div>
+		</section>
+		<!-- =======================Trending courses END -->

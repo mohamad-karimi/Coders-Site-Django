@@ -42,3 +42,10 @@ def popular_course(count=8):
         "courses_marketing": courses_marketing,
         "courses_financial_affairs": courses_financial_affairs,
         }
+
+@register.inclusion_tag('website/latest_corses.html')
+def latest_course(count=4):
+    course = Course.objects.filter(status = True,  published_date__lte = timezone.now()).order_by("-published_date")[:count].annotate(
+        avg_score=Avg('score__score')
+    )
+    return {"course" : course}
