@@ -11,3 +11,10 @@ def latest_course(count=2):
         avg_score=Avg('score__score')
     )
     return {"course" : course}
+
+@register.inclusion_tag('course/top_course.html')
+def top_course(count=4):
+    course = Course.objects.filter(status = True,  published_date__lte = timezone.now()).order_by("-published_date")[:count].annotate(
+        avg_score=Avg('score__score')
+    )
+    return {"course" : course}

@@ -1,0 +1,88 @@
+{% load static %}
+{% load humanize %}
+
+		<!-- =======================Listed courses START -->
+		<section class="pt-0">
+			<div class="container">
+				<!-- Title -->
+				<div class="row mb-4">
+					<h2 class="mb-0">دوره‌های برتر لیست‌شده</h2>
+				</div>
+
+				<div class="row">
+					<!-- Slider START -->
+					<div class="tiny-slider arrow-round arrow-blur arrow-hover">
+						<div class="tiny-slider-inner" data-autoplay="false" data-arrow="true" data-edge="2"
+							data-dots="false" data-items="3" data-items-lg="2" data-items-sm="1">
+
+							<!-- Card Item START -->
+                            {% for courses in course %}
+							<div class="pb-4">
+								<div class="card p-2 border">
+									<div class="rounded-top overflow-hidden">
+										<div class="card-overlay-hover">
+											<img src="{{ courses.image.url }}" class="card-img-top"
+												alt="تصویر دوره دیجیتال مارکتینگ">
+										</div>
+										<!-- Hover element -->
+										<div class="card-img-overlay">
+											<div class="card-element-hover d-flex justify-content-end">
+												<a href="#" class="icon-md bg-white rounded-circle text-center">
+													<i class="fas fa-shopping-cart text-danger"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+										<!-- Badge and icon -->
+										<div class="d-flex justify-content-between">
+											<!-- Rating and info -->
+											<ul class="list-inline hstack gap-2 mb-0">
+												<!-- Info -->
+												<li
+													class="list-inline-item d-flex justify-content-center align-items-center">
+													<div
+														class="icon-md bg-orange bg-opacity-10 text-orange rounded-circle">
+														<i class="fas fa-user-graduate"></i>
+													</div>
+													<span class="h6 fw-light ms-2 mb-0">{{ courses.enrollment.count }}</span>
+												</li>
+												<!-- Rating -->
+												<li
+													class="list-inline-item d-flex justify-content-center align-items-center">
+													<div
+														class="icon-md bg-warning bg-opacity-15 text-warning rounded-circle">
+														<i class="fas fa-star"></i>
+													</div>
+													<span class="h6 fw-light ms-2 mb-0">{{ courses.avg_score|default:0 }}</span>
+												</li>
+											</ul>
+											<!-- Avatar -->
+											<div class="avatar avatar-sm">
+												<img class="avatar-img rounded-circle" src="{% static 'images/avatar/09.jpg' %}"
+													alt="تصویر مدرس دوره">
+											</div>
+										</div>
+										<!-- Divider -->
+										<hr>
+										<!-- Title -->
+										<h5 class="card-title"><a href="{% url 'course:course_detail' courses.slug %}">{{ courses.title }}</a></h5>
+										<!-- Badge and Price -->
+										<div class="d-flex justify-content-between align-items-center">
+											<a href="{% url 'course:course_category' courses.category.name %}" class="badge bg-info bg-opacity-10 text-info"><i
+													class="fas fa-circle small fw-bold me-2"></i>{{ courses.category.name }}</a>
+											<!-- Price -->
+											<h3 class="text-success mb-0">{{ courses.final_price|intcomma }}</h3>
+										</div>
+									</div>
+								</div>
+							</div>
+                            {% endfor %}
+							<!-- Card Item END -->
+						</div>
+					</div>
+					<!-- Slider END -->
+				</div>
+			</div>
+		</section>
+		<!-- =======================Listed courses END -->
