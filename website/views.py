@@ -165,7 +165,5 @@ def search(request):
         if s := request.GET.get("s"):
             courses = courses.filter(Q(title__icontains=s) |
                                  Q(overview__icontains=s))
-        print(courses.count())
-        print(list(courses.values_list("title", flat=True)))
     context = {"courses": courses}
     return render(request, "course/course-list.html", context)

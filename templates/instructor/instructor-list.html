@@ -31,14 +31,15 @@
 		<!-- =======================Inner part START -->
 		<section class="pt-4">
 			<div class="container">
+				<form id="filterForm" method="get"></form>
 				<!-- Search option START -->
 				<div class="row mb-4 align-items-center">
 					<!-- Search bar -->
 					<div class="col-sm-6 col-xl-4">
-						<form class="border rounded p-2">
-							<div class="input-group input-borderless">
-								<input class="form-control me-1" type="search" placeholder="جست و جو مدرس">
-								<button type="button" class="btn btn-primary mb-0 rounded"><i
+						<form class="border rounded p-2" method="get" action="{% url 'instructor:instructor_search' %}">
+							<div class="input-group input-borderless search-instructor ">
+								<input class="form-control me-1" type="search" placeholder="جست و جو مدرس" name="s">
+								<button type="submit" class="btn btn-primary mb-0 rounded"><i
 										class="fas fa-search"></i></button>
 							</div>
 						</form>
@@ -46,38 +47,60 @@
 
 					<!-- Select option -->
 					<div class="col-sm-6 col-xl-3 mt-3 mt-lg-0">
-						<form class="border rounded p-2 input-borderless">
-							<select class="form-select form-select-sm js-choice" aria-label=".form-select-sm">
+						<div class="border rounded p-2 input-borderless">
+
+							<select name="expertise"
+									form="filterForm"
+									class="form-select form-select-sm js-choice">
+
 								<option value="">دسته‌بندی</option>
-								<option>همه</option>
-								<option>توسعه</option>
-								<option>طراحی</option>
-								<option>حسابداری</option>
-								<option>ترجمه</option>
-								<option>مالی</option>
-								<option>حقوقی</option>
-								<option>عکاسی</option>
-								<option>نویسندگی</option>
-								<option>بازاریابی</option>
+
+								{% for exp in experts %}
+									<option value="{{ exp }}"
+										{% if request.GET.expertise == exp %}selected{% endif %}>
+										{{ exp }}
+									</option>
+								{% endfor %}
+
 							</select>
-						</form>
+
+						</div>
 					</div>
 
 					<!-- Select option -->
 					<div class="col-sm-6 col-xl-3 mt-3 mt-xl-0">
-						<form class="border rounded p-2 input-borderless">
-							<select class="form-select form-select-sm js-choice" aria-label=".form-select-sm">
+						<div class="border rounded p-2 input-borderless">
+
+							<select name="sort"
+									form="filterForm"
+									class="form-select form-select-sm js-choice">
+
 								<option value="">مرتب‌سازی بر اساس</option>
-								<option>محبوب‌ترین</option>
-								<option>پربازدیدترین</option>
-								<option>بالاترین امتیاز</option>
+
+								<option value="scores"
+									{% if request.GET.sort == 'scores' %}selected{% endif %}>
+									بالاترین امتیاز
+								</option>
+
+								<option value="views"
+									{% if request.GET.sort == 'views' %}selected{% endif %}>
+									پربازدیدترین
+								</option>
+
 							</select>
-						</form>
+
+						</div>
 					</div>
 
 					<!-- Button -->
 					<div class="col-sm-6 col-xl-2 mt-3 mt-xl-0 d-grid">
-						<a href="#" class="btn btn-lg btn-primary mb-0">اعمال فیلتر</a>
+
+						<button type="submit"
+								form="filterForm"
+								class="btn btn-lg btn-primary mb-0">
+							اعمال فیلتر
+						</button>
+
 					</div>
 				</div>
 				<!-- Search option END -->

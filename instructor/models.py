@@ -5,6 +5,7 @@ class Instructor(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(unique=True, null=True)
     image = models.ImageField(upload_to='instructor/', default='instructor/default.jpg')
+    counted_views = models.IntegerField(default=0)
     expertise = models.CharField(max_length=50)
     description = models.TextField()
     short_description = models.CharField(max_length=120, null=True)
