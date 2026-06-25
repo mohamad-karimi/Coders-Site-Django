@@ -37,7 +37,10 @@
 				<div class="row g-3 align-items-center mb-4">
 					<!-- Content -->
 					<div class="col-md-4">
-						<h4 class="mb-0">نمایش ۱-۷ از ۳۲ نتیجه</h4>
+						<h4 class="mb-0">
+							نمایش {{ courses.start_index }} تا {{ courses.end_index }}
+							از {{ courses.paginator.count }} نتیجه
+						</h4>
 					</div>
 
 					<!-- Select option -->
@@ -55,13 +58,32 @@
 							</div>
 
 							<!-- Short by filter -->
-							<form class="col-md-4 border rounded p-1 input-borderless">
-								<select class="form-select js-choice z-index-9" aria-label=".form-select-sm">
+							<form method="get" id="filterForm" class="col-md-4 border rounded p-1 input-borderless">
+								<select name="sort" class="form-select js-choice z-index-9"
+										onchange="document.getElementById('filterForm').submit()">
+
 									<option value="">مرتب‌سازی بر اساس</option>
-									<option>رایگان</option>
-									<option>جدیدترین</option>
-									<option>محبوب‌ترین</option>
-									<option>پربازدیدترین</option>
+
+									<option value="free"
+										{% if request.GET.sort == 'free' %}selected{% endif %}>
+										رایگان
+									</option>
+
+									<option value="newest"
+										{% if request.GET.sort == 'newest' %}selected{% endif %}>
+										جدیدترین
+									</option>
+
+									<option value="popular"
+										{% if request.GET.sort == 'popular' %}selected{% endif %}>
+										محبوب‌ترین
+									</option>
+
+									<option value="views"
+										{% if request.GET.sort == 'views' %}selected{% endif %}>
+										پربازدیدترین
+									</option>
+
 								</select>
 							</form>
 
@@ -170,22 +192,25 @@
 						<div class="col-12">
 							<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
 								<ul class="pagination pagination-primary-soft rounded mb-0">
-									{% if course.has_previous %}
-									<li class="page-item mb-0"><a class="page-link" href="?page={{ instructor.previous_page_number }}" tabindex="-1"><i
+									{% if courses.has_previous %}
+									<li class="page-item mb-0"><a class="page-link" href="?page={{ courses.previous_page_number }}&sort={{ request.GET.sort }}" tabindex="-1"><i
 										class="fas fa-angle-double-left">
 									</i></a></li>
 									{% endif %}	
-									{% for i in course.paginator.page_range %}
-										{% if course.number == i %}
-											<li class="page-item mb-0 active"><a class="page-link" href="?page= {{ i }}">{{i}}</a></li>
+									{% for i in courses.paginator.page_range %}
+										{% if courses.number == i %}
+											<li class="page-item mb-0 active"><a class="page-link" href="?page={{ i }}&sort={{ request.GET.sort }}">{{i}}</a></li>
 										{% else %}
-											<li class="page-item mb-0"><a class="page-link" href="?page= {{ i }}">{{i}}</a></li>
+											<li class="page-item mb-0"><a class="page-link" href="?page={{ i }}&sort={{ request.GET.sort }}">{{i}}</a></li>
 										{% endif %}
 									{%endfor%}
-									{% if course.has_previous %}
-									<li class="page-item mb-0"><a class="page-link" href="?page={{ post.next_page_number }}"><i
-										class="fas fa-angle-double-right">
-									</i></a></li>
+									{% if courses.has_next %}
+									<li class="page-item mb-0">
+										<a class="page-link"
+										href="?page={{ courses.next_page_number }}&sort={{ request.GET.sort }}">
+										<i class="fas fa-angle-double-right"></i>
+										</a>
+									</li>
 									{% endif %}
 								</ul>
 							</nav>
@@ -198,14 +223,8 @@
 					<div class="col-lg-3 col-xxl-4">
 						<!-- Responsive offcanvas body START -->
 						<div class="offcanvas-xl offcanvas-end" tabindex="-1" id="offcanvasSidebar">
-							<div class="offcanvas-header bg-light">
-								<h5 class="offcanvas-title" id="offcanvasNavbarLabel">فیلتر پیشرفته</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-									data-bs-target="#offcanvasSidebar" aria-label="بستن"></button>
-							</div>
-
 							<div class="offcanvas-body p-3 p-xl-0">
-								<form>
+								<form method="get" id="filterForm">
 
 									<!-- Category START -->
 									<div class="card card-body shadow p-4 mb-4">
@@ -214,54 +233,21 @@
 										<div class="row">
 
 											<div class="col-xxl-6">
-
 												<div class="form-check">
 													<input class="form-check-input" type="checkbox"
 														id="flexCheckDefault9">
 													<label class="form-check-label" for="flexCheckDefault9">همه</label>
 												</div>
 
+												{% for category in categories %}
 												<div class="form-check">
 													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault10">
-													<label class="form-check-label"
-														for="flexCheckDefault10">طراحی وب</label>
+														id="flexCheckDefault9" name="category"  value="{{ category.id }}">
+													<label class="form-check-label" for="flexCheckDefault9">{{ category.name}}</label>
 												</div>
-
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault11">
-													<label class="form-check-label"
-														for="flexCheckDefault11">توسعه</label>
-												</div>
-
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault12">
-													<label class="form-check-label"
-														for="flexCheckDefault12">طراحی گرافیک</label>
-												</div>
+												{% endfor %}
 
 											</div>
-
-											<div class="col-xxl-6">
-
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault13">
-													<label class="form-check-label"
-														for="flexCheckDefault13">امور مالی</label>
-												</div>
-
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault18">
-													<label class="form-check-label"
-														for="flexCheckDefault18">بازاریابی</label>
-												</div>
-
-											</div>
-
 										</div>
 									</div>
 									<!-- Category END -->
@@ -269,25 +255,34 @@
 									<!-- Price START -->
 									<div class="card card-body shadow p-4 mb-4">
 										<h4 class="mb-3">سطح قیمت</h4>
-
 										<ul class="list-inline mb-0">
 
 											<li class="list-inline-item">
-												<input type="radio" class="btn-check" name="options" id="option1">
+												<input type="radio" class="btn-check"
+													name="price"
+													id="price_all"
+													value=""
+													checked>
 												<label class="btn btn-light btn-primary-soft-check"
-													for="option1">همه</label>
+													for="price_all">همه</label>
 											</li>
 
 											<li class="list-inline-item">
-												<input type="radio" class="btn-check" name="options" id="option2">
+												<input type="radio" class="btn-check"
+													name="price"
+													id="price_free"
+													value="free">
 												<label class="btn btn-light btn-primary-soft-check"
-													for="option2">رایگان</label>
+													for="price_free">رایگان</label>
 											</li>
 
 											<li class="list-inline-item">
-												<input type="radio" class="btn-check" name="options" id="option3">
+												<input type="radio" class="btn-check"
+													name="price"
+													id="price_paid"
+													value="paid">
 												<label class="btn btn-light btn-primary-soft-check"
-													for="option3">پولی</label>
+													for="price_paid">پولی</label>
 											</li>
 
 										</ul>
@@ -299,42 +294,47 @@
 										<h4 class="mb-3">سطح مهارت</h4>
 
 										<ul class="list-inline mb-0">
-
+											
 											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-12">
+												<input type="checkbox" class="btn-check"
+													id="skill_beginner"
+													name="skill_level"
+													value="beginner">
+
 												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-12">همه سطوح</label>
+													for="skill_beginner">مقدماتی</label>
 											</li>
 
 											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-9">
+												<input type="checkbox" class="btn-check"
+													id="skill_intermediate"
+													name="skill_level"
+													value="intermediate">
+
 												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-9">مبتدی</label>
+													for="skill_intermediate">متوسط</label>
 											</li>
 
 											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-10">
-												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-10">متوسط</label>
-											</li>
+												<input type="checkbox" class="btn-check"
+													id="skill_advanced"
+													name="skill_level"
+													value="advanced">
 
-											<li class="list-inline-item mb-2">
-												<input type="checkbox" class="btn-check" id="btn-check-11">
 												<label class="btn btn-light btn-primary-soft-check"
-													for="btn-check-11">پیشرفته</label>
+													for="skill_advanced">حرفه ای</label>
 											</li>
 
 										</ul>
 									</div>
 									<!-- Skill level END -->
 
+									<div class="d-grid p-2 p-xl-0 bg-body text-center">
+										<button class="btn btn-primary mb-0" type="sub">اعمال فیلتر</button>
+									</div>
+
 								</form>
 							</div>
-
-							<div class="d-grid p-2 p-xl-0 bg-body text-center">
-								<button class="btn btn-primary mb-0">اعمال فیلتر</button>
-							</div>
-
 						</div>
 					</div>
 					<!-- Right sidebar END -->

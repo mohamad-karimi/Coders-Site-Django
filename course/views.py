@@ -16,7 +16,9 @@ from django.db.models import Count
 def course_list(request, **kwargs):
     courses = Course.objects.filter(status=True).annotate(
         avg_score=Avg('score__score')
-    )
+    )  
+    categories = Category.objects.all()
+
     if kwargs.get("ca_name") != None:
         courses = courses.filter(category__name=kwargs["ca_name"])
         
@@ -25,6 +27,36 @@ def course_list(request, **kwargs):
 
     if kwargs.get("sk_name") is not None:
         courses = courses.filter(skill_level=kwargs["sk_name"])
+
+    sort = request.GET.get("sort")
+
+    if sort == "free":
+        courses = courses.filter(is_free=True)
+
+    elif sort == "newest":
+        courses = courses.order_by("-created_date")
+
+    elif sort == "popular":
+        courses = courses.order_by("-avg_score")
+
+    elif sort == "views":
+        courses = courses.order_by("-counted_views")
+
+    cats = request.GET.getlist("category")
+    if cats:
+        courses = courses.filter(category_id__in=cats)
+
+    price = request.GET.get("price")
+    if price == "free":
+        courses = courses.filter(is_free=True)
+
+    elif price == "paid":
+        courses = courses.filter(is_free=False)
+
+    skills = request.GET.getlist("skill_level")
+    if skills:
+        courses = courses.filter(skill_level__in=skills)
+    print(Course.objects.values_list("skill_level", flat=True).distinct())
 
     paginator = Paginator(courses, 3)
     try:
@@ -37,6 +69,7 @@ def course_list(request, **kwargs):
 
     context = {
         "courses": courses,
+        "categories" : categories,
     }
     return render(request, 'course/course-list.html', context)
 
@@ -55,6 +88,9 @@ def course_detail(request, slug):
         Course.objects.prefetch_related('sections__lessons'),
         slug=slug
     )
+
+    course.counted_views += 1
+    course.save(update_fields=['counted_views'])
 
     course.published_jalali = jdatetime.datetime.fromgregorian(
         datetime=course.published_date

@@ -8,14 +8,14 @@ import jdatetime
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-BEGINNER = "مقدماتی"
-INTERMEDIATE = "متوسط"
-ADVANCED = "حرفه ای"
+BEGINNER = "beginner"
+INTERMEDIATE = "intermediate"
+ADVANCED = "advanced"
 
 LEVEL_CHOICES = (
     (BEGINNER, "مقدماتی"),
     (INTERMEDIATE, "متوسط"),
-    (ADVANCED, "حرفه ای"),
+    (ADVANCED, "حرفه‌ای"),
 )
 
 SCORE_CHOICES = [
@@ -45,6 +45,7 @@ class Course(models.Model):
     overview = models.TextField()
     status = models.BooleanField(default=False)
     total_duration = models.PositiveIntegerField()
+    counted_views = models.IntegerField(default=0)
     skill_level = models.CharField(max_length=20, choices=LEVEL_CHOICES, null=True)
     degree = models.CharField(max_length=50)
     tag = TaggableManager()
