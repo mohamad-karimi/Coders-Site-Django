@@ -109,62 +109,77 @@
 								<p class="lead mb-4">خوشحالیم که شما را می‌بینیم! لطفاً با حساب خود ثبت‌نام کنید.</p>
 
 								<!-- Form START -->
-								<form>
-									<!-- Email -->
-									<div class="mb-4">
-										<label for="exampleInputEmail1" class="form-label">آدرس ایمیل *</label>
-										<div class="input-group input-group-lg">
+								<form method="post" action="{% url 'authentication:signup' %}">
+									{% csrf_token %}
+
+									<!-- Username -->
+									 <div class="mb-4">
+										<label for="exampleInputEmail1" class="form-label">نام کاربری *</label>
+										<div class="input-group input-group-lg authentication-form">
 											<span
 												class="input-group-text bg-light rounded-start border-0 text-secondary px-3">
 												<i class="bi bi-envelope-fill"></i>
 											</span>
-											<input type="email" class="form-control border-0 bg-light rounded-end ps-1"
-												placeholder="ایمیل" id="exampleInputEmail1">
+											{{ form.username }}
+											{{ form.username.errors }}
+										</div>
+									</div>
+
+									<!-- Email -->
+									<div class="mb-4">
+										<label for="exampleInputEmail1" class="form-label">آدرس ایمیل *</label>
+										<div class="input-group input-group-lg authentication-form">
+											<span
+												class="input-group-text bg-light rounded-start border-0 text-secondary px-3">
+												<i class="bi bi-envelope-fill"></i>
+											</span>
+											{{ form.email }}
+											{{ form.email.errors }}
 										</div>
 									</div>
 
 									<!-- Password -->
 									<div class="mb-4">
 										<label for="inputPassword5" class="form-label">رمز عبور *</label>
-										<div class="input-group input-group-lg">
+										<div class="input-group input-group-lg authentication-form">
 											<span
 												class="input-group-text bg-light rounded-start border-0 text-secondary px-3">
 												<i class="fas fa-lock"></i>
 											</span>
-											<input type="password"
-												class="form-control border-0 bg-light rounded-end ps-1"
-												placeholder="*********" id="inputPassword5">
+											{{ form.password1 }}
+											{{ form.password1.errors }}
 										</div>
 									</div>
 
 									<!-- Confirm Password -->
 									<div class="mb-4">
 										<label for="inputPassword6" class="form-label">تکرار رمز عبور *</label>
-										<div class="input-group input-group-lg">
+										<div class="input-group input-group-lg authentication-form">
 											<span
 												class="input-group-text bg-light rounded-start border-0 text-secondary px-3">
 												<i class="fas fa-lock"></i>
 											</span>
-											<input type="password"
-												class="form-control border-0 bg-light rounded-end ps-1"
-												placeholder="*********" id="inputPassword6">
+											{{ form.password2 }}
+											{{ form.password2.errors }}
 										</div>
 									</div>
 
 									<!-- Check box -->
 									<div class="mb-4">
 										<div class="form-check">
-											<input type="checkbox" class="form-check-input" id="checkbox-1">
-											<label class="form-check-label" for="checkbox-1">
+											{{ form.agree_terms }}
+											<label class="form-check-label">
 												با ثبت‌نام، شما با <a href="#">شرایط استفاده</a> موافقت می‌کنید
 											</label>
 										</div>
+
+										{{ form.agree_terms.errors }}
 									</div>
 
 									<!-- Button -->
 									<div class="align-items-center mt-0">
 										<div class="d-grid">
-											<button class="btn btn-primary mb-0" type="button">ثبت‌نام</button>
+											<button class="btn btn-primary mb-0" type="submit">ثبت‌نام</button>
 										</div>
 									</div>
 								</form>
@@ -181,17 +196,27 @@
 									</div>
 
 									<!-- Social btn -->
-									<div class="col-xxl-6 d-grid">
-										<a href="#" class="btn bg-google mb-2 mb-xxl-0">
-											<i class="fab fa-fw fa-google text-white me-2"></i>ثبت‌نام با گوگل
-										</a>
-									</div>
+									<div class="mt-3 text-center">
+										<div id="g_id_onload"
+											data-client_id="321149008744-8agt4hkkao5abome759eg67gpl2ns49a.apps.googleusercontent.com"
+											data-callback="handleCredentialResponse">
+										</div>
 
-									<!-- Social btn -->
-									<div class="col-xxl-6 d-grid">
-										<a href="#" class="btn bg-facebook mb-0">
-											<i class="fab fa-fw fa-facebook-f me-2"></i>ثبت‌نام با فیسبوک
-										</a>
+										<div class="g_id_signin"
+											data-type="standard"
+											data-shape="rectangular"
+											data-theme="outline"
+											data-text="signin_with"
+											data-size="large"
+											style="display:none;">
+										</div>
+									</div>
+									<div class="mt-3 text-center">
+
+										<button class="btn btn-danger w-100" onclick="googleLogin()">
+											ثبت نام با گوگل
+										</button>
+
 									</div>
 								</div>
 
@@ -259,6 +284,43 @@
 
 	<!-- Template Functions -->
 	<script src="{% static 'js/functions.js' %}"></script>
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+	<script>
+	let tokenClient;
+
+	window.onload = function () {
+		tokenClient = google.accounts.oauth2.initTokenClient({
+			client_id: "321149008744-8agt4hkkao5abome759eg67gpl2ns49a.apps.googleusercontent.com",
+			scope: "openid email profile",
+			callback: handleCredentialResponse
+		});
+	};
+
+	function googleLogin() {
+		tokenClient.requestAccessToken();
+	}
+
+	function handleCredentialResponse(tokenResponse) {
+		console.log(tokenResponse.access_token);
+
+		fetch("/accounts/google/login/callback/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				credential: tokenResponse.access_token
+			})
+		})
+		.then(r => r.json())
+		.then(data => {
+			if (data.success) {
+				window.location.href = "/";
+			}
+		});
+	}
+	</script>
 
 </body>
 

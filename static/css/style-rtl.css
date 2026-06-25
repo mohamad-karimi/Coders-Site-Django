@@ -2167,7 +2167,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 50%;
+    width: 100%;
   }
   .col-xxl-7 {
     -webkit-box-flex: 0;
@@ -22647,4 +22647,10 @@ footer {
 
 .search-instructor {
   width: 100%;
+}
+
+.authentication-form {
+  width: 100%;
+  direction: ltr;
+  text-align: left;
 }
