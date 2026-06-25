@@ -1,10 +1,13 @@
 from django.db import models
 from taggit.managers import TaggableManager
 from django.utils import timezone
-from django.contrib.auth.models import User
 import jdatetime
 from django.core.validators import FileExtensionValidator
 from django.utils.text import slugify
+from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 # Create your models here.
 COLOR_CHOICES = [
@@ -30,12 +33,12 @@ def post_media_upload_path(instance, filename):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, null=True, blank=True)
-    info = models.CharField(max_length=250, null=True)
+    info = models.CharField(max_length=250)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post")
     content = models.TextField()
     content2 = models.TextField(null=True)
     image = models.ImageField(upload_to=post_media_upload_path, default="blog/image/default.jpg")
-    video = models.FileField(upload_to=post_media_upload_path, validators=[FileExtensionValidator(['mp4'])], null=True)
+    video = models.FileField(upload_to=post_media_upload_path, validators=[FileExtensionValidator(['mp4'])])
     tag = TaggableManager()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="post")
     views = models.IntegerField(default=0)

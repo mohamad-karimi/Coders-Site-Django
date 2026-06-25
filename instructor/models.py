@@ -8,7 +8,7 @@ class Instructor(models.Model):
     counted_views = models.IntegerField(default=0)
     expertise = models.CharField(max_length=50)
     description = models.TextField()
-    short_description = models.CharField(max_length=120, null=True)
+    short_description = models.CharField(max_length=120)
     address = models.CharField(max_length=100)
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)

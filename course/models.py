@@ -5,8 +5,10 @@ from instructor.models import Instructor
 from django.utils.text import slugify
 from django.utils import timezone
 import jdatetime
-from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 BEGINNER = "beginner"
 INTERMEDIATE = "intermediate"
@@ -41,19 +43,19 @@ class Course(models.Model):
     discount_end = models.DateTimeField(null=True, blank=True)
     is_free = models.BooleanField(default=False)
     image = models.ImageField(upload_to='course/', default='course/default.jpg')
-    short_description = models.CharField(max_length=120, null=True)
+    short_description = models.CharField(max_length=120)
     overview = models.TextField()
     status = models.BooleanField(default=False)
     total_duration = models.PositiveIntegerField()
     counted_views = models.IntegerField(default=0)
-    skill_level = models.CharField(max_length=20, choices=LEVEL_CHOICES, null=True)
+    skill_level = models.CharField(max_length=20, choices=LEVEL_CHOICES)
     degree = models.CharField(max_length=50)
     tag = TaggableManager()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="courses")
-    published_date = models.DateTimeField(null=True,)
+    published_date = models.DateTimeField(default=timezone.now)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, related_name="courses", null=True)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, related_name="courses")
 
     class Meta:
         ordering = ["-created_date"]
@@ -102,14 +104,12 @@ class Lesson(models.Model):
     video = models.FileField(
         upload_to=lesson_upload_path,
         validators=[FileExtensionValidator(['mp4'])],
-        null=True
     )
     duration = models.PositiveIntegerField()
     section = models.ForeignKey(
         Section,
         on_delete=models.CASCADE,
         related_name='lessons',
-        null=True
     )
 
     def __str__(self):
@@ -120,7 +120,7 @@ class Score(models.Model):
     email = models.EmailField()
     score = models.PositiveSmallIntegerField(choices=SCORE_CHOICES)
     comment = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="score", null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="score")
     published_date = models.DateTimeField(default=timezone.now)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)

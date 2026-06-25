@@ -237,12 +237,12 @@
 
 				<!-- Profile START -->
 				<div class="dropdown ms-1 ms-lg-0">
+					{% if request.user.is_authenticated %}
 					<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button"
 						data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
 						aria-expanded="false">
 						<img class="avatar-img rounded-circle" src="{% static 'images/avatar/01.jpg' %}" alt="آواتار کاربر">
 					</a>
-
 					<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
 						aria-labelledby="profileDropdown">
 
@@ -269,7 +269,7 @@
 						<li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>ویرایش پروفایل</a>
 						</li>
 						<li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>تنظیمات حساب</a></li>
-						<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>راهنما</a>
+						<li><a class="dropdown-item" href="{% url 'website:faq' %}"><i class="bi bi-info-circle fa-fw me-2"></i>راهنما</a>
 						</li>
 						<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i
 									class="bi bi-power fa-fw me-2"></i>خروج</a></li>
@@ -314,6 +314,11 @@
 						<!-- Dark mode options END-->
 
 					</ul>
+					{% else %}
+					<a href="{% url 'authentication:login' %}" class="btn btn-primary btn-sm">
+						ورود / ثبت‌نام
+					</a>
+					{% endif %}
 				</div>
 				<!-- Profile START -->
 			</div>

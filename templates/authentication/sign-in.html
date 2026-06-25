@@ -109,17 +109,18 @@
 								</p>
 
 								<!-- Form START -->
-								<form>
-									<!-- Email -->
+								<form method="post", action="{% url 'authentication:login' %}">
+									{% csrf_token %}
+									<!-- Email or username -->
 									<div class="mb-4">
-										<label for="exampleInputEmail1" class="form-label">آدرس ایمیل *</label>
+										<label for="exampleInputEmail1" class="form-label">آدرس ایمیل یا نام کاربری *</label>
 										<div class="input-group input-group-lg">
 											<span
 												class="input-group-text bg-light rounded-start border-0 text-secondary px-3">
 												<i class="bi bi-envelope-fill"></i>
 											</span>
-											<input type="email" class="form-control border-0 bg-light rounded-end ps-1"
-												placeholder="ایمیل" id="exampleInputEmail1">
+											{{ form.username }}
+											{{ form.username.errors }}
 										</div>
 									</div>
 
@@ -131,9 +132,7 @@
 												class="input-group-text bg-light rounded-start border-0 text-secondary px-3">
 												<i class="fas fa-lock"></i>
 											</span>
-											<input type="password"
-												class="form-control border-0 bg-light rounded-end ps-1"
-												placeholder="رمز عبور" id="inputPassword5">
+											{{ form.password }}
 										</div>
 										<div id="passwordHelpBlock" class="form-text">
 											رمز عبور شما باید حداقل ۸ کاراکتر باشد
@@ -157,7 +156,7 @@
 									<!-- Button -->
 									<div class="align-items-center mt-0">
 										<div class="d-grid">
-											<button class="btn btn-primary mb-0" type="button">ورود</button>
+											<button class="btn btn-primary mb-0" type="submit">ورود</button>
 										</div>
 									</div>
 								</form>

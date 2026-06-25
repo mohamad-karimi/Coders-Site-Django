@@ -1,8 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
 import jdatetime
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 # Create your models here.
 CATEGORY_CHOICES = [
@@ -31,7 +32,7 @@ class Contact(models.Model):
 class Question(models.Model):
     name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="question")
     text = models.CharField(max_length=550)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, null=True)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     created_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -48,7 +49,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
-    name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answer", null=True)
+    name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answer")
     text = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name="replies")
