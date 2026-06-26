@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from course.models import Course, CourseProgress
+from course.models import Course, CourseProgress, Section
 
 # Create your views here.
 def dashboard(request):

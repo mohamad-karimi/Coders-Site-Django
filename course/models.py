@@ -9,9 +9,9 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-BEGINNER = "beginner"
-INTERMEDIATE = "intermediate"
-ADVANCED = "advanced"
+BEGINNER = "مقدماتی"
+INTERMEDIATE = "متوسط"
+ADVANCED = "حرفه‌ای"
 
 LEVEL_CHOICES = (
     (BEGINNER, "مقدماتی"),
