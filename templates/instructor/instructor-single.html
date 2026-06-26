@@ -18,7 +18,7 @@
 								<div class="card shadow p-2 mb-4 text-center">
 									<div class="rounded-3">
 										<!-- Image -->
-										<img src="{{ instructor.image.url }}" class="card-img" alt="عکس مدرس">
+										<img src="{{ instructor.image.url }}" class="card-img" alt="{{ instructor.name }}">
 									</div>
 
 									<!-- Card body -->
@@ -221,7 +221,7 @@
 								<div class="card shadow h-100">
 
 									<img src="{{ course.image.url }}" class="card-img-top"
-										alt="تصویر دوره طراحی از صفر تا صد برای طراح اپلیکیشن">
+										alt="{{ course.title }}">
 
 									<div class="card-body pb-0">
 
@@ -307,7 +307,7 @@
 							<div class="position-relative">
 								<!-- Image -->
 								<img src="{{ instructor.image.url }}" class="card-img"
-									alt="تصویر مدرس Jacqueline Miller - توسعه‌دهنده وب">
+									alt="{{ instructor.name }}">
 								<!-- Overlay -->
 								<div class="card-img-overlay d-flex flex-column p-3">
 									<div class="w-100 mt-auto text-end">

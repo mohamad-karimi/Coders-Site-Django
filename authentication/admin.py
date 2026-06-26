@@ -9,3 +9,15 @@ class CustomUserAdmin(UserAdmin):
     list_display = ["username", "email"]
     search_fields = ["username"]
     list_filter = ('username', "email")
+
+    fieldsets = UserAdmin.fieldsets + (
+        ("اطلاعات اضافی", {
+            "fields": ("avatar",)
+        }),
+    )
+
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        ("اطلاعات اضافی", {
+            "fields": ("avatar",)
+        }),
+    )

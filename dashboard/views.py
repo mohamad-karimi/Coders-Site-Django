@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from course.models import Course, CourseProgress, Section
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from course.models import Course, CourseProgress
 
 # Create your views here.
 def dashboard(request):
@@ -22,3 +23,11 @@ def course_list(request):
 
 def course_resume(request):
     return render(request, 'dashboard/student-course-resume.html')
+
+@login_required
+def delete_account(request):
+    if request.method == "GET":
+        request.user.delete()
+        return redirect("/")
+
+    return redirect("dashboard:dashboard")

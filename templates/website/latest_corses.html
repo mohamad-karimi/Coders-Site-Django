@@ -22,7 +22,7 @@
 								<div class="card action-trigger-hover border bg-transparent">
 									<!-- Image -->
 									<img src="{{ course.image.url }}" class="card-img-top"
-										alt="تصویر دوره بازاریابی دیجیتال">
+										alt="{{ course.title }}">
 
 									<!-- Ribbon -->
                                     {% if course.is_free %}
@@ -75,7 +75,7 @@
 											<div class="d-flex align-items-center">
 												<div class="avatar avatar-sm">
 													<img class="avatar-img rounded-1" src="{% static 'images/avatar/10.jpg' %}"
-														alt="تصویر مدرس دوره">
+														alt="{{ course.instructor.name }}">
 												</div>
 												<p class="mb-0 ms-2"><a href="{% url 'instructor:instructor_single' course.instructor.slug %}" class="h6 fw-light mb-0"> {{ course.instructor.name }}</a>
 												</p>

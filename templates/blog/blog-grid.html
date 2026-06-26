@@ -70,7 +70,7 @@
 								<img src="{{ posts.image.url }}"
 									class="card-img"
 									style="height:220px;object-fit:cover;"
-									alt="">
+									alt="{{ posts.title }}">
 							</div>
 							<div class="card-img-overlay d-flex align-items-start p-3">
 								<a href="{% url 'blog:blog_category' posts.category.name %}" class="badge text-bg-{{ posts.category.color }} badge-centered">

@@ -22,7 +22,7 @@
 									<div class="rounded-top overflow-hidden">
 										<div class="card-overlay-hover">
 											<img src="{{ courses.image.url }}" class="card-img-top"
-												alt="تصویر دوره دیجیتال مارکتینگ">
+												alt="{{ courses.title }}">
 										</div>
 										<!-- Hover element -->
 										<div class="card-img-overlay">
@@ -59,8 +59,8 @@
 											</ul>
 											<!-- Avatar -->
 											<div class="avatar avatar-sm">
-												<img class="avatar-img rounded-circle" src="{% static 'images/avatar/09.jpg' %}"
-													alt="تصویر مدرس دوره">
+												<img class="avatar-img rounded-circle" src="{{ courses.instructor.image.url }}"
+													alt="{{ courses.instructor.name }}">
 											</div>
 										</div>
 										<!-- Divider -->
@@ -72,7 +72,11 @@
 											<a href="{% url 'course:course_category' courses.category.name %}" class="badge bg-info bg-opacity-10 text-info"><i
 													class="fas fa-circle small fw-bold me-2"></i>{{ courses.category.name }}</a>
 											<!-- Price -->
-											<h3 class="text-success mb-0">{{ courses.final_price|intcomma }}</h3>
+											{% if courses.final_price %}
+												<h3 class="text-success mb-0">{{ courses.final_price|intcomma }}</h3>
+											{% else %}
+												<h3 class="text-success mb-0">رایگان</h3>
+											{% endif %}
 										</div>
 									</div>
 								</div>

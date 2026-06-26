@@ -215,7 +215,7 @@
 													<!-- تصویر -->
 													<img src="{{ course.instructor.image.url }}"
 														class="img-fluid rounded-3"
-														alt="تصویر مدرس دوره بازاریابی دیجیتال">
+														alt="{{ instructor.name }}">
 												</div>
 												<div class="col-md-7">
 													<!-- بدنه کارت -->
@@ -399,7 +399,7 @@
 											<div class="d-md-flex my-4">
 												<div class="avatar avatar-xl me-4 flex-shrink-0">
 													<img class="avatar-img rounded-circle"
-														src="{% static 'images/avatar/09.jpg' %}" alt="تصویر پروفایل دانشجو">
+														src="{{ request.user.avatar.url }}" alt="{{ request.user.username }}">
 												</div>
 												<div>
 													<div class="d-sm-flex mt-1 mt-md-0 align-items-center">
@@ -476,7 +476,7 @@
 												<input type="hidden" name="form_type" value="score">
 
 												<div class="col-12 bg-light-input">
-													<select id="inputState2" class="form-select js-choice" name="score">
+													<select id="inputState2" class="form-select js-choice" name="score" data-placeholder-val="امتیاز">
 														<option value="5">★★★★★</option>
 														<option value="4">★★★★☆</option>
 														<option value="3">★★★☆☆</option>
@@ -652,7 +652,7 @@
 												<div class="d-flex mb-4">
 													<!-- Avatar -->
 													<div class="avatar avatar-sm flex-shrink-0 me-2">
-														<a href="#">
+														<a href="{% url 'dashboard:dashboard' %}">
 															<img class="avatar-img rounded-circle"
 																src="{% static 'images/avatar/09.jpg' %}"
 																alt="تصویر پروفایل کاربر برای ارسال سوال در سایت آموزشی">

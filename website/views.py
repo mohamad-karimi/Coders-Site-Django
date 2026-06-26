@@ -9,6 +9,9 @@ from instructor.models import Instructor
 from django.db.models import Avg, Count, Q
 from django.utils import timezone
 from instructor.models import Instructor
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 # Create your views here.
 def index(request):
@@ -29,9 +32,11 @@ def index(request):
     empty = 5 - full - int(has_half)
 
     total_scores = Score.objects.count()
+    users = User.objects.all()
 
     context = {
         "course" : course,
+        "users" : users,
         "mentorusers" : mentorusers,
         "total_students" : total_students,
         "instructor" : instructor,

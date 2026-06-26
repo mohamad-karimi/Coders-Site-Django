@@ -338,22 +338,13 @@
 
 							<!-- Avatar group -->
 							<ul class="avatar-group mb-0">
-								<li class="avatar avatar-sm">
-									<img class="avatar-img rounded-circle border-white"
-										src="{% static 'images/avatar/01.jpg' %}" alt="تصویر پروفایل کاربر">
-								</li>
-								<li class="avatar avatar-sm">
-									<img class="avatar-img rounded-circle border-white"
-										src="{% static 'images/avatar/02.jpg' %}" alt="تصویر پروفایل کاربر">
-								</li>
-								<li class="avatar avatar-sm">
-									<img class="avatar-img rounded-circle border-white"
-										src="{% static 'images/avatar/03.jpg' %}" alt="تصویر پروفایل کاربر">
-								</li>
-								<li class="avatar avatar-sm">
-									<img class="avatar-img rounded-circle border-white"
-										src="{% static 'images/avatar/04.jpg' %}" alt="تصویر پروفایل کاربر">
-								</li>
+								{% for user in users %}
+									<li class="avatar avatar-sm">
+										<img class="avatar-img rounded-circle border-white"
+											src="{{ user.avatar.url }}"
+											alt="{{ user.username }}">
+									</li>
+								{% endfor %}
 								<li class="avatar avatar-sm">
 									<div class="avatar-img rounded-circle border-white bg-primary">
 										<span

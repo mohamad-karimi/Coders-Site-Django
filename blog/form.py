@@ -5,7 +5,7 @@ from blog.models import Comment, ReplayComment
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['author', 'email', 'comment']
+        fields = ['comment']
 
 class ReplayCommentForm(forms.ModelForm):
     class Meta:

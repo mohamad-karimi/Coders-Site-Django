@@ -23,9 +23,7 @@
 												class="far fa-fw fa-file-alt me-2"></i>ادامه دوره</a>
 										<a class="list-group-item " href="instructor-edit-profile.html"><i
 												class="bi bi-pencil-square fa-fw me-2"></i>ویرایش پروفایل</a>
-										<a class="list-group-item" href="instructor-setting.html"><i
-												class="bi bi-gear fa-fw me-2"></i>تنظیمات</a>
-										<a class="list-group-item" href="instructor-delete-account.html"><i
+										<a class="list-group-item" href="{% url 'dashboard:delete_account' %}"><i
 												class="bi bi-trash fa-fw me-2"></i>حذف پروفایل</a>
 										<a class="list-group-item text-danger bg-danger-soft-hover" href="{% url 'authentication:logout' %}"><i
 												class="fas fa-sign-out-alt fa-fw me-2"></i>خروج</a>

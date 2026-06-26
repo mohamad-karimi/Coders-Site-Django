@@ -109,7 +109,7 @@
 								<p class="lead mb-4">خوشحالیم که شما را می‌بینیم! لطفاً با حساب خود ثبت‌نام کنید.</p>
 
 								<!-- Form START -->
-								<form method="post" action="{% url 'authentication:signup' %}">
+								<form method="post" enctype="multipart/form-data" action="{% url 'authentication:signup' %}">
 									{% csrf_token %}
 
 									<!-- Username -->
@@ -164,6 +164,37 @@
 										</div>
 									</div>
 
+									<!-- Avatar -->
+									<div class="d-flex align-items-center gap-3 mb-4">
+
+										<!-- Avatar wrapper -->
+										<div style="position: relative; width: 80px; height: 80px;">
+
+											<!-- preview (عکس پیشفرض) -->
+											<img id="preview"
+												src="/media/student/default.jpg"
+												class="rounded-circle"
+												style="width: 80px; height: 80px; object-fit: cover;">
+
+										</div>
+
+										<!-- button -->
+										<div>
+											<input type="file"
+												id="avatarInput"
+												name="avatar"
+												accept="image/*"
+												hidden>
+
+											<button type="button"
+													class="btn btn-outline-primary btn-sm"
+													onclick="document.getElementById('avatarInput').click()">
+												تغییر عکس
+											</button>
+										</div>
+
+									</div>
+									
 									<!-- Check box -->
 									<div class="mb-4">
 										<div class="form-check">
@@ -321,7 +352,18 @@
 		});
 	}
 	</script>
+	<script>
+	const input = document.getElementById("avatarInput");
+	const preview = document.getElementById("preview");
 
+	input.addEventListener("change", function (e) {
+		const file = e.target.files[0];
+
+		if (file) {
+			preview.src = URL.createObjectURL(file);
+		}
+	});
+	</script>
 </body>
 
 </html>

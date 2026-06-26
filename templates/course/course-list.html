@@ -107,7 +107,7 @@
 					<div class="col-xl-9 col-xxl-8">
 
 						<!-- Course list START -->
-						 {% for course in courses %}
+						{% for course in courses %}
 						<div class="row g-4">
 							<!-- Card list START -->
 							<div class="col-12">
@@ -115,7 +115,7 @@
 									<div class="row g-0">
 										<div class="col-md-5 overflow-hidden">
 											<img src="{{ course.image.url }}" class="rounded-2"
-												alt="تصویر دوره آموزش کامل Angular">
+												alt="{{ course.title }}">
 											<!-- Ribbon -->
 											{% if course.is_free %}
 											<div class="card-img-overlay">
@@ -171,7 +171,7 @@
 														<div class="avatar">
 															<img class="avatar-img rounded-circle"
 																src="{{ course.instructor.image.url }}"
-																alt="تصویر پروفایل مدرس دوره">
+																alt="{{ course.instructor.name }}">
 														</div>
 														<p class="mb-0 ms-2"><a href="{% url 'instructor:instructor_single' course.instructor.slug %}" class="h6 fw-light">{{ course.instructor.name }}</a></p>
 													</div>

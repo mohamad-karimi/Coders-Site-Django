@@ -41,7 +41,7 @@ def sign_in(request):
     
 def sign_up(request):
     if not request.user.is_authenticated:
-        form = CustomUserCreationForm(data=request.POST or None)
+        form = CustomUserCreationForm(request.POST or None, request.FILES or None)
         form.fields['username'].widget.attrs.update({
             'class': 'form-control border-0 bg-light rounded-end ps-1',
             'placeholder': 'mohamad'
@@ -51,6 +51,7 @@ def sign_up(request):
             'class': 'form-control border-0 bg-light rounded-end ps-1',
             'placeholder': 'example@gmail.com'
         })
+
         form.fields['password1'].widget.attrs.update({
             'class': 'form-control border-0 bg-light rounded-end ps-1',
             'placeholder': '*********'
@@ -61,7 +62,6 @@ def sign_up(request):
         })
 
         if request.method == "POST":
-            print(form.errors)
             if form.is_valid():
                 form.save()
                 messages.success(request, "Account created successfully")
