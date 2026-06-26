@@ -22654,3 +22654,7 @@ footer {
   direction: ltr;
   text-align: left;
 }
+
+.choices__item.choices__placeholder.choices__item--selectable {
+    margin-right: 10px !important;
+}

@@ -13,16 +13,33 @@
 								<!-- Search and select START -->
 								<div class="row g-3 align-items-center justify-content-between mb-4">
 									<div class="col-md-3">
-										<form>
-											<select class="form-select js-choice border-0 z-index-9 bg-transparent"
-												aria-label=".form-select-sm">
-												<option value="">مرتب‌سازی</option>
-												<option>رایگان</option>
-												<option>جدیدترین</option>
-												<option>محبوب‌ترین</option>
-												<option>پربازدیدترین</option>
+										<form method="get">
+											<select name="sort"
+												class="form-select js-choice border-0 z-index-9 bg-transparent"
+												aria-label=".form-select-sm"
+												onchange="this.form.submit()"
+												data-placeholder-val="مرتب‌سازی بر اساس">
+
+												<option value="">مرتب‌سازی بر اساس</option>
+
+												<option value="free" {% if request.GET.sort == 'free' %}selected{% endif %}>
+													رایگان
+												</option>
+
+												<option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>
+													جدیدترین
+												</option>
+
+												<option value="popular" {% if request.GET.sort == 'popular' %}selected{% endif %}>
+													محبوب‌ترین
+												</option>
+
+												<option value="views" {% if request.GET.sort == 'views' %}selected{% endif %}>
+													پربازدیدترین
+												</option>
+
 											</select>
-										</form>
+										</form>									
 									</div>
 								</div>
 								<!-- Search and select END -->
