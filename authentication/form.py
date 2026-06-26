@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.forms import SetPasswordForm
 
 
 User = get_user_model()
@@ -53,3 +55,26 @@ class CustomLoginForm(AuthenticationForm):
             self.confirm_login_allowed(self.user_cache)
 
         return self.cleaned_data
+    
+class CustomPasswordResetForm(PasswordResetForm):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+
+        self.fields['email'].widget.attrs.update({
+            'class':'form-control border-0 bg-light rounded-end ps-1',
+            'placeholder':'example@gmail.com'
+        })
+
+class CustomSetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['new_password1'].widget.attrs.update({
+            'class': 'form-control border-0 bg-light rounded-end ps-1',
+            'placeholder': '*********'
+        })
+
+        self.fields['new_password2'].widget.attrs.update({
+            'class': 'form-control border-0 bg-light rounded-end ps-1',
+            'placeholder': '*********'
+        })

@@ -8,6 +8,8 @@ from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from google.oauth2 import id_token
 from google.auth.transport import requests
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 User = get_user_model()
 
@@ -74,6 +76,11 @@ def sign_up(request):
         return render(request, 'authentication/sign-up.html', context)
     else:
         return redirect("/")
+    
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect("/")
 
 def google_login(request):
     if request.method == "POST":
