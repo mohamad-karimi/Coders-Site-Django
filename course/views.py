@@ -201,3 +201,13 @@ def course_detail(request, slug):
         "rows": rows,
         }
     return render(request, 'course/course-detail.html', context)
+
+def my_courses(request):
+    courses = Course.objects.filter(
+        enrollment__user=request.user
+    ).distinct()
+
+    context = {
+        "courses": courses
+    }
+    return render(request, 'course/course-list.html', context)

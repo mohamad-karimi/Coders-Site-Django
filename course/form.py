@@ -5,7 +5,7 @@ from course.models import Score, Comment
 class ScoreForm(forms.ModelForm):
     class Meta:
         model = Score
-        fields = ['name', 'email', 'score', 'comment']
+        fields = ['score', 'comment']
 
 class CommentForm(forms.ModelForm):
     class Meta:

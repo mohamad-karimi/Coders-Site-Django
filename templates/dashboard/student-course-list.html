@@ -15,7 +15,18 @@
 				{% include 'dashboard/left_sidebar.html' %}
 
 				<div class="col-xl-9">
-					{% include 'dashboard/course_list.html' %}
+					<div class="col-md-8">
+							<form class="rounded position-relative" method="get" action="{% url 'dashboard:course_list' %}">
+								<input class="form-control pe-5 bg-transparent" type="search"
+									placeholder="جستجو" aria-label="Search"  name="s">
+								<button
+									class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+									type="submit">
+									<i class="fas fa-search fs-6 "></i>
+								</button>
+						</form>
+					</div>
+					{% include 'dashboard/course_list_student.html' %}
 				</div>
 
 			</div>

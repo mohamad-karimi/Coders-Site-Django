@@ -2,9 +2,9 @@ from django.urls import path
 from dashboard.views import dashboard, course_list, course_resume
 
 app_name = 'dashboard'
+
 urlpatterns = [
     path('', dashboard, name="dashboard"),
-    path('course-list/', course_list, name="ourse_list"),
+    path('course-list/', course_list, name="course_list"),
     path('course-resume/', course_resume, name="course_resume"),
-    
 ]

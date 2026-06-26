@@ -1,6 +1,5 @@
-from django.urls import path
-from course.views import course_list, course_categories, course_detail
-from django.urls import re_path
+from django.urls import path, re_path
+from course.views import course_list, course_categories, course_detail, my_courses
 
 app_name = "course"
 urlpatterns = [
@@ -10,4 +9,5 @@ urlpatterns = [
     path('category/<str:ca_name>/', course_list, name='course_category'),
     path('tag/<str:ta_name>/', course_list, name='course_tag'),
     path('skill/<str:sk_name>/', course_list, name='course_skill_level'),
+    path('my-courses/', my_courses, name='student_courses')
 ]

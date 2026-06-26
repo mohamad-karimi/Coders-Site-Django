@@ -1,5 +1,5 @@
 from django.contrib import admin
-from course.models import Course, Category, Section,  Lesson, Score, Reply, Comment, ReplayComment, Enrollment
+from course.models import Course, Category, Section,  Lesson, Score, Reply, Comment, ReplayComment, Enrollment, LessonProgress, CourseProgress
 
 # Register your models here.
 @admin.register(Course)
@@ -34,9 +34,9 @@ class LessonAdmin(admin.ModelAdmin):
 class ScoreAdmin(admin.ModelAdmin):
     date_hierarchy = "created_date"
     empty_value_display = "-empty-"
-    list_display = ["name","email","score", "course"]
-    search_fields = ["name", "comment", "course"]
-    list_filter = ('email',"score", "course")
+    list_display = ["user","score", "course"]
+    search_fields = ["user", "comment", "course"]
+    list_filter = ("score", "course")
 
 @admin.register(Reply)
 class ReplyAdmin(admin.ModelAdmin):
@@ -69,3 +69,17 @@ class EnrollmentAdmin(admin.ModelAdmin):
     list_display = ["user", "course"]
     search_fields = ["user", "course"]
     list_filter = ('course',)
+
+@admin.register(LessonProgress)
+class LessonProgressAdmin(admin.ModelAdmin):
+    empty_value_display = "-empty-"
+    list_display = ["user", "is_completed", "lesson"]
+    search_fields = ["user", "lesson"]
+    list_filter = ('user', "is_completed")
+
+@admin.register(CourseProgress)
+class CourseProgressAdmin(admin.ModelAdmin):
+    empty_value_display = "-empty-"
+    list_display = ["user", "course", "is_completed", "certificate_received"]
+    search_fields = ["user", "course"]
+    list_filter = ('user', "is_completed", "certificate_received")

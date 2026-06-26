@@ -17,7 +17,7 @@
 									<div class="list-group list-group-dark list-group-borderless collapse-list">
 										<a class="list-group-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard:dashboard' %}"><i
 												class="bi bi-ui-checks-grid fa-fw me-2"></i>داشبورد</a>
-										<a class="list-group-item {% if request.resolver_match.url_name == 'ourse_list' %}active{% endif %}" href="{% url 'dashboard:ourse_list' %}"><i
+										<a class="list-group-item {% if request.resolver_match.url_name == 'course_list' %}active{% endif %}" href="{% url 'dashboard:course_list' %}"><i
 												class="bi bi-basket fa-fw me-2"></i>دوره‌های من</a>
 										<a class="list-group-item {% if request.resolver_match.url_name == 'course_resume' %}active{% endif %}" href="{% url 'dashboard:course_resume' %}"><i
 												class="far fa-fw fa-file-alt me-2"></i>ادامه دوره</a>

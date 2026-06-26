@@ -1,9 +1,10 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 class Instructor(models.Model):
     name = models.CharField(max_length=50)
-    slug = models.SlugField(unique=True, null=True)
+    slug = models.SlugField(unique=True, null=True, blank=True)
     image = models.ImageField(upload_to='instructor/', default='instructor/default.jpg')
     counted_views = models.IntegerField(default=0)
     expertise = models.CharField(max_length=50)
@@ -14,7 +15,19 @@ class Instructor(models.Model):
     phone_number = models.CharField(max_length=20)
     website = models.URLField(blank=True)
     experience_of_the_year = models.PositiveIntegerField()
-    # score
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name, allow_unicode=True)
+
+            base = self.slug
+            counter = 1
+
+            while Instructor.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
+                self.slug = f"{base}-{counter}"
+                counter += 1
+
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ["name"]

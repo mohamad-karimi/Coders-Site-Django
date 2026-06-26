@@ -403,7 +403,7 @@
 												</div>
 												<div>
 													<div class="d-sm-flex mt-1 mt-md-0 align-items-center">
-														<h5 class="me-3 mb-0">{{ score.name}}</h5>
+														<h5 class="me-3 mb-0">{{ score.user.username }}</h5>
 														<ul class="list-inline mb-0">
 															{% for i in "12345"|make_list %}
 																{% if forloop.counter <= score.full %}
@@ -474,15 +474,6 @@
 											<form class="row g-3" method="post" action="{% url 'course:course_detail' course.slug %}">
 												{% csrf_token %}
 												<input type="hidden" name="form_type" value="score">
-												<div class="col-md-6 bg-light-input">
-													<input type="text" class="form-control" id="inputtext" name="name"
-														placeholder="نام">
-												</div>
-
-												<div class="col-md-6 bg-light-input">
-													<input type="email" class="form-control" placeholder="ایمیل" name="email"
-														id="inputEmail4">
-												</div>
 
 												<div class="col-12 bg-light-input">
 													<select id="inputState2" class="form-select js-choice" name="score">

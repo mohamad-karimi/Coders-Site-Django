@@ -38,8 +38,8 @@
 					<!-- Content -->
 					<div class="col-md-4">
 						<h4 class="mb-0">
-							نمایش {{ courses.start_index }} تا {{ courses.end_index }}
-							از {{ courses.paginator.count }} نتیجه
+							نمایش {{ courses.start_index|default:0 }} تا {{ courses.end_index|default:0 }}
+							از {{ courses.paginator.count|default:0 }} نتیجه
 						</h4>
 					</div>
 

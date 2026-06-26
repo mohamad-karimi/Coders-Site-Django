@@ -5,7 +5,6 @@ from instructor.models import Instructor
 from django.utils.text import slugify
 from django.utils import timezone
 import jdatetime
-from django.utils import timezone
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -99,6 +98,7 @@ class Section(models.Model):
 
 def lesson_upload_path(instance, filename):
     return f"lesson/course_{instance.section.course.slug}/{filename}"
+
 class Lesson(models.Model):
     title = models.CharField(max_length=100)
     video = models.FileField(
@@ -116,8 +116,7 @@ class Lesson(models.Model):
         return self.title
     
 class Score(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.EmailField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="scores")
     score = models.PositiveSmallIntegerField(choices=SCORE_CHOICES)
     comment = models.TextField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="score")
@@ -127,7 +126,7 @@ class Score(models.Model):
 
     class Meta:
         ordering = ["-created_date"]
-        unique_together = ('email', 'course')
+        unique_together = ('user', 'course')
     
     @property
     def jalali_date(self):
@@ -197,3 +196,30 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.course.title}"
+    
+class LessonProgress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="lesson_progress")
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="progress")
+    is_completed = models.BooleanField(default=False)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'lesson')
+
+    def __str__(self):
+        return f"{self.user} - {self.lesson}"
+    
+class CourseProgress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="course_progress")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="progress")
+
+    is_completed = models.BooleanField(default=False)
+    certificate_received = models.BooleanField(default=False)
+
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'course')
+
+    def __str__(self):
+        return f"{self.user} - {self.course}"
