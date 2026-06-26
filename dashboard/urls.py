@@ -1,10 +1,10 @@
 from django.urls import path
-from dashboard.views import dashboard, bookmark, course_list, course_resume
+from dashboard.views import dashboard, course_list, course_resume
 
+app_name = 'dashboard'
 urlpatterns = [
-    path('', dashboard, name="st_dashboard"),
-    path('bookmark/', bookmark, name="st_bookmark"),
-    path('course-list/', course_list, name="st_course_list"),
-    path('course-resume/', course_resume, name="st_course_resume"),
+    path('', dashboard, name="dashboard"),
+    path('course-list/', course_list, name="ourse_list"),
+    path('course-resume/', course_resume, name="course_resume"),
     
 ]

@@ -255,8 +255,8 @@
 										alt="تصویر پروفایل کاربر">
 								</div>
 								<div>
-									<a class="h6" href="#">لوری فرگوسن</a>
-									<p class="small m-0">example@gmail.com</p>
+									<a class="h6" href="{% url 'dashboard:dashboard' %}">{{ request.user.username }}</a>
+									<p class="small m-0">{{ request.user.email }}</p>
 								</div>
 							</div>
 						</li>
