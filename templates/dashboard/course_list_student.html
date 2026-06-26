@@ -68,23 +68,34 @@
 														<div class="mb-0 ms-2">
 															<h6><a href="{% url 'course:course_detail' course.slug %}">{{ course.title}}</a></h6>
 															<div class="overflow-hidden">
-																<h6 class="mb-0 text-end">85%</h6>
+																<h6 class="mb-0 text-end">{{ course.progress_percent }}%</h6>
 																<div
 																	class="progress progress-sm bg-primary bg-opacity-10">
 																	<div class="progress-bar bg-primary aos"
-																		role="progressbar" style="width: 85%"></div>
+																		role="progressbar" style="width: {{ course.progress_percent }}%"></div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</td>
-												<td>56</td>
-												<td>40</td>
+												<td>{{ course.lessons_count }}</td>
+												<td>{{ course.course_completed_lessons|default:0 }}</td>
+												{% if course.lessons_count != course.course_completed_lessons %}
 												<td>
-													<a href="#" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0">
+													<a href="{% url 'course:course_detail' course.slug %}" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0">
 														<i class="bi bi-play-circle me-1"></i>ادامه
 													</a>
 												</td>
+												{% else %}
+												<td>
+													<button class="btn btn-sm btn-success me-1 mb-1 mb-x;-0 disabled">
+														<i class="bi bi-check me-1"></i>تکمیل شده
+													</button>
+													<a href="{% url 'course:course_detail' course.slug %}" class="btn btn-sm btn-light me-1">
+														<i class="bi bi-arrow-repeat me-1"></i>شروع دوباره
+													</a>
+												</td>
+												{% endif %}
 											</tr>
 											{% endfor %}
 										</tbody>
@@ -94,18 +105,33 @@
 
 								<!-- Pagination START -->
 								<div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
-									<p class="mb-0 text-center text-sm-start">نمایش 1 تا 8 از 20 مورد</p>
+									<p class="mb-0 text-center text-sm-start">
+										نمایش {{ courses.start_index|default:0 }} تا {{ courses.end_index|default:0 }}
+										از {{ courses.paginator.count|default:0 }} نتیجه
+									</p>
 
-									<nav class="d-flex justify-content-center mb-0">
-										<ul
-											class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-											<li class="page-item mb-0"><a class="page-link" href="#"><i
-														class="fas fa-angle-left"></i></a></li>
-											<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-											<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-											<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-											<li class="page-item mb-0"><a class="page-link" href="#"><i
-														class="fas fa-angle-right"></i></a></li>
+									<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+										<ul class="pagination pagination-primary-soft rounded mb-0">
+											{% if courses.has_previous %}
+											<li class="page-item mb-0"><a class="page-link" href="?page={{ courses.previous_page_number }}&sort={{ request.GET.sort }}" tabindex="-1"><i
+												class="fas fa-angle-double-left">
+											</i></a></li>
+											{% endif %}	
+											{% for i in courses.paginator.page_range %}
+												{% if courses.number == i %}
+													<li class="page-item mb-0 active"><a class="page-link" href="?page={{ i }}&sort={{ request.GET.sort }}">{{i}}</a></li>
+												{% else %}
+													<li class="page-item mb-0"><a class="page-link" href="?page={{ i }}&sort={{ request.GET.sort }}">{{i}}</a></li>
+												{% endif %}
+											{%endfor%}
+											{% if courses.has_next %}
+											<li class="page-item mb-0">
+												<a class="page-link"
+												href="?page={{ courses.next_page_number }}&sort={{ request.GET.sort }}">
+												<i class="fas fa-angle-double-right"></i>
+												</a>
+											</li>
+											{% endif %}
 										</ul>
 									</nav>
 								</div>

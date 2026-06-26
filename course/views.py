@@ -1,16 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from course.models import Course, ReplayComment, Enrollment, Comment, Category
-from django.shortcuts import render, get_object_or_404
 import jdatetime
 from course.form import ScoreForm, CommentForm
-from django.shortcuts import render
 from django.contrib import messages
 from django.db import IntegrityError
-from django.shortcuts import redirect
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
-from django.db.models import Count
 
 # Create your views here.
 def course_list(request, **kwargs):

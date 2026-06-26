@@ -1,7 +1,6 @@
-from django.urls import path
+from django.urls import path,reverse_lazy
 from authentication.views import sign_in, sign_up, google_login, logout_view
 from django.contrib.auth import views as auth_views
-from django.urls import reverse_lazy
 from authentication.form import CustomPasswordResetForm, CustomSetPasswordForm
 
 app_name="authentication"

@@ -1,10 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, render, get_object_or_404
 from instructor.models import Instructor
-from django.shortcuts import render, get_object_or_404
 from course.models import Course, Enrollment
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
 
 # Create your views here.
 def IN_list(request):

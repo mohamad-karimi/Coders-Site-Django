@@ -1,15 +1,12 @@
-from django.shortcuts import render
-from django.contrib.auth import login
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from authentication.form import CustomLoginForm, CustomUserCreationForm
 from django.contrib import messages
 import json
 from django.http import JsonResponse
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, logout, login
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
 
 User = get_user_model()
 

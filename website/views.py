@@ -1,17 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.shortcuts import redirect
 from website.form import ContactForm, QuestionForm
 from course.models import Course, Enrollment, Score
 from blog.models import Post
 from itertools import chain
-from website.models import Question, Answer, MentorUser
-from django.db.models import Count
-from website.models import CATEGORY_CHOICES
+from website.models import Question, Answer, MentorUser, CATEGORY_CHOICES
 from instructor.models import Instructor
-from django.db.models import Avg
+from django.db.models import Avg, Count, Q
 from django.utils import timezone
-from django.db.models import Q
 from instructor.models import Instructor
 
 # Create your views here.
