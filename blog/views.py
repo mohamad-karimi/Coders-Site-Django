@@ -44,8 +44,7 @@ def blog_detail(request, slug, **kwargs):
 
             if form.is_valid():
                 comment_obj = form.save(commit=False)
-                comment_obj.author=request.user.username
-                comment_obj.email= request.user.email
+                comment_obj.author=request.user
                 comment_obj.post = post
                 comment_obj.save()
 

@@ -141,7 +141,7 @@
 
                   <div class="my-4 d-flex">
                     <img class="avatar avatar-md rounded-circle me-3"
-                        src="{{ request.user.avatar.url }}" alt="{{ request.user.username }}">
+                        src="{{ comment.author.avatar.url }}" alt="{{ comment.author}}">
 
                     <div>
                       <div class="mb-2">
@@ -175,7 +175,7 @@
                   {% for reply in comment.blog_replies.all %}
                     <div class="my-3 d-flex ps-4">
                       <img class="avatar avatar-md rounded-circle me-3"
-                          src="{{ request.user.avatar.url }}" alt="{{ request.user.username }}">
+                          src="{{ reply.author.avatar.url }}" alt="{{ reply.author.username }}">
 
                       <div>
                         <h6>{{ reply.author.username }}</h6>

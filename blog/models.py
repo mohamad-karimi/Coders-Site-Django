@@ -74,8 +74,7 @@ class Post(models.Model):
         return self.title
     
 class Comment(models.Model):
-    author = models.CharField(max_length=50)
-    email = models.EmailField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_comments") 
     comment = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comment") 
     created_date = models.DateTimeField(auto_now_add=True)

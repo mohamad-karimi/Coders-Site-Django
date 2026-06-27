@@ -20,9 +20,9 @@ class CategoryAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     date_hierarchy = "created_date"
     empty_value_display = "-empty-"
-    list_display = ["author", "post", "email"]
+    list_display = ["author", "post",]
     search_fields = ["author", "comment"]
-    list_filter = ('author', "email")
+    list_filter = ('author',)
 
 @admin.register(ReplayComment)
 class ReplayCommentAdmin(admin.ModelAdmin):
