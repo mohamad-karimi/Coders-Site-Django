@@ -15,17 +15,31 @@
 								<div class="bg-dark border rounded-3 p-3 w-100">
 									<!-- Dashboard menu -->
 									<div class="list-group list-group-dark list-group-borderless collapse-list">
-										<a class="list-group-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard:dashboard' %}"><i
+
+										<a class="list-group-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" 
+										href="{% url 'dashboard:dashboard' %}"><i
 												class="bi bi-ui-checks-grid fa-fw me-2"></i>داشبورد</a>
-										<a class="list-group-item {% if request.resolver_match.url_name == 'course_list' %}active{% endif %}" href="{% url 'dashboard:course_list' %}"><i
+
+										<a class="list-group-item {% if request.resolver_match.url_name == 'course_list' %}active{% endif %}"
+										href="{% url 'dashboard:course_list' %}"><i
 												class="bi bi-basket fa-fw me-2"></i>دوره‌های من</a>
-										<a class="list-group-item {% if request.resolver_match.url_name == 'course_resume' %}active{% endif %}" href="{% url 'dashboard:course_resume' %}"><i
+
+										<a class="list-group-item {% if request.resolver_match.url_name == 'course_resume' %}active{% endif %}"
+										href="{% url 'dashboard:course_resume' %}"><i
 												class="far fa-fw fa-file-alt me-2"></i>ادامه دوره</a>
-										<a class="list-group-item {% if request.resolver_match.url_name == 'edit_profile' %}active{% endif %}" href="{% url 'dashboard:edit_profile' %}" href="{% url 'dashboard:edit_profile' %}"><i
-												class="bi bi-pencil-square fa-fw me-2"></i>ویرایش پروفایل</a>
-										<a class="list-group-item" href="{% url 'dashboard:delete_account' %}"><i
-												class="bi bi-trash fa-fw me-2"></i>حذف پروفایل</a>
-										<a class="list-group-item text-danger bg-danger-soft-hover" href="{% url 'authentication:logout' %}"><i
+
+										<a class="list-group-item {% if request.resolver_match.url_name == 'edit_profile' %}active{% endif %}"
+										href="{% url 'dashboard:edit_profile' %}"><i
+										class="bi bi-pencil-square fa-fw me-2"></i>ویرایش پروفایل</a>
+
+										<a class="list-group-item text-danger"
+										data-bs-toggle="modal"
+										data-bs-target="#deleteModal">
+											حذف پروفایل
+										</a>
+
+										<a class="list-group-item text-danger bg-danger-soft-hover"
+										href="{% url 'authentication:logout' %}"><i
 												class="fas fa-sign-out-alt fa-fw me-2"></i>خروج</a>
 									</div>
 								</div>
@@ -34,3 +48,32 @@
 						<!-- Responsive offcanvas body END -->
 					</div>
 					<!-- Left sidebar END -->
+					 <div class="modal fade" id="deleteModal" tabindex="-1">
+						<div class="modal-dialog">
+							<div class="modal-content">
+
+							<!-- Header -->
+							<div class="modal-header">
+								<h5 class="modal-title">حذف حساب کاربری</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+							</div>
+
+							<!-- Body -->
+							<div class="modal-body">
+								آیا مطمئن هستی که می‌خواهی حساب خود را حذف کنی؟
+							</div>
+
+							<!-- Footer -->
+							<div class="modal-footer">
+								<button class="btn btn-secondary" data-bs-dismiss="modal">
+								لغو
+								</button>
+
+								<a href="{% url 'dashboard:delete_account' %}" class="btn btn-danger">
+								حذف
+								</a>
+							</div>
+
+							</div>
+						</div>
+					</div>

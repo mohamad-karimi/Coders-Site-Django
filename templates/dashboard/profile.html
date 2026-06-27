@@ -17,8 +17,8 @@
 							<div class="col-auto">
 								<div class="avatar avatar-xxl position-relative mt-n3">
 									<img class="avatar-img rounded-circle border border-white border-3 shadow"
-										src="{% static 'images/avatar/09.jpg' %}"
-										alt="تصویر پروفایل کاربر">
+										src="{{ request.user.avatar.url }}"
+										alt="{{ request.user.username }}">
 								</div>
 							</div>
 

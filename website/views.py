@@ -23,7 +23,7 @@ def index(request):
     mentorusers = MentorUser.objects.all()
     instructor = Instructor.objects.all
     total_students = User.objects.all().count()
-    total_courses_with_degree = course.filter(degree="بله").count()
+    total_courses_with_certification = course.filter(certification="بله").count()
 
     overall_avg = course.aggregate(
         overall=Avg('avg_score')
@@ -42,7 +42,7 @@ def index(request):
         "mentorusers" : mentorusers,
         "total_students" : total_students,
         "instructor" : instructor,
-        "total_courses_with_degree" : total_courses_with_degree,
+        "total_courses_with_certification" : total_courses_with_certification,
         "overall_avg" : overall_avg,
         "total_scores" : total_scores,
         "full": range(full),

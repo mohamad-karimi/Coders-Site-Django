@@ -64,10 +64,10 @@ def sign_up(request):
         if request.method == "POST":
             if form.is_valid():
                 form.save()
-                messages.success(request, "Account created successfully")
+                messages.success(request, "اکانت با موفقیت ساخته شد")
                 return redirect("authentication:login")
             else:
-                messages.error(request, "Please correct the errors below")
+                messages.error(request, "اطلاعات فرم نادرست است")
         
         context = {'form':form}
         return render(request, 'authentication/sign-up.html', context)

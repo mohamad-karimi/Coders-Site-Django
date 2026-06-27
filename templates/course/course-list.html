@@ -240,14 +240,23 @@
 													<label class="form-check-label" for="flexCheckDefault9">همه</label>
 												</div>
 
-												{% for category in categories %}
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														id="flexCheckDefault9" name="category"  value="{{ category.id }}">
-													<label class="form-check-label" for="flexCheckDefault9">{{ category.name}}</label>
-												</div>
-												{% endfor %}
+												<div class="row">
+													{% for category in categories %}
+														<div class="col-5">
+															<div class="form-check">
+																<input class="form-check-input"
+																	type="checkbox"
+																	id="cat{{ category.id }}"
+																	name="category"
+																	value="{{ category.id }}">
+																<label class="form-check-label" for="cat{{ category.id }}">
+																	{{ category.name }}
+																</label>
+															</div>
+														</div>
+													{% endfor %}
 
+												</div>
 											</div>
 										</div>
 									</div>
@@ -300,7 +309,7 @@
 												<input type="checkbox" class="btn-check"
 													id="skill_beginner"
 													name="skill_level"
-													value="beginner">
+													value="مقدماتی">
 
 												<label class="btn btn-light btn-primary-soft-check"
 													for="skill_beginner">مقدماتی</label>
@@ -310,7 +319,7 @@
 												<input type="checkbox" class="btn-check"
 													id="skill_intermediate"
 													name="skill_level"
-													value="intermediate">
+													value="متوسط">
 
 												<label class="btn btn-light btn-primary-soft-check"
 													for="skill_intermediate">متوسط</label>
@@ -320,7 +329,7 @@
 												<input type="checkbox" class="btn-check"
 													id="skill_advanced"
 													name="skill_level"
-													value="advanced">
+													value="حرفه‌ای">
 
 												<label class="btn btn-light btn-primary-soft-check"
 													for="skill_advanced">حرفه ای</label>

@@ -10,178 +10,178 @@
 	<!-- =======================Page Banner END -->
 
 	<!-- =======================Page content START -->
-<section class="pt-0">
-	<div class="container">
-		<div class="row">
+	<section class="pt-0">
+		<div class="container">
+			<div class="row">
 
-			<!-- Left sidebar START -->
-			{% include 'dashboard/left_sidebar.html' %}
-			<!-- Left sidebar END -->
+				<!-- Left sidebar START -->
+				{% include 'dashboard/left_sidebar.html' %}
+				<!-- Left sidebar END -->
 
-			<!-- Main content START -->
-			<div class="col-xl-9">
+				<!-- Main content START -->
+				<div class="col-xl-9">
 
-				<!-- Edit profile START -->
-				<div class="card bg-transparent border rounded-3">
+					<!-- Edit profile START -->
+					<div class="card bg-transparent border rounded-3">
 
-					<!-- Card header -->
-					<div class="card-header bg-transparent border-bottom">
-						<h3 class="card-header-title mb-0">ویرایش پروفایل</h3>
-					</div>
-
-					<!-- Card body START -->
-					<div class="card-body">
-
-						<!-- Form -->
-						<form class="row g-4" method="post" enctype="multipart/form-data">
-							{% csrf_token %}
-							<input type="hidden" name="form_type" value="profile">
-
-							<!-- Profile picture -->
-							<div class="col-12 justify-content-center align-items-center">
-								<label class="form-label">تصویر پروفایل</label>
-
-								<div class="d-flex align-items-center">
-
-									<label class="position-relative me-4" for="uploadfile-1" title="تعویض تصویر">
-										<!-- Avatar place holder -->
-										<span class="avatar avatar-xl">
-											<img id="uploadfile-1-preview"
-												class="avatar-img rounded-circle border border-white border-3 shadow"
-												src="{{ request.user.avatar.url }}?v={{ request.user.avatar.url|urlencode }}"
-												alt="تصویر پروفایل {{ request.user.username }}">
-										</span>
-									</label>
-
-									<!-- Upload button -->
-									<label class="btn btn-primary-soft mb-0" for="uploadfile-1">تغییر</label>
-									<input id="uploadfile-1"
-										type="file"
-										name="avatar"
-										class="d-none"
-										accept="image/*">
-								</div>
-							</div>
-
-							<!-- Full name -->
-							<div class="col-12">
-								<label class="form-label">نام کامل</label>
-								<div class="input-group">
-									<input type="text" class="form-control" value="{{ request.user.first_name }}" placeholder="نام" name="first_name">
-									<input type="text" class="form-control" value="{{ request.user.last_name }}" placeholder="نام خانوادگی" name="last_name">
-								</div>
-							</div>
-
-							<!-- Username -->
-							<div class="col-md-6">
-								<label class="form-label">نام کاربری</label>
-								<div class="input-group edit-profile">
-									<span class="input-group-text">Coders.ir</span>
-									<input type="text" class="form-control" value="{{ request.user.username }}" name="username">
-								</div>
-							</div>
-
-							<!-- Save button -->
-							<div class="d-sm-flex justify-content-end">
-								<button type="submit" class="btn btn-primary mb-0">ذخیره تغییرات</button>
-							</div>
-
-						</form>
-					</div>
-					<!-- Card body END -->
-				</div>
-				<!-- Edit profile END -->
-
-				<div class="row g-4 mt-3">
-
-					<!-- Email change START -->
-					<div class="col-lg-6">
-						<div class="card bg-transparent border rounded-3">
-
-							<!-- Card header -->
-							<div class="card-header bg-transparent border-bottom">
-								<h5 class="card-header-title mb-0">تغییر ایمیل</h5>
-							</div>
-
-							<!-- Card body -->
-							<div class="card-body">
-
-								<p>ایمیل فعلی شما <span class="text-primary">{{ request.user.email }}</span> است</p>
-
-								<!-- Email -->
-								<form method="post">
-									{% csrf_token %}
-									<input type="hidden" name="form_type" value="email">
-
-									<label class="form-label">ایمیل جدید خود را وارد کنید</label>
-									<input class="form-control" type="email" placeholder="ایمیل جدید" name="email">
-
-									<div class="d-flex justify-content-end mt-4">
-										<button type="submit" class="btn btn-primary mb-0">به‌روزرسانی ایمیل</button>
-									</div>
-								</form>
-
-							</div>
+						<!-- Card header -->
+						<div class="card-header bg-transparent border-bottom">
+							<h3 class="card-header-title mb-0">ویرایش پروفایل</h3>
 						</div>
-					</div>
-					<!-- Email change END -->
 
-					<!-- Password change START -->
-					<div class="col-lg-6">
-						<div class="card border bg-transparent rounded-3">
+						<!-- Card body START -->
+						<div class="card-body">
 
-							<!-- Card header -->
-							<div class="card-header bg-transparent border-bottom">
-								<h5 class="card-header-title mb-0">تغییر رمز عبور</h5>
-							</div>
+							<!-- Form -->
+							<form class="row g-4" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+								<input type="hidden" name="form_type" value="profile">
 
-							<!-- Card body START -->
-							<div class="card-body">
+								<!-- Profile picture -->
+								<div class="col-12 justify-content-center align-items-center">
+									<label class="form-label">تصویر پروفایل</label>
 
-								<form method="post">
-									{% csrf_token %}
-									<input type="hidden" name="form_type" value="password">
+									<div class="d-flex align-items-center">
 
-									<!-- Current password -->
-									<label class="form-label">رمز عبور فعلی</label>
-									<input class="form-control" type="password" name="old_password" placeholder="رمز عبور فعلی را وارد کنید">
+										<label class="position-relative me-4" for="uploadfile-1" title="تعویض تصویر">
+											<!-- Avatar place holder -->
+											<span class="avatar avatar-xl">
+												<img id="uploadfile-1-preview"
+													class="avatar-img rounded-circle border border-white border-3 shadow"
+													src="{{ request.user.avatar.url }}?v={{ request.user.avatar.url|urlencode }}"
+													alt="تصویر پروفایل {{ request.user.username }}">
+											</span>
+										</label>
 
-									<!-- New password -->
-									<br>
-									<label class="form-label">رمز عبور جدید</label>
+										<!-- Upload button -->
+										<label class="btn btn-primary-soft mb-0" for="uploadfile-1">تغییر</label>
+										<input id="uploadfile-1"
+											type="file"
+											name="avatar"
+											class="d-none"
+											accept="image/*">
+									</div>
+								</div>
+
+								<!-- Full name -->
+								<div class="col-12">
+									<label class="form-label">نام کامل</label>
+									<div class="input-group">
+										<input type="text" class="form-control" value="{{ request.user.first_name }}" placeholder="نام" name="first_name">
+										<input type="text" class="form-control" value="{{ request.user.last_name }}" placeholder="نام خانوادگی" name="last_name">
+									</div>
+								</div>
+
+								<!-- Username -->
+								<div class="col-md-6">
+									<label class="form-label">نام کاربری</label>
 									<div class="input-group edit-profile">
-										<input class="form-control" type="password" name="new_password" placeholder="رمز عبور جدید">
-										<span class="input-group-text p-0 bg-transparent">
-											<i class="far fa-eye cursor-pointer p-2 w-40px"></i>
-										</span>
+										<span class="input-group-text">Coders.ir</span>
+										<input type="text" class="form-control" value="{{ request.user.username }}" name="username">
 									</div>
-									<div class="rounded mt-1" id="psw-strength"></div>
+								</div>
 
-									<!-- Confirm -->
-									 <br>
-									<label class="form-label">تأیید رمز عبور جدید</label>
-									<input class="form-control" type="password" name="confirm_password" placeholder="رمز عبور جدید را دوباره وارد کنید">
+								<!-- Save button -->
+								<div class="d-sm-flex justify-content-end">
+									<button type="submit" class="btn btn-primary mb-0">ذخیره تغییرات</button>
+								</div>
 
-									{{ password_form.errors }}
-									<br>
-									<button type="submit" class="btn btn-primary">
-										تغییر رمز عبور
-									</button>
-								</form>
-
-							</div>
-							<!-- Card body END -->
+							</form>
 						</div>
+						<!-- Card body END -->
 					</div>
-					<!-- Password change END -->
+					<!-- Edit profile END -->
 
+					<div class="row g-4 mt-3">
+
+						<!-- Email change START -->
+						<div class="col-lg-6">
+							<div class="card bg-transparent border rounded-3">
+
+								<!-- Card header -->
+								<div class="card-header bg-transparent border-bottom">
+									<h5 class="card-header-title mb-0">تغییر ایمیل</h5>
+								</div>
+
+								<!-- Card body -->
+								<div class="card-body">
+
+									<p>ایمیل فعلی شما <span class="text-primary">{{ request.user.email }}</span> است</p>
+
+									<!-- Email -->
+									<form method="post">
+										{% csrf_token %}
+										<input type="hidden" name="form_type" value="email">
+
+										<label class="form-label">ایمیل جدید خود را وارد کنید</label>
+										<input class="form-control" type="email" placeholder="ایمیل جدید" name="email">
+
+										<div class="d-flex justify-content-end mt-4">
+											<button type="submit" class="btn btn-primary mb-0">به‌روزرسانی ایمیل</button>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+						<!-- Email change END -->
+
+						<!-- Password change START -->
+						<div class="col-lg-6">
+							<div class="card border bg-transparent rounded-3">
+
+								<!-- Card header -->
+								<div class="card-header bg-transparent border-bottom">
+									<h5 class="card-header-title mb-0">تغییر رمز عبور</h5>
+								</div>
+
+								<!-- Card body START -->
+								<div class="card-body">
+
+									<form method="post">
+										{% csrf_token %}
+										<input type="hidden" name="form_type" value="password">
+
+										<!-- Current password -->
+										<label class="form-label">رمز عبور فعلی</label>
+										<input class="form-control" type="password" name="old_password" placeholder="رمز عبور فعلی را وارد کنید">
+
+										<!-- New password -->
+										<br>
+										<label class="form-label">رمز عبور جدید</label>
+										<div class="input-group edit-profile">
+											<input class="form-control" type="password" name="new_password" placeholder="رمز عبور جدید">
+											<span class="input-group-text p-0 bg-transparent">
+												<i class="far fa-eye cursor-pointer p-2 w-40px"></i>
+											</span>
+										</div>
+										<div class="rounded mt-1" id="psw-strength"></div>
+
+										<!-- Confirm -->
+										<br>
+										<label class="form-label">تأیید رمز عبور جدید</label>
+										<input class="form-control" type="password" name="confirm_password" placeholder="رمز عبور جدید را دوباره وارد کنید">
+
+										{{ password_form.errors }}
+										<br>
+										<button type="submit" class="btn btn-primary">
+											تغییر رمز عبور
+										</button>
+									</form>
+
+								</div>
+								<!-- Card body END -->
+							</div>
+						</div>
+						<!-- Password change END -->
+
+					</div>
 				</div>
-			</div>
-			<!-- Main content END -->
+				<!-- Main content END -->
 
-		</div><!-- Row END -->
-	</div>
-</section>
+			</div><!-- Row END -->
+		</div>
+	</section>
 	<!-- =======================Page content END -->
 
 </main>

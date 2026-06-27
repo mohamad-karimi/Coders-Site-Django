@@ -2,6 +2,7 @@ from course.models import CourseProgress, LessonProgress, Score, Course, Section
 from django.db.models import Count, Q, FloatField
 from django.db.models.functions import Cast
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Avg
 
 def dashboard_context(request):
     if not request.user.is_authenticated:
@@ -32,7 +33,9 @@ def dashboard_context(request):
             / Count("sections__lessons", distinct=True),
             FloatField()
         )
-    ) 
+    ).annotate(
+        avg_score=Avg('score__score')
+    )
 
     s = request.GET.get("s")
     if s:

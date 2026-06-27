@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from course.models import Course, ReplayComment, Enrollment, Comment, Category
+from course.models import Course, ReplayComment, Enrollment, Comment, Category, CommentLike
 import jdatetime
 from course.form import ScoreForm, CommentForm
 from django.contrib import messages
@@ -7,12 +7,17 @@ from django.db import IntegrityError
 from django.db.models import Avg, Count
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 def course_list(request, **kwargs):
     courses = Course.objects.filter(status=True).annotate(
         avg_score=Avg('score__score')
-    )  
+    )
+    c = courses.first()
+    print(c.avg_score)
     categories = Category.objects.all()
 
     if kwargs.get("ca_name") != None:
@@ -33,7 +38,7 @@ def course_list(request, **kwargs):
         courses = courses.order_by("-created_date")
 
     elif sort == "popular":
-        courses = courses.order_by("-avg_score")
+        courses = courses.order_by('-avg_score')
 
     elif sort == "views":
         courses = courses.order_by("-counted_views")
@@ -94,7 +99,9 @@ def course_detail(request, slug):
 
 
     courses = Course.objects.all()
-    comment = course.comment.all()
+    comment = course.comment.all().annotate(
+        like_count=Count('likes')
+    )
     scores = course.score.all()
 
     for s in scores:
@@ -207,3 +214,19 @@ def my_courses(request):
         "courses": courses
     }
     return render(request, 'course/course-list.html', context)
+
+@login_required
+def like_comment(request, id):
+    comment = get_object_or_404(Comment, id=id)
+
+    like, created = CommentLike.objects.get_or_create(
+        user=request.user,
+        comment=comment
+    )
+
+    if not created:
+        like.delete()
+
+    return JsonResponse({
+        "count": comment.likes.count()
+    })

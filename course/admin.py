@@ -1,14 +1,14 @@
 from django.contrib import admin
-from course.models import Course, Category, Section,  Lesson, Score, Reply, Comment, ReplayComment, Enrollment, LessonProgress, CourseProgress
+from course.models import Course, Category, Section,  Lesson, Score, Comment, ReplayComment, Enrollment, LessonProgress, CourseProgress
 
 # Register your models here.
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     date_hierarchy = "created_date"
     empty_value_display = "-empty-"
-    list_display = ["title","final_price","is_free", "short_description","status", "degree", "created_date", "published_date"]
+    list_display = ["title","final_price","is_free", "short_description","status", "certification", "created_date", "published_date"]
     search_fields = ["title", "short_description"]
-    list_filter = ('status',"degree", "is_free")
+    list_filter = ('status',"certification", "is_free")
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -37,14 +37,6 @@ class ScoreAdmin(admin.ModelAdmin):
     list_display = ["user","score", "course"]
     search_fields = ["user", "comment", "course"]
     list_filter = ("score", "course")
-
-@admin.register(Reply)
-class ReplyAdmin(admin.ModelAdmin):
-    date_hierarchy = "created_date"
-    empty_value_display = "-empty-"
-    list_display = ["name"]
-    search_fields = ["name", "comment"]
-    list_filter = ('name',)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

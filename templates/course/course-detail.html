@@ -215,7 +215,7 @@
 													<!-- تصویر -->
 													<img src="{{ course.instructor.image.url }}"
 														class="img-fluid rounded-3"
-														alt="{{ instructor.name }}">
+														alt="{{ course.instructor.name }}">
 												</div>
 												<div class="col-md-7">
 													<!-- بدنه کارت -->
@@ -399,7 +399,7 @@
 											<div class="d-md-flex my-4">
 												<div class="avatar avatar-xl me-4 flex-shrink-0">
 													<img class="avatar-img rounded-circle"
-														src="{{ request.user.avatar.url }}" alt="{{ request.user.username }}">
+														src="{{ score.user.avatar.url }}" alt="{{ score.user.username }}">
 												</div>
 												<div>
 													<div class="d-sm-flex mt-1 mt-md-0 align-items-center">
@@ -426,44 +426,8 @@
 													<p class="small mb-2">{{ score.jalali_date }}</p>
 
 													<p class="mb-2">{{ score.comment}}</p>
-
-													<div class="btn-group" role="group"
-														aria-label="دکمه‌های لایک و دیسلایک">
-														<input type="radio" class="btn-check" name="btnradio"
-															id="btnradio1">
-														<label class="btn btn-outline-light btn-sm mb-0"
-															for="btnradio1">
-															<i class="far fa-thumbs-up me-1"></i>۲۵
-														</label>
-
-														<input type="radio" class="btn-check" name="btnradio"
-															id="btnradio2">
-														<label class="btn btn-outline-light btn-sm mb-0"
-															for="btnradio2">
-															<i class="far fa-thumbs-down me-1"></i>۲
-														</label>
-													</div>
 												</div>
 											</div>
-											
-											<hr>
-
-											<!-- پاسخ -->
-											{% for reply in score.replies.all %}
-											<div class="d-md-flex mb-4 ps-4 ps-md-5">
-												<div class="avatar avatar-lg me-4 flex-shrink-0">
-													<img class="avatar-img rounded-circle"
-														src="{% static 'images/avatar/02.jpg' %}" alt="تصویر پاسخ‌دهنده">
-												</div>
-												<div>
-													<h5 class="me-3 mb-0">{{ reply.name }}</h5>
-													<p class="small mb-2">{{ reply.created_date|naturaltime }}</p>
-													<p class="mb-2">{{ reply.comment }}</p>
-												</div>
-											</div>
-
-											<hr>
-											{% endfor %}
 										</div>
 										{% endfor %}
 										<!-- نظرات دانشجویان END -->
@@ -654,8 +618,8 @@
 													<div class="avatar avatar-sm flex-shrink-0 me-2">
 														<a href="{% url 'dashboard:dashboard' %}">
 															<img class="avatar-img rounded-circle"
-																src="{% static 'images/avatar/09.jpg' %}"
-																alt="تصویر پروفایل کاربر برای ارسال سوال در سایت آموزشی">
+																src="{{ request.user.avatar.url }}"
+																alt="{{ request.user.username }}">
 														</a>
 													</div>
 
@@ -680,8 +644,8 @@
 																<div class="avatar avatar-sm flex-shrink-0">
 																	<a href="#">
 																		<img class="avatar-img rounded-circle"
-																			src="{% static 'images/avatar/05.jpg' %}"
-																			alt="تصویر پروفایل کاربر پرسش‌کننده در بخش نظرات دوره">
+																			src="{{ comments.author.avatar.url }}"
+																			alt="{{ comments.author.username }}">
 																	</a>
 																</div>
 
@@ -704,8 +668,9 @@
 																	<!-- Comment react -->
 																	<ul class="nav nav-divider py-2 small">
 																		<li class="nav-item">
-																			<a class="text-primary-hover"
-																				href="#">پسندیدن (3)</a>
+																			<a href="#" class="like-btn" data-id="{{ comments.id }}" data-url="{% url 'course:like_comment' comments.id %}">
+																				پسندیدن (<span id="like-count-{{ comments.id }}">{{ comments.like_count|default:0 }}</span>)
+																			</a>
 																		</li>
 																		<li class="nav-item">
 																			<a href="javascript:void(0)" onclick="toggleReplyForm({{ comments.id }})" class="text-primary-hover">
@@ -747,13 +712,13 @@
 																			<div class="avatar avatar-xs flex-shrink-0">
 																				<a href="#">
 																					<img class="avatar-img rounded-circle"
-																						src="{% static 'images/avatar/06.jpg' %}"
-																						alt="تصویر پروفایل پاسخ‌دهنده در بحث کاربران">
+																					src="{{ replies.author.avatar.url }}"
+																					alt="{{ replies.author.username }}">
 																				</a>
 																			</div>
 
 																			<!-- Comment by -->
-																			<div class="ms-2">
+																			<div class="ms-2 comment-replies-course">
 																				<div class="bg-light p-3 rounded">
 																					<div
 																						class="d-flex justify-content-center">
@@ -761,21 +726,13 @@
 																							<h6 class="mb-1 lead fw-bold">
 																								<a href="#">{{ replies.author }}</a>
 																							</h6>
-																							<p class="mb-0">.
+																							<p class="mb-0">
 																								{{ replies.comment }}
 																							</p>
 																						</div>
 																						<small>{{ replies.jalali_date }}</small>
 																					</div>
 																				</div>
-
-																				<!-- Comment react -->
-																				<ul class="nav nav-divider py-2 small">
-																					<li class="nav-item">
-																						<a class="text-primary-hover"
-																							href="#!">پسندیدن (5)</a>
-																					</li>
-																				</ul>
 																			</div>
 																		</div>
 																	</li>
@@ -844,5 +801,32 @@
 			el.style.display = "none";
 		}
 	}
+	</script>
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+
+		document.querySelectorAll(".like-btn").forEach(btn => {
+			btn.addEventListener("click", function(e) {
+				e.preventDefault();
+
+				let url = this.dataset.url;
+
+				fetch(url, {
+					method: "GET",
+					headers: {
+						"X-Requested-With": "XMLHttpRequest"
+					}
+				})
+				.then(res => res.json())
+				.then(data => {
+					let id = this.dataset.id;
+					document.getElementById(`like-count-${id}`).innerText = data.count;
+				})
+				.catch(err => console.log(err));
+
+			});
+		});
+
+	});
 	</script>
 	{% endblock  %}
