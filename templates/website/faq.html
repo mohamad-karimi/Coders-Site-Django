@@ -189,7 +189,8 @@
 							<div class="input-group">
 								<input type="hidden" name="form_type" value="questions">
 								<input class="form-control border-1 me-1" type="text" name="text" placeholder="یک سوال بپرسید...">
-								<select id="inputState2" class="form-select js-choice small-select" name="category">
+								<select id="inputState2" class="form-select js-choice small-select" name="category" required
+								data-placeholder-val="دسته بندی را انتخاب کنید">
 									<option value="business">کسب‌وکار</option>
 									<option value="development">توسعه</option>
 									<option value="design">طراحی</option>
@@ -212,11 +213,9 @@
 
 										<!-- Avatar -->
 										<div class="avatar avatar-sm flex-shrink-0">
-											<a href="#">
-												<img class="avatar-img rounded-circle"
-													src="{% static 'images/avatar/05.jpg' %}"
-													alt="تصویر پروفایل کاربر پرسش‌کننده در بخش نظرات دوره">
-											</a>
+											<img class="avatar-img rounded-circle"
+												src="{{ q.name.avatar.url }}"
+												alt="{{ q.name..username|default:"عکس پروفایل کاربر سوال کننده" }}">
 										</div>
 
 										<div class="ms-2">
@@ -246,8 +245,9 @@
 											<ul class="nav nav-divider py-2 small">
 
 												<li class="nav-item">
-													<a class="text-primary-hover"
-													href="#">پسندیدن (0)</a>
+													<a href="#" class="like-btn" data-id="{{ q.id }}">
+														پسندیدن (<span id="like-count-{{ q.id }}">{{ q.like_count|default:0 }}</span>)
+													</a>
 												</li>
 
 												<li class="nav-item">
@@ -298,8 +298,8 @@
 													<div class="avatar avatar-xs flex-shrink-0">
 														<a href="#">
 														<img class="avatar-img rounded-circle"
-															src="{% static 'images/avatar/06.jpg' %}"
-															alt="تصویر پروفایل پاسخ‌دهنده در بحث کاربران">
+															src="{{ r.name.avatar.url }}"
+															alt="{{ r.name.username }}">
 														</a>
 													</div>
 
@@ -416,5 +416,21 @@ function toggleReplies(id) {
 	}
 }
 </script>
+<script>
+const btns = document.querySelectorAll(".like-btn");
 
+btns.forEach(btn => {
+    btn.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        let id = this.dataset.id;
+
+        fetch(`/question/${id}/like/`)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById(`like-count-${id}`).innerText = data.count;
+        });
+    });
+});
+</script>
 {% endblock  %}

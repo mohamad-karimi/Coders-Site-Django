@@ -1,15 +1,17 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from website.form import ContactForm, QuestionForm
-from course.models import Course, Enrollment, Score
+from course.models import Course, Score
 from blog.models import Post
 from itertools import chain
-from website.models import Question, Answer, MentorUser, CATEGORY_CHOICES
+from website.models import Question, Answer, MentorUser, QuestionLike, CATEGORY_CHOICES
 from instructor.models import Instructor
 from django.db.models import Avg, Count, Q
 from django.utils import timezone
 from instructor.models import Instructor
 from django.contrib.auth import get_user_model
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
@@ -20,7 +22,7 @@ def index(request):
     )
     mentorusers = MentorUser.objects.all()
     instructor = Instructor.objects.all
-    total_students = Enrollment.objects.all().count()
+    total_students = User.objects.all().count()
     total_courses_with_degree = course.filter(degree="بله").count()
 
     overall_avg = course.aggregate(
@@ -83,7 +85,9 @@ def about(request):
 def faq(request):
     courses = Course.objects.prefetch_related('tag').all()
     posts = Post.objects.prefetch_related('tag').all()
-    questions = Question.objects.all().order_by('-created_date')
+    questions = Question.objects.all().order_by('-created_date').annotate(
+        like_count=Count('questionLike')
+    )
     category = request.GET.get('category') 
     
     if category:
@@ -106,7 +110,7 @@ def faq(request):
         }
         for key, label in CATEGORY_CHOICES
     ]
-    print(Question)
+
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
         
@@ -168,3 +172,24 @@ def search(request):
                                  Q(overview__icontains=s))
     context = {"courses": courses}
     return render(request, "course/course-list.html", context)
+
+@login_required
+def like_question(request, id):
+
+    question = get_object_or_404(Question, id=id)
+
+    like, created = QuestionLike.objects.get_or_create(
+        user=request.user,
+        question=question
+    )
+
+    if not created:
+        like.delete()
+        liked = False
+    else:
+        liked = True
+
+    return JsonResponse({
+        "liked": liked,
+        "count": question.questionLike.count()
+    })

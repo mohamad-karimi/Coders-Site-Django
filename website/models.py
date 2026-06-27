@@ -46,6 +46,13 @@ class Question(models.Model):
     
     def __str__(self):
         return str(self.name)
+    
+class QuestionLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="questionLike")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="questionLike")
+
+    class Meta:
+        unique_together = ('user', 'question')
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
