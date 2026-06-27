@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model, logout, login
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.contrib.auth.decorators import login_required
+from course.models import Enrollment
 
 User = get_user_model()
 
@@ -34,7 +35,14 @@ def sign_in(request):
 
                 return redirect("/")
 
-        context = {'form':form}
+        total_student = User.objects.all().count()
+        users = User.objects.all()
+
+        context = {
+            'form':form,
+            "users" : users,
+            "total_student" : total_student,
+            }
         return render(request, 'authentication/sign-in.html', context)
     else:
         return redirect("/")
@@ -69,7 +77,14 @@ def sign_up(request):
             else:
                 messages.error(request, "اطلاعات فرم نادرست است")
         
-        context = {'form':form}
+        total_student = User.objects.all().count()
+        users = User.objects.all()
+
+        context = {
+            'form':form,
+            "users" : users,
+            "total_student" : total_student,
+            }
         return render(request, 'authentication/sign-up.html', context)
     else:
         return redirect("/")
@@ -108,6 +123,3 @@ def google_login(request):
 
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)})
-        
-def forgot_password(request):
-    return render(request, 'authentication/forgot-password.html')

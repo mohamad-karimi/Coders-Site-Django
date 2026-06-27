@@ -111,7 +111,19 @@
 								<!-- Form START -->
 								<form method="post" enctype="multipart/form-data" action="{% url 'authentication:signup' %}">
 									{% csrf_token %}
+									{% if form.errors %}
+									<div class="alert alert-danger mb-3">
+										{% for field in form %}
+											{% for error in field.errors %}
+												<p class="mb-0">{{ error }}</p>
+											{% endfor %}
+										{% endfor %}
 
+										{% for error in form.non_field_errors %}
+											<p class="mb-0">{{ error }}</p>
+										{% endfor %}
+									</div>
+									{% endif %}
 									<!-- Username -->
 									 <div class="mb-4">
 										<label for="exampleInputEmail1" class="form-label">نام کاربری *</label>
@@ -121,7 +133,6 @@
 												<i class="bi bi-envelope-fill"></i>
 											</span>
 											{{ form.username }}
-											{{ form.username.errors }}
 										</div>
 									</div>
 
@@ -134,7 +145,6 @@
 												<i class="bi bi-envelope-fill"></i>
 											</span>
 											{{ form.email }}
-											{{ form.email.errors }}
 										</div>
 									</div>
 
@@ -147,7 +157,6 @@
 												<i class="fas fa-lock"></i>
 											</span>
 											{{ form.password1 }}
-											{{ form.password1.errors }}
 										</div>
 									</div>
 
@@ -160,7 +169,6 @@
 												<i class="fas fa-lock"></i>
 											</span>
 											{{ form.password2 }}
-											{{ form.password2.errors }}
 										</div>
 									</div>
 
@@ -275,28 +283,20 @@
 
 							<!-- Info -->
 							<div class="d-sm-flex mt-5 align-items-center justify-content-center">
+								<!-- Avatar group -->
 								<ul class="avatar-group mb-2 mb-sm-0">
+									{% for user in users|slice:":4" %}
 									<li class="avatar avatar-sm">
-										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/01.jpg' %}"
-											alt="تصویر پروفایل کاربر">
+										<img class="avatar-img rounded-circle"
+											src="{{ user.avatar.url }}"
+											alt="تصویر پروفایل {{ user.username }}">
 									</li>
-									<li class="avatar avatar-sm">
-										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/02.jpg' %}"
-											alt="تصویر پروفایل کاربر">
-									</li>
-									<li class="avatar avatar-sm">
-										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/03.jpg' %}"
-											alt="تصویر پروفایل کاربر">
-									</li>
-									<li class="avatar avatar-sm">
-										<img class="avatar-img rounded-circle" src="{% static 'images/avatar/04.jpg' %}"
-											alt="تصویر پروفایل کاربر">
-									</li>
+									{% endfor %}
 								</ul>
 
 								<!-- Content -->
 								<p class="mb-0 h6 fw-light ms-0 ms-sm-3">
-									بیش از ۴ هزار دانشجو به ما پیوسته‌اند، حالا نوبت شماست.
+									بیش از {{ total_student }}  دانشجو به ما پیوسته‌اند، حالا نوبت شماست.
 								</p>
 							</div>
 						</div>
