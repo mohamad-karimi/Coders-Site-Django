@@ -22658,3 +22658,7 @@ footer {
 .choices__item.choices__placeholder.choices__item--selectable {
     margin-right: 10px !important;
 }
+
+.edit-profile {
+  width: 100%;
+}

@@ -21,7 +21,7 @@
 												class="bi bi-basket fa-fw me-2"></i>دوره‌های من</a>
 										<a class="list-group-item {% if request.resolver_match.url_name == 'course_resume' %}active{% endif %}" href="{% url 'dashboard:course_resume' %}"><i
 												class="far fa-fw fa-file-alt me-2"></i>ادامه دوره</a>
-										<a class="list-group-item " href="instructor-edit-profile.html"><i
+										<a class="list-group-item {% if request.resolver_match.url_name == 'edit_profile' %}active{% endif %}" href="{% url 'dashboard:edit_profile' %}" href="{% url 'dashboard:edit_profile' %}"><i
 												class="bi bi-pencil-square fa-fw me-2"></i>ویرایش پروفایل</a>
 										<a class="list-group-item" href="{% url 'dashboard:delete_account' %}"><i
 												class="bi bi-trash fa-fw me-2"></i>حذف پروفایل</a>
