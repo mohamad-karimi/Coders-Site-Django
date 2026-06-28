@@ -6,6 +6,8 @@ from django.utils.text import slugify
 from django.utils import timezone
 import jdatetime
 from django.contrib.auth import get_user_model
+from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 
 User = get_user_model()
 
@@ -57,7 +59,7 @@ class Course(models.Model):
     image = models.ImageField(
         upload_to='course/', default='course/default.jpg')
     short_description = models.CharField(max_length=120)
-    overview = models.TextField()
+    overview = RichTextUploadingField()
     status = models.BooleanField(default=False)
     total_duration = models.PositiveIntegerField()
     counted_views = models.IntegerField(default=0)
@@ -100,6 +102,9 @@ class Course(models.Model):
         return Lesson.objects.filter(
             section__course=self
         ).count()
+
+    def get_absolute_url(self):
+        return reverse("course:course_detail", args=[self.slug])
 
 
 class Section(models.Model):

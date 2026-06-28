@@ -45,6 +45,11 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'authentication.apps.AuthenticationConfig',
     'django.contrib.humanize',
+    'django_extensions',
+    "django.contrib.sitemaps",
+    "ckeditor",
+    "ckeditor_uploader",
+    'robots',
     'taggit',
 ]
 
@@ -154,3 +159,19 @@ AUTH_USER_MODEL = 'authentication.CustomUser'
 
 # Sites Setting
 SITE_ID = 1
+
+# Robots Setting
+ROBOTS_USE_SITEMAP = True
+
+ROBOTS_SITEMAP_URL = "http://127.0.0.1:8000/sitemap.xml"
+
+# ckeditor Setting
+CKEDITOR_UPLOAD_PATH = "ckeditor/"
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "full",
+        "height": 300,
+        "width": "100%",
+    },
+}

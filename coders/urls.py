@@ -18,6 +18,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from blog.sitemaps import PostSitemap
+from website.sitemaps import StaticViewSitemap
+from course.sitemaps import CourseSitemap
+from blog.feeds import BlogFeed
+from course.feeds import CourseFeed
+
+
+sitemaps = {
+    "static": StaticViewSitemap,
+    "blog" : PostSitemap,
+    "course": CourseSitemap,
+}
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +41,17 @@ urlpatterns = [
     path('course/', include('course.urls')),
     path('blog/', include('blog.urls')),
     path('', include('authentication.urls')),
+    path("sitemap.xml",sitemap,{"sitemaps": sitemaps},name="django.contrib.sitemaps.views.sitemap",),
+    path("robots.txt", include("robots.urls")),
+]
+
+urlpatterns += [
+    path("ckeditor/", include("ckeditor_uploader.urls")),
+]
+
+urlpatterns += [
+    path("rss/blog/", BlogFeed()),
+    path("rss/course/", CourseFeed()),
 ]
 
 if settings.DEBUG:

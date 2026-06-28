@@ -4,8 +4,9 @@ from django.utils import timezone
 import jdatetime
 from django.core.validators import FileExtensionValidator
 from django.utils.text import slugify
+from django.urls import reverse
 from django.contrib.auth import get_user_model
-from django.contrib.auth import get_user_model
+from ckeditor_uploader.fields import RichTextUploadingField
 
 User = get_user_model()
 
@@ -35,8 +36,8 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, null=True, blank=True)
     info = models.CharField(max_length=250)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post")
-    content = models.TextField()
-    content2 = models.TextField(null=True)
+    content = RichTextUploadingField()
+    content2 = RichTextUploadingField(null=True)
     image = models.ImageField(upload_to=post_media_upload_path, default="blog/image/default.jpg")
     video = models.FileField(upload_to=post_media_upload_path, validators=[FileExtensionValidator(['mp4'])])
     tag = TaggableManager()
@@ -73,6 +74,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self):
+        return reverse("blog:blog_detail", args=[self.slug])
+
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_comments") 
     comment = models.TextField()
