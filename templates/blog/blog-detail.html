@@ -81,14 +81,14 @@
             <div class="row mt-4">
               <!-- Content -->
               <div class="col-12 mt-4 mt-lg-0">
-               <p class="mb-0">{{ post.content }}</p>
+               <p class="mb-0">{{ post.content|safe }}</p>
               </div>
               
             <!-- Content START -->
             <div class="row">
               <div class="row mb-4">
                 <br><br><br>
-                {{ post.content2 }}
+                {{ post.content2|safe }}
               </div>
             </div>
             <!-- Content END -->

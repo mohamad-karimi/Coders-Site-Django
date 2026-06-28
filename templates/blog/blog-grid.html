@@ -83,7 +83,7 @@
 								</h5>
 
 								<p class="text-truncate-2 flex-grow-1">
-									{{ posts.content }}
+									{{ posts.content|safe|truncatechars:100  }}
 								</p>
 
 								<div class="d-flex justify-content-between mt-auto">
@@ -103,23 +103,37 @@
 				<!-- Pagination START -->
 				<nav class="d-flex justify-content-center mt-5" aria-label="navigation">
 					<ul class="pagination pagination-primary-soft rounded mb-0">
+
 						{% if post.has_previous %}
-						<li class="page-item mb-0"><a class="page-link" href="?page={{ post.previous_page_number }}" tabindex="-1"><i
-							class="fas fa-angle-double-left">
-						</i></a></li>
-						{% endif %}	
-						{% for i in post.paginator.page_range %}
-							{% if post.number == i %}
-								<li class="page-item mb-0 active"><a class="page-link" href="?page= {{ i }}">{{i}}</a></li>
-							{% else %}
-								<li class="page-item mb-0"><a class="page-link" href="?page= {{ i }}">{{i}}</a></li>
-							{% endif %}
-						{%endfor%}
-						{% if post.has_previous %}
-						<li class="page-item mb-0"><a class="page-link" href="?page={{ post.next_page_number }}"><i
-							class="fas fa-angle-double-right">
-						</i></a></li>
+							<li class="page-item mb-0">
+								<a class="page-link" href="?page={{ post.previous_page_number }}">
+									<i class="fas fa-angle-double-left"></i>
+								</a>
+							</li>
 						{% endif %}
+
+						{% for i in post.paginator.page_range %}
+
+							{% if post.number == i %}
+								<li class="page-item active">
+									<a class="page-link" href="?page={{ i }}">{{ i }}</a>
+								</li>
+							{% else %}
+								<li class="page-item">
+									<a class="page-link" href="?page={{ i }}">{{ i }}</a>
+								</li>
+							{% endif %}
+
+						{% endfor %}
+
+						{% if post.has_next %}
+							<li class="page-item mb-0">
+								<a class="page-link" href="?page={{ post.next_page_number }}">
+									<i class="fas fa-angle-double-right"></i>
+								</a>
+							</li>
+						{% endif %}
+
 					</ul>
 				</nav>
 				<!-- Pagination END -->

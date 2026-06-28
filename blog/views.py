@@ -15,7 +15,7 @@ def blog_grid(request,  **kwargs):
         post = post.filter(author__username=kwargs["au_name"])
     if kwargs.get("ta_name"):
         post = post.filter(tag__name__iexact=kwargs["ta_name"]).distinct()
-    paginator = Paginator(post, 3)
+    paginator = Paginator(post, 8)
     try:
         page_number = request.GET.get("page")
         post = paginator.get_page(page_number)
