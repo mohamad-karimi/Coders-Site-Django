@@ -1,17 +1,25 @@
 from django.shortcuts import render, redirect
 from authentication.form import CustomLoginForm, CustomUserCreationForm
 from django.contrib import messages
-import json
-from django.http import JsonResponse
 from django.contrib.auth import get_user_model, logout, login
-from google.oauth2 import id_token
-from google.auth.transport import requests
+import requests
 from django.contrib.auth.decorators import login_required
-from course.models import Enrollment
+from django.conf import settings
 
 User = get_user_model()
 
 # Create your views here.
+def verify_recaptcha(token, remote_ip):
+    url = "https://www.google.com/recaptcha/api/siteverify"
+    data = {
+        "secret": settings.RECAPTCHA_SECRET_KEY,
+        "response": token,
+        "remoteip": remote_ip,
+    }
+    response = requests.post(url, data=data)
+    result = response.json()
+    return result
+
 def sign_in(request):
     if not request.user.is_authenticated:
         form = CustomLoginForm(request, data=request.POST or None)
@@ -25,6 +33,24 @@ def sign_in(request):
             'placeholder': '*********'
         })
         if request.method == "POST":
+
+            token = request.POST.get("recaptcha_token")
+            if not token:
+                messages.error(request, "توکن کپچا ارسال نشده")
+                return redirect("authentication:login")
+    
+            result = verify_recaptcha(token, request.META.get("REMOTE_ADDR"))
+
+            if not result.get("success"):
+                messages.error(request, "reCAPTCHA نامعتبر است")
+                return redirect("authentication:login")
+
+            score = result.get("score", 0)
+
+            if score < 0.5:
+                messages.error(request, "رفتار شما مشکوک تشخیص داده شد")
+                return redirect("authentication:login")
+            
             if form.is_valid():
                 login(request, form.get_user())
 
@@ -42,6 +68,7 @@ def sign_in(request):
             'form':form,
             "users" : users,
             "total_student" : total_student,
+            "RECAPTCHA_SITE_KEY": settings.RECAPTCHA_SITE_KEY
             }
         return render(request, 'authentication/sign-in.html', context)
     else:
@@ -70,6 +97,24 @@ def sign_up(request):
         })
 
         if request.method == "POST":
+
+            token = request.POST.get("recaptcha_token")
+            if not token:
+                messages.error(request, "توکن کپچا ارسال نشده")
+                return redirect("authentication:login")
+    
+            result = verify_recaptcha(token, request.META.get("REMOTE_ADDR"))
+
+            if not result.get("success"):
+                messages.error(request, "reCAPTCHA نامعتبر است")
+                return redirect("authentication:login")
+
+            score = result.get("score", 0)
+
+            if score < 0.5:
+                messages.error(request, "رفتار شما مشکوک تشخیص داده شد")
+                return redirect("authentication:login")
+        
             if form.is_valid():
                 form.save()
                 messages.success(request, "اکانت با موفقیت ساخته شد")
@@ -84,6 +129,7 @@ def sign_up(request):
             'form':form,
             "users" : users,
             "total_student" : total_student,
+            "RECAPTCHA_SITE_KEY": settings.RECAPTCHA_SITE_KEY
             }
         return render(request, 'authentication/sign-up.html', context)
     else:
@@ -93,33 +139,17 @@ def sign_up(request):
 def logout_view(request):
     logout(request)
     return redirect("/")
+        
+def verify_recaptcha_v3(token, request):
+    url = "https://www.google.com/recaptcha/api/siteverify"
 
-def google_login(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
-        token = data.get("credential")
+    data = {
+        "secret": settings.RECAPTCHA_V3_SECRET_KEY,
+        "response": token,
+        "remoteip": request.META.get("REMOTE_ADDR"),
+    }
 
-        try:
-            idinfo = id_token.verify_oauth2_token(
-                token,
-                requests.Request(),
-                "321149008744-8agt4hkkao5abome759eg67gpl2ns49a.apps.googleusercontent.com"
-            )
+    response = requests.post(url, data=data)
+    result = response.json()
 
-            email = idinfo["email"]
-            name = idinfo.get("name", email.split("@")[0])
-            picture = idinfo.get("picture")
-
-            user, created = User.objects.get_or_create(
-                email=email,
-                defaults={
-                    "username": name
-                }
-            )
-
-            login(request, user)
-
-            return JsonResponse({"success": True})
-
-        except Exception as e:
-            return JsonResponse({"success": False, "error": str(e)})
+    return result.get("success", False) and result.get("score", 0) >= 0.5

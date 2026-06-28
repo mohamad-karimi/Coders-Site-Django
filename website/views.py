@@ -12,6 +12,8 @@ from instructor.models import Instructor
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+import requests
+from coders import settings
 
 User = get_user_model()
 
@@ -55,15 +57,23 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
 
+        token = request.POST.get("cf-turnstile-response")
+
+        if not verify_turnstile(token, request):
+            messages.error(request, "تأیید امنیتی نامعتبر است")
+            return render(request, 'website/contact.html', {"form": form})
+
         if form.is_valid():
             form.save()
-
             messages.success(request, "پیام شما ارسال شد")
             return redirect('website:home')
         else:
             messages.error(request, "اطلاعات فرم صحیح نیست")
 
-    return render(request, 'website/contact.html')
+    else:
+        form = ContactForm()
+
+    return render(request, 'website/contact.html', {"form": form})
 
 def about(request):
     instructors = Instructor.objects.annotate(
@@ -193,3 +203,15 @@ def like_question(request, id):
         "liked": liked,
         "count": question.questionLike.count()
     })
+
+def verify_turnstile(token, request):
+    response = requests.post(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        data={
+            "secret": settings.TURNSTILE_SECRET_KEY,
+            "response": token,
+            "remoteip": request.META.get("REMOTE_ADDR"),
+        }
+    )
+
+    return response.json().get("success", False)

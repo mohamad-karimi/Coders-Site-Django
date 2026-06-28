@@ -97,7 +97,8 @@
 					<!-- Title -->
 					<h2 class="mt-4 mt-md-0">بیایید صحبت کنیم</h2>
 					<p>برای درخواست قیمت یا هماهنگی جلسه، مستقیماً با ما تماس بگیرید یا فرم را پر کنید تا در سریع‌ترین زمان پاسخ دهیم.</p>
-						
+					
+					<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 					<form method="post" action="{% url 'website:contact' %}">
 						{% csrf_token %}
 						<!-- Name -->
@@ -114,6 +115,11 @@
 						<div class="mb-4 bg-light-input">
 							<label for="textareaBox" class="form-label">پیام *</label>
 							<textarea class="form-control" id="textareaBox" rows="4" name="message"></textarea>
+						</div>
+						<input type="hidden" name="cf-turnstile-response">
+
+						<div class="cf-turnstile"
+						data-sitekey="0x4AAAAAADsbA50gN3OyvvdN">
 						</div>
 						<!-- Button -->
 						<div class="d-grid">

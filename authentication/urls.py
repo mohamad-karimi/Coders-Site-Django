@@ -1,5 +1,5 @@
 from django.urls import path,reverse_lazy
-from authentication.views import sign_in, sign_up, google_login, logout_view
+from authentication.views import sign_in, sign_up, logout_view
 from django.contrib.auth import views as auth_views
 from authentication.form import CustomPasswordResetForm, CustomSetPasswordForm
 
@@ -9,7 +9,6 @@ urlpatterns = [
     path('login/', sign_in, name='login'),
     path('Logout', logout_view, name='logout'),
     path('signup/', sign_up, name='signup'),
-    path("accounts/google/login/callback/", google_login, name="google_login"),
     path('password-reset/', auth_views.PasswordResetView.as_view(
         form_class=CustomPasswordResetForm,
         template_name='authentication/password_reset.html',

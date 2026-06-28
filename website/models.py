@@ -2,6 +2,7 @@ from django.db import models
 import jdatetime
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django import forms
 
 User = get_user_model()
 
@@ -20,6 +21,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=25)
     email = models.EmailField()
     message = models.TextField()
+    turnstile_token = forms.CharField(widget=forms.HiddenInput)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
