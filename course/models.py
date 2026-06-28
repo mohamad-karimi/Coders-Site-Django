@@ -43,7 +43,7 @@ CERTIFICATION_CHOICES = (
 class Category(models.Model):
     name = models.CharField(max_length=50)
     image = models.FileField(
-        upload_to='course/', default='course/category/default.svg')
+        upload_to='course/category', default='course/category/default.svg')
 
     def __str__(self):
         return self.name

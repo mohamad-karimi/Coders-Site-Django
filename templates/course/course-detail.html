@@ -133,7 +133,7 @@
 									<div class="tab-pane fade show active" id="course-pills-1" role="tabpanel"
 										aria-labelledby="course-pills-tab-1">
 										<!-- Course detail START -->
-										 {{ course.overview }}
+										 {{ course.overview|safe }}
 										<!-- Course detail END -->
 									</div>
 									<!-- Content END -->
@@ -432,7 +432,7 @@
 										{% endfor %}
 										<!-- نظرات دانشجویان END -->
 
-										<!-- ثبت نظر START -->
+										{% if is_enrolled %}
 										<div class="mt-2">
 											<h5 class="mb-4">ثبت نظر</h5>
 											<form class="row g-3" method="post" action="{% url 'course:course_detail' course.slug %}">
@@ -461,6 +461,7 @@
 
 											</form>
 										</div>
+										{% endif %}
 										<!-- ثبت نظر END -->
 
 									</div>
@@ -610,6 +611,7 @@
 										<!-- Review START -->
 										<div class="row">
 											<div class="col-12">
+												{% if is_enrolled %}
 												<h5 class="mb-4">پرسش خود را بپرسید</h5>
 
 												<!-- Comment box -->
@@ -633,6 +635,7 @@
 															type="submit">ارسال</button>
 													</form>
 												</div>
+												{% endif %}
 
 												<!-- Comment item START -->
 												{% for comments in comment %}
@@ -701,7 +704,7 @@
 																	</button>
 																</form>
 															</div>
-
+															
 															<!-- Comment item nested START -->
 															<div id="replies-{{ comments.id }}" style="display:none;" class="ms-4 mt-2">
 																{% for replies in comments.replaycomment.all %}

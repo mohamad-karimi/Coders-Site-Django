@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'course.apps.CourseConfig',
     'blog.apps.BlogConfig',
     'authentication.apps.AuthenticationConfig',
-    'django.contrib.humanize',
+    "django.contrib.humanize",
     'django_extensions',
     "django.contrib.sitemaps",
     "ckeditor",
@@ -126,6 +126,9 @@ TIME_ZONE = 'Asia/Tehran'
 USE_I18N = True
 
 USE_TZ = True
+
+USE_THOUSAND_SEPARATOR = True
+NUMBER_GROUPING = 3
 
 # Forgotten Password Setting
 LOGIN_URL = 'login/'

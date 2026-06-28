@@ -93,8 +93,8 @@ def faq(request):
     if category:
         questions = questions.filter(category=category)
 
-    course_tags = list(chain.from_iterable(c.tag.all() for c in courses))
-    post_tags = list(chain.from_iterable(p.tag.all() for p in posts))
+    course_tags = list(chain.from_iterable(c.tag.all() for c in courses))[:5]
+    post_tags = list(chain.from_iterable(p.tag.all() for p in posts))[:5]
     raw_counts = (
         Question.objects.values('category')
         .annotate(count=Count('id'))

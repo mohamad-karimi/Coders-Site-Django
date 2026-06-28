@@ -1,6 +1,5 @@
-from django import template
-from django.db.models import Count, Q
 from course.models import LessonProgress
+from django import template
 
 register = template.Library()
 
@@ -20,3 +19,17 @@ def is_lesson_completed(lesson, user):
         user=user,
         is_completed=True
     ).exists()
+
+@register.simple_tag
+def section_progress(section, user):
+    total = section.lessons.count()
+
+    if total == 0:
+        return 0
+
+    completed = section.lessons.filter(
+        progress__user=user,
+        progress__is_completed=True
+    ).count()
+
+    return (completed / total) * 100

@@ -59,7 +59,7 @@ def course_list(request, **kwargs):
         courses = courses.filter(skill_level__in=skills)
     print(Course.objects.values_list("skill_level", flat=True).distinct())
 
-    paginator = Paginator(courses, 3)
+    paginator = Paginator(courses, 4)
     try:
         page_number = request.GET.get("page")
         courses = paginator.get_page(page_number)
@@ -189,9 +189,18 @@ def course_detail(request, slug):
     if course.discount_end:
         remaining_days = (course.discount_end - timezone.now()).days
 
+    is_enrolled = False
+
+    if request.user.is_authenticated:
+        is_enrolled = Enrollment.objects.filter(
+            user=request.user,
+            course=course
+        ).exists()
+
     context = {
         "course": course,
         "courses": courses,
+        "is_enrolled": is_enrolled,
         "scores": scores,
         "comment": comment,
         "total_students" : total_students,

@@ -79,8 +79,8 @@
 													</div>
 												</td>
 												<td>{{ course.lessons_count }}</td>
-												<td>{{ course.course_completed_lessons|default:0 }}</td>
-												{% if course.lessons_count != course.course_completed_lessons %}
+												<td>{{ course.completed_lessons|default:0 }}</td>
+												{% if course.lessons_count != course.completed_lessons %}
 												<td>
 													<a href="{% url 'course:course_detail' course.slug %}" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0">
 														<i class="bi bi-play-circle me-1"></i>ادامه

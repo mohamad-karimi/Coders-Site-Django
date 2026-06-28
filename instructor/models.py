@@ -36,9 +36,11 @@ class Instructor(models.Model):
 
     @property
     def instructor_avg_score(self):
-        return self.courses.aggregate(
-            avg=models.Avg('score__score')
-        )['avg'] or 0
+        avg = self.courses.aggregate(
+            avg=models.Avg("score__score")
+        )["avg"] or 0
+
+        return round(avg * 2) / 2
 
     def __str__(self):
         return self.name

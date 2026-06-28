@@ -1,4 +1,4 @@
-from course.models import CourseProgress, LessonProgress, Score, Course, Section
+from course.models import CourseProgress, LessonProgress, Score, Course
 from django.db.models import Count, Q, FloatField
 from django.db.models.functions import Cast
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage

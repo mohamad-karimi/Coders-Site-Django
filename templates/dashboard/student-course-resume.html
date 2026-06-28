@@ -48,7 +48,22 @@
 												</ul>
 
 												<!-- button -->
-												<a href="{% url 'course:course_detail' course.slug %}" class="btn btn-primary-soft btn-sm mb-0">ادامه دوره</a>
+												{% if course.lessons_count != course.completed_lessons %}
+												<td>
+													<a href="{% url 'course:course_detail' course.slug %}" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0">
+														<i class="bi bi-play-circle me-1"></i>ادامه
+													</a>
+												</td>
+												{% else %}
+												<td>
+													<button class="btn btn-sm btn-success me-1 mb-1 mb-x;-0 disabled">
+														<i class="bi bi-check me-1"></i>تکمیل شده
+													</button>
+													<a href="{% url 'course:course_detail' course.slug %}" class="btn btn-sm btn-light me-1">
+														<i class="bi bi-arrow-repeat me-1"></i>شروع دوباره
+													</a>
+												</td>
+												{% endif %}
 											</div>
 										</div>
 									</div>
@@ -83,15 +98,24 @@
 													<!-- Progress bar -->
 													<div class="overflow-hidden">
 														<div class="d-flex justify-content-between">
+
 															{% section_completed_lessons section request.user as completed %}
-															<p class="mb-1 h6">{{ completed  }}/{{ section.lessons.all|length }} تکمیل شده </p>
-															<h6 class="mb-1 text-end">{{ course.progress_percent }}٪</h6>
+															{% section_progress section request.user as percent %}
+
+															<p class="mb-1 h6">
+																{{ completed }}/{{ section.lessons.all|length }} تکمیل شده
+															</p>
+
+															<h6 class="mb-1 text-end">
+																{{ percent|floatformat:0 }}٪
+															</h6>
+
 														</div>
 														<div class="progress progress-sm bg-primary bg-opacity-10">
 															<div class="progress-bar bg-primary aos" role="progressbar"
 																data-aos="slide-right" data-aos-delay="200"
 																data-aos-duration="1000" data-aos-easing="ease-in-out"
-																style="width: {{ course.progress_percent }}%" aria-valuenow="80" aria-valuemin="0"
+																style="width: {{ percent }}%" aria-valuenow="80" aria-valuemin="0"
 																aria-valuemax="100">
 															</div>
 														</div>
