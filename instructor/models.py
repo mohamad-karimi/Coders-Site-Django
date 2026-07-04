@@ -5,11 +5,11 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 class Instructor(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, null=True, blank=True)
     image = models.ImageField(upload_to='instructor/', default='instructor/default.jpg')
     counted_views = models.IntegerField(default=0)
-    expertise = models.CharField(max_length=50)
+    expertise = models.CharField(max_length=200)
     description = RichTextUploadingField()
     short_description = models.CharField(max_length=120)
     address = models.CharField(max_length=100)
@@ -49,15 +49,15 @@ class Instructor(models.Model):
         return reverse("instructor:instructor_single", args=[self.slug])
     
 class Education(models.Model):
-    university = models.CharField(max_length=50)
-    field_of_study = models.CharField(max_length=50)
+    university = models.CharField(max_length=200)
+    field_of_study = models.CharField(max_length=200)
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, related_name="educations")
 
     def __str__(self):
         return self.university
 
 class Skill(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
     amount = models.PositiveSmallIntegerField()
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, related_name="skills")
 

@@ -23,7 +23,7 @@ COLOR_CHOICES = [
 ]
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=150)
     color = models.CharField(choices=COLOR_CHOICES, default='primary')
 
     def __str__(self):
@@ -32,8 +32,8 @@ class Category(models.Model):
 def post_media_upload_path(instance, filename):
     return f"blog/post_{instance.slug}/{filename}"
 class Post(models.Model):
-    title = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, null=True, blank=True)
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, null=True, blank=True, max_length=255)
     info = models.CharField(max_length=250)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post")
     content = RichTextUploadingField()

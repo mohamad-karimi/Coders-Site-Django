@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3nt@%dqhav+%z*#_@@a9+!y5+sqca*fba6a9=rjcf(*_(viww9'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -89,13 +93,17 @@ WSGI_APPLICATION = 'coders.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.getenv("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.parse(os.getenv("DATABASE_URL"))
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -138,8 +146,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'karimi.mohamad0011@gmail.com'
-EMAIL_HOST_PASSWORD = 'vzhn uffd gcaz dgqo'
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Static files (CSS, JavaScript, Images)
@@ -180,9 +188,9 @@ CKEDITOR_CONFIGS = {
 }
 
 # cloudflare Setting
-TURNSTILE_SITE_KEY = "0x4AAAAAADsbA50gN3OyvvdN"
-TURNSTILE_SECRET_KEY = "0x4AAAAAADsbAx491Pn5fOR3S8_oBl2UkYE"
+TURNSTILE_SITE_KEY = os.getenv("TURNSTILE_SITE_KEY")
+TURNSTILE_SECRET_KEY = os.getenv("TURNSTILE_SECRET_KEY")
 
 # Recaptcha v3
-RECAPTCHA_SITE_KEY  = "6LeTvjotAAAAAGU_YeeNix1aeLR0EsPd2UvYvMyO"
-RECAPTCHA_SECRET_KEY  = "6LeTvjotAAAAADELFO8yn1jZN1KfphuWxUxvm3KD"
+RECAPTCHA_SITE_KEY  = os.getenv("RECAPTCHA_SITE_KEY")
+RECAPTCHA_SECRET_KEY  = os.getenv("RECAPTCHA_SECRET_KEY")

@@ -33,7 +33,7 @@ class Contact(models.Model):
     
 class Question(models.Model):
     name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="question")
-    text = models.CharField(max_length=550)
+    text = models.TextField()
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     created_date = models.DateTimeField(auto_now_add=True)
 
@@ -82,7 +82,7 @@ class MentorUser(models.Model):
     password = models.CharField(max_length=25)
     confirm_password = models.CharField(max_length=25)
     avatar = models.ImageField(upload_to='mentor/', default='mentor/default.jpg')
-    expertise = models.CharField(max_length=50)
+    expertise = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name

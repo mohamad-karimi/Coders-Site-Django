@@ -41,7 +41,7 @@ CERTIFICATION_CHOICES = (
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=150)
     image = models.FileField(
         upload_to='course/category', default='course/category/default.svg')
 
@@ -50,7 +50,7 @@ class Category(models.Model):
 
 
 class Course(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=250)
     slug = models.SlugField(unique=True, null=True, blank=True)
     price = models.PositiveIntegerField(default=0)
     discount_percent = models.PositiveSmallIntegerField(default=0)
