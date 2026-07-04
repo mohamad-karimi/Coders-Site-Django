@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
-import cloudinary
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -160,20 +159,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
-
-cloudinary.config(
-    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
-    api_key=os.getenv("CLOUDINARY_API_KEY"),
-    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
-)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media
 MEDIA_URL = 'media/'
@@ -213,3 +199,8 @@ TURNSTILE_SECRET_KEY = os.getenv("TURNSTILE_SECRET_KEY")
 # Recaptcha v3
 RECAPTCHA_SITE_KEY  = os.getenv("RECAPTCHA_SITE_KEY")
 RECAPTCHA_SECRET_KEY  = os.getenv("RECAPTCHA_SECRET_KEY")
+
+# Security
+CSRF_TRUSTED_ORIGINS = [
+    "https://mywebsite.up.railway.app",
+]
