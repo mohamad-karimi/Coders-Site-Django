@@ -202,6 +202,4 @@ RECAPTCHA_SITE_KEY  = os.getenv("RECAPTCHA_SITE_KEY")
 RECAPTCHA_SECRET_KEY  = os.getenv("RECAPTCHA_SECRET_KEY")
 
 # Security
-CSRF_TRUSTED_ORIGINS = [
-    "https://mywebsite.up.railway.app",
-]
+CSRF_TRUSTED_ORIGINS = ["https://coders.up.railway.app"]
