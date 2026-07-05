@@ -170,8 +170,8 @@ def faq(request):
 
     return render(request, 'website/faq.html', context)
 
-def error_404(request):
-    return render(request, 'website/error-404.html')
+def error_404(request, exception):
+    return render(request, 'website/error-404.html', status = 404)
 
 def search(request):
     courses = Course.objects.filter(

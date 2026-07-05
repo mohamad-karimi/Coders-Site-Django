@@ -203,3 +203,17 @@ RECAPTCHA_SECRET_KEY  = os.getenv("RECAPTCHA_SECRET_KEY")
 
 # Security
 CSRF_TRUSTED_ORIGINS = ["https://coders.up.railway.app"]
+
+# Security headers
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
+# Referrer policy
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
+# Cross Origin
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
+
+# Cross-site Scripting (XSS)
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SECURE_CONTENT_TYPE_NOSNIFF = True

@@ -26,6 +26,8 @@ from blog.feeds import BlogFeed
 from course.feeds import CourseFeed
 from django.views.static import serve
 
+handler404 = 'website.views.error_404'
+
 sitemaps = {
     "static": StaticViewSitemap,
     "blog" : PostSitemap,
@@ -34,7 +36,7 @@ sitemaps = {
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin-1389/', admin.site.urls),
     path('', include('website.urls')),
     path('instructor/', include('instructor.urls')),
     path('dashboard/', include('dashboard.urls')),
