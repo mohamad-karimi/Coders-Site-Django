@@ -1,12 +1,13 @@
 from course.models import CourseProgress, LessonProgress, Score, Course
-from django.db.models import Count, Q, FloatField
 from django.db.models.functions import Cast
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Avg
+from django.db.models import Case, When, Value, FloatField, Avg, Q, Count
 
 def dashboard_context(request):
     if not request.user.is_authenticated:
         return {}
+    
+    lesson_count = Count("sections__lessons", distinct=True)
     
     courses = Course.objects.filter(
         status=True,
@@ -20,18 +21,22 @@ def dashboard_context(request):
             ),
             distinct=True,
         ),
+        lesson_count=lesson_count,
     ).annotate(
-        progress_percent=Cast(
-            100.0 * Count(
-                "sections__lessons__progress",
-                filter=Q(
-                    sections__lessons__progress__user=request.user,
-                    sections__lessons__progress__is_completed=True,
-                ),
-                distinct=True,
-            )
-            / Count("sections__lessons", distinct=True),
-            FloatField()
+        progress_percent=Case(
+            When(lesson_count=0, then=Value(0.0)),
+            default=Cast(
+                100.0 * Count(
+                    "sections__lessons__progress",
+                    filter=Q(
+                        sections__lessons__progress__user=request.user,
+                        sections__lessons__progress__is_completed=True,
+                    ),
+                    distinct=True,
+                ) / lesson_count,
+                FloatField()
+            ),
+            output_field=FloatField()
         )
     ).annotate(
         avg_score=Avg('score__score')

@@ -1099,23 +1099,26 @@ var e = {
 };
 e.init();
 
-document.getElementById('like-btn').addEventListener('click', function () {
-    const url = this.dataset.url;
+const btn = document.getElementById('like-btn');
 
-    fetch(url)
-    .then(res => res.json())
-    .then(data => {
+if (btn) {
+    btn.addEventListener('click', function () {
+        const url = this.dataset.url;
 
-        document.getElementById('like-count').innerText = data.likes;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('like-count').innerText = data.likes;
 
-        const icon = document.getElementById('like-icon');
+            const icon = document.getElementById('like-icon');
 
-        if (data.liked) {
-            icon.classList.remove('far');
-            icon.classList.add('fas', 'text-danger'); 
-        } else {
-            icon.classList.remove('fas', 'text-danger');
-            icon.classList.add('far');
-        }
+            if (data.liked) {
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'text-danger');
+            } else {
+                icon.classList.remove('fas', 'text-danger');
+                icon.classList.add('far');
+            }
+        });
     });
-});
+}
