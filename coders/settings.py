@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'coders.up.railway.app', "www.coders.up.railway.app",]
 SITE_DOMAIN = "coders.up.railway.app"
@@ -226,6 +226,7 @@ CONTENT_SECURITY_POLICY = {
             "'self'",
             "'unsafe-inline'",
             "https://www.googletagmanager.com",
+            "https://www.google-analytics.com",
             "https://cdn.jsdelivr.net",
         ),
 
@@ -251,6 +252,7 @@ CONTENT_SECURITY_POLICY = {
         "connect-src": (
             "'self'",
             "https://www.google-analytics.com",
+            "https://region1.google-analytics.com",
             "https://www.googletagmanager.com",
         ),
     }
