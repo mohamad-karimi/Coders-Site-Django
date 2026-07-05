@@ -29,8 +29,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'coders.up.railway.app']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'coders.up.railway.app', "www.coders.up.railway.app",]
+SITE_DOMAIN = "coders.up.railway.app"
 
 # Application definition
 
@@ -57,11 +57,13 @@ INSTALLED_APPS = [
     'taggit',
     'cloudinary',
     'cloudinary_storage',
+    "csp",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    'website.middleware.RemoveWWWMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -69,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
+    "csp.middleware.CSPMiddleware",
 ]
 
 ROOT_URLCONF = 'coders.urls'
@@ -204,10 +207,6 @@ RECAPTCHA_SECRET_KEY  = os.getenv("RECAPTCHA_SECRET_KEY")
 # Security
 CSRF_TRUSTED_ORIGINS = ["https://coders.up.railway.app"]
 
-# Security headers
-SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = "SAMEORIGIN"
-
 # Referrer policy
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
@@ -217,3 +216,10 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
 # Cross-site Scripting (XSS)
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Header Security
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'", "data:")
+CSP_FONT_SRC = ("'self'",)
