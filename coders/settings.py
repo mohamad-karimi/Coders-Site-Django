@@ -228,6 +228,9 @@ CONTENT_SECURITY_POLICY = {
             "https://www.googletagmanager.com",
             "https://www.google-analytics.com",
             "https://cdn.jsdelivr.net",
+            "https://www.google.com",
+            "https://www.gstatic.com",
+            "https://challenges.cloudflare.com",
         ),
 
         "style-src": (
@@ -249,11 +252,20 @@ CONTENT_SECURITY_POLICY = {
             "https:",
         ),
 
+        "frame-src": (
+            "'self'",
+            "https://www.google.com",
+            "https://challenges.cloudflare.com",
+        ),
+
         "connect-src": (
             "'self'",
             "https://www.google-analytics.com",
             "https://region1.google-analytics.com",
             "https://www.googletagmanager.com",
+            "https://www.google.com",
+            "https://www.gstatic.com",
+            "https://challenges.cloudflare.com",
         ),
     }
 }
