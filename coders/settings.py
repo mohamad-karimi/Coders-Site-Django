@@ -221,10 +221,37 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 CONTENT_SECURITY_POLICY = {
     "DIRECTIVES": {
         "default-src": ("'self'",),
-        "script-src": ("'self'",),
-        "style-src": ("'self'", "'unsafe-inline'"),
-        "img-src": ("'self'", "data:"),
-        "font-src": ("'self'",),
-        "connect-src": ("'self'",),
+
+        "script-src": (
+            "'self'",
+            "'unsafe-inline'",
+            "https://www.googletagmanager.com",
+            "https://cdn.jsdelivr.net",
+        ),
+
+        "style-src": (
+            "'self'",
+            "'unsafe-inline'",
+            "https://fonts.googleapis.com",
+            "https://cdn.jsdelivr.net",
+        ),
+
+        "font-src": (
+            "'self'",
+            "https://fonts.gstatic.com",
+            "data:",
+        ),
+
+        "img-src": (
+            "'self'",
+            "data:",
+            "https:",
+        ),
+
+        "connect-src": (
+            "'self'",
+            "https://www.google-analytics.com",
+            "https://www.googletagmanager.com",
+        ),
     }
 }
