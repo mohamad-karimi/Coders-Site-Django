@@ -218,7 +218,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # Header Security
-CONTENT_SECURITY_POLICY = {
+CCONTENT_SECURITY_POLICY = {
     "DIRECTIVES": {
         "default-src": ("'self'",),
 
@@ -265,6 +265,17 @@ CONTENT_SECURITY_POLICY = {
             "https://www.googletagmanager.com",
             "https://www.google.com",
             "https://www.gstatic.com",
+            "https://challenges.cloudflare.com",
+        ),
+
+        "frame-src-elem": (
+            "'self'",
+            "https://challenges.cloudflare.com",
+        ),
+
+        "script-src-elem": (
+            "'self'",
+            "https://www.google.com",
             "https://challenges.cloudflare.com",
         ),
     }
