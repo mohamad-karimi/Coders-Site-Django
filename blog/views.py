@@ -34,7 +34,7 @@ def blog_detail(request, slug):
     current_post.save(update_fields=['views'])
 
     posts = Post.objects.filter(status = True, published_date__lte=timezone.now())
-    comments = current_post.comment.all()
+    comments = current_post.comment.filter(published=True)
 
     post_list = list(posts)
     index = post_list.index(current_post)
@@ -73,8 +73,6 @@ def blog_detail(request, slug):
                 return redirect('blog:blog_detail', slug=slug)
             else:
                 messages.error(request, "اطلاعات فرم صحیح نیست")
-                
-    comments = current_post.comment.filter(published=True)
     
     context = {
         "post": current_post,
