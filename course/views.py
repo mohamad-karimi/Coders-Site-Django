@@ -99,10 +99,10 @@ def course_detail(request, slug):
 
 
     courses = Course.objects.all()
-    comment = course.comment.all().annotate(
+    comment = course.comment.filter(published=True).annotate(
         like_count=Count('likes')
     )
-    scores = course.score.all()
+    scores = course.score.filter(published=True)
 
     for s in scores:
         avg = s.score

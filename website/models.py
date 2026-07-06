@@ -34,6 +34,7 @@ class Contact(models.Model):
 class Question(models.Model):
     name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="question")
     text = models.TextField()
+    published = models.BooleanField(default=False)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     created_date = models.DateTimeField(auto_now_add=True)
 

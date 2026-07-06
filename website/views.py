@@ -95,7 +95,7 @@ def about(request):
 def faq(request):
     courses = Course.objects.prefetch_related('tag').all()
     posts = Post.objects.prefetch_related('tag').all()
-    questions = Question.objects.all().order_by('-created_date').annotate(
+    questions = Question.objects.filter(published=True).order_by('-created_date').annotate(
         like_count=Count('questionLike')
     )
     category = request.GET.get('category') 
