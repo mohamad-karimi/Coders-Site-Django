@@ -1,0 +1,23 @@
+{% load static %}
+
+					<!-- Nav Search START -->
+                    <div class="container mt-4">
+                        <form class="position-relative w-100 mx-auto" style="max-width:500px;"
+                            method="get"
+                            action="{% url 'blog:search' %}">
+
+                            <button
+                                type="submit"
+                                class="position-absolute top-50 start-0 translate-middle-y border-0 bg-transparent px-3">
+                                <i class="fas fa-search"></i>
+                            </button>
+
+                            <input
+                                class="form-control ps-5"
+                                type="search"
+                                name="s"
+                                placeholder="جست و جو">
+
+                        </form>
+                    </div>
+					<!-- Nav Search END -->

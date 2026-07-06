@@ -184,22 +184,40 @@
 					<hr>
 					<!-- Search bar -->
 					<div class="col-lg-8 mx-auto text-center mt-4">
-						<form class="faq-form" method="post", action="{% url 'website:faq' %}">
+						<form method="post" action="{% url 'website:faq' %}">
 							{% csrf_token %}
-							<div class="input-group">
-								<input type="hidden" name="form_type" value="questions">
-								<input class="form-control border-1 me-1" type="text" name="text" placeholder="یک سوال بپرسید...">
-								<select id="inputState2" class="form-select js-choice small-select" name="category" required
-								data-placeholder-val="دسته بندی را انتخاب کنید">
-									<option value="business">کسب‌وکار</option>
-									<option value="development">توسعه</option>
-									<option value="design">طراحی</option>
-									<option value="marketing">بازاریابی</option>
-									<option value="courses">دوره‌ها</option>
-									<option value="start">شروع</option>
-									<option value="profile">حساب کاربری و پروفایل</option>
-								</select>
-								<button type="submit" class="btn btn-blue mb-0 rounded">ارسال</button>
+							<input type="hidden" name="form_type" value="questions">
+
+							<div class="row g-2 align-items-center">
+								<div class="col-12 col-lg-6">
+									<input
+										class="form-control"
+										type="text"
+										name="text"
+										placeholder="یک سوال بپرسید...">
+								</div>
+
+								<div class="col-12 col-lg-4">
+									<select
+										class="form-select js-choice"
+										name="category"
+										required
+										data-placeholder-val="دسته بندی را انتخاب کنید">
+										<option value="business">کسب‌وکار</option>
+										<option value="development">توسعه</option>
+										<option value="design">طراحی</option>
+										<option value="marketing">بازاریابی</option>
+										<option value="courses">دوره‌ها</option>
+										<option value="start">شروع</option>
+										<option value="profile">حساب کاربری و پروفایل</option>
+									</select>
+								</div>
+
+								<div class="col-12 col-lg-2 d-grid">
+									<button type="submit" class="btn btn-blue">
+										ارسال
+									</button>
+								</div>
 							</div>
 						</form>
 					</div>

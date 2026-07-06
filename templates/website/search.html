@@ -1,26 +1,17 @@
 {% load static %}
-
-					<!-- Nav Search START -->
-					<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
-						<div class="nav-item w-100">
-
-							<form class="position-relative w-100" method="get" action="{% url 'website:search' %}">
-
+						<form class="position-relative" method="get" action="{% url 'website:search' %}">
 							<button
 								type="submit"
 								class="position-absolute top-50 start-0 translate-middle-y border-0 bg-transparent px-3">
 								<i class="fas fa-search fs-6"></i>
 							</button>
 
-							<input 
+							<input
 								class="form-control bg-transparent pe-5 ps-5"
+								style="width:220px;"
 								type="search"
+								name="s"
 								placeholder="جست و جو"
-                                name="s"
 								aria-label="Search">
-
-							</form>
-
-						</div>
-					</div>
+						</form>
 					<!-- Nav Search END -->

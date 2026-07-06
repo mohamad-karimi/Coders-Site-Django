@@ -179,7 +179,7 @@ def search(request):
     if request.method == "GET":
         if s := request.GET.get("s"):
             courses = courses.filter(Q(title__icontains=s) |
-                                 Q(overview__icontains=s))
+                                 Q(short_description__icontains=s))
     context = {"courses": courses}
     return render(request, "course/course-list.html", context)
 

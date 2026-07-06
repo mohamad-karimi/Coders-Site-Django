@@ -183,10 +183,24 @@
 										href="{% url 'course:course_categories' %}">مشاهده همه دسته‌بندی‌ها</a></li>
 							</ul>
 						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link" href="#" id="searchDropdown"
+							role="button"
+							data-bs-toggle="dropdown"
+							aria-expanded="false">
+								<i class="fas fa-search"></i>
+							</a>
+
+							<div class="dropdown-menu dropdown-menu-end p-3 shadow"
+								aria-labelledby="searchDropdown"
+								style="min-width:300px;">
+
+								{% include "website/search.html" %}
+
+							</div>
+						</li>
 					</ul>
 					<!-- Nav category menu END -->
-
-					{% include 'website/search.html' %}
 
 					<!-- Nav Main menu START -->
 					<ul class="navbar-nav navbar-nav-scroll me-auto">

@@ -4,7 +4,8 @@ from django.contrib import messages
 from blog.form import CommentForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import JsonResponse
-from django.db.models import F
+from django.db.models import F, Q
+from django.utils import timezone
 
 # Create your views here.
 def blog_grid(request,  **kwargs):
@@ -27,13 +28,19 @@ def blog_grid(request,  **kwargs):
     context={"post":post}
     return render(request, 'blog/blog-grid.html', context)
 
-def blog_detail(request, slug, **kwargs):
-    post = get_object_or_404(Post, slug=slug, status=True)
-    post.views += 1
-    post.save(update_fields=['views'])
+def blog_detail(request, slug):
+    current_post = get_object_or_404(Post, slug=slug, status=True, published_date__lte=timezone.now())
+    current_post.views += 1
+    current_post.save(update_fields=['views'])
 
     posts = Post.objects.filter(status = True)
-    comments = post.comment.all()
+    comments = current_post.comment.all()
+
+    post_list = list(posts)
+    index = post_list.index(current_post)
+
+    prev_post = post_list[index - 1] if index > 0 else None
+    next_post = post_list[index + 1] if index < len(post_list) - 1 else None
 
     if request.method == 'POST':
 
@@ -45,7 +52,7 @@ def blog_detail(request, slug, **kwargs):
             if form.is_valid():
                 comment_obj = form.save(commit=False)
                 comment_obj.author=request.user
-                comment_obj.post = post
+                comment_obj.post = current_post
                 comment_obj.save()
 
                 messages.success(request, "کامنت شما ثبت شد")
@@ -68,7 +75,9 @@ def blog_detail(request, slug, **kwargs):
                 messages.error(request, "اطلاعات فرم صحیح نیست")
 
     context = {
-        "post": post,
+        "post": current_post,
+        'next_post': next_post,
+        'prev_post': prev_post,
         "posts" : posts,
         "comments" : comments,
     }
@@ -95,3 +104,13 @@ def like_post(request, pk):
         "likes": post.like,
         "liked": liked
     })
+
+def search(request):
+    post = Post.objects.filter(
+        status=True, published_date__lte=timezone.now())
+    if request.method == "GET":
+        if s := request.GET.get("s"):
+            post = post.filter(Q(title__icontains=s) |
+                                 Q(info__icontains=s))
+    context = {"post": post}
+    return render(request, "blog/blog-grid.html", context)
