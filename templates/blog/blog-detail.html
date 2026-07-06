@@ -128,41 +128,53 @@
             </div>
             <!-- Tags and share END -->
 							<div class="navigation-area">
-								<div class="row">
-									{% if prev_post %}
-									<div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-										<div class="thumb" style="border-radius: 10px;overflow: hidden;">
-											<a href="{% url 'blog:blog_detail' prev_post.slug %}"><img
-    											src="{{ prev_post.image.url }}"
-    											style="width:100px;height:70px;object-fit:cover;margin-left: 5px;"
-    											alt="Previous post: {{ prev_post.title }} travel article thumbnail">
-											</a>
-										</div>
-										<div class="arrow">
-											<a href="{% url 'blog:blog_detail' prev_post.slug %}"><span class="lnr text-white lnr-arrow-left"></span></a>
-										</div>
-										<div class="detials">
-											<p>پست بعدی</p>
-										</div>
-									</div>
-									{% endif %}
-									{% if next_post %}
-									<div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-										<div class="detials">
-											<p>پست قبلی</p>
-										</div>
-										<div class="arrow">
-											<a href="{% url 'blog:blog_detail' next_post.slug %}"><span class="lnr text-white lnr-arrow-right"></span></a>
-										</div>
-										<div class="thumb" style="border-radius: 10px;overflow: hidden;">
-											<a href="{% url 'blog:blog_detail' next_post.slug %}"><img class="img-fluid nav-post-img"
-												style="width:100px;height:70px;object-fit:cover;margin-right: 5px;"
-												src="{{ next_post.image.url }}"
-												alt="Next post: {{ next_post.title }} travel article thumbnail"></a>
-										</div>										
-									</div>	
-									{% endif %}								
-								</div>
+                <div class="row">
+
+                    {% if prev_post %}
+                    <div class="col-12 col-lg-6 nav-left d-flex justify-content-start align-items-center">
+                        <div class="thumb" style="border-radius:10px;overflow:hidden;">
+                            <a href="{% url 'blog:blog_detail' prev_post.slug %}">
+                                <img src="{{ prev_post.image.url }}"
+                                    style="width:100px;height:70px;object-fit:cover;margin-left:5px;">
+                            </a>
+                        </div>
+
+                        <div class="arrow">
+                            <a href="{% url 'blog:blog_detail' prev_post.slug %}">
+                                <span class="lnr text-white lnr-arrow-left"></span>
+                            </a>
+                        </div>
+
+                        <div class="detials">
+                            <p>پست بعدی</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                    {% if next_post %}
+                    <div class="col-12 col-lg-6 nav-right d-flex justify-content-end align-items-center ms-auto">
+                        <div class="detials">
+                            <p>پست قبلی</p>
+                        </div>
+
+                        <div class="arrow">
+                            <a href="{% url 'blog:blog_detail' next_post.slug %}">
+                                <span class="lnr text-white lnr-arrow-right"></span>
+                            </a>
+                        </div>
+
+                        <div class="thumb" style="border-radius:10px;overflow:hidden;">
+                            <a href="{% url 'blog:blog_detail' next_post.slug %}">
+                                <img class="img-fluid"
+                                    style="width:100px;height:70px;object-fit:cover;margin-right:5px;"
+                                    src="{{ next_post.image.url }}">
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
 							</div>
             <hr /> <!-- Divider -->
 
