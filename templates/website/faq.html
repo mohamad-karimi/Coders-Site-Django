@@ -183,6 +183,7 @@
 					<!-- FAQ END -->
 					<hr>
 					<!-- Search bar -->
+					{% if request.user.is_authenticated %}
 					<div class="col-lg-8 mx-auto text-center mt-4">
 						<form method="post" action="{% url 'website:faq' %}">
 							{% csrf_token %}
@@ -221,7 +222,7 @@
 							</div>
 						</form>
 					</div>
-
+					{% endif %}
 					<div class="border p-2 p-sm-4 rounded-3 mb-4">
 						<ul class="list-unstyled mb-0">
 							{% if questions_count > 0 %}

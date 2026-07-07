@@ -236,6 +236,7 @@
                 {% endfor %}
               </div>
             <!-- Comment review and form END -->
+              {% if request.user.is_authenticated %}
               <div class="col-md-5">
                 <h3 class="mt-3 mt-sm-0">نظر خود را بنویسید!</h3>
 
@@ -258,6 +259,7 @@
 
                 </form>
               </div>
+              {% endif %}
             </div>
           </div>
         </div> <!-- Row END -->
