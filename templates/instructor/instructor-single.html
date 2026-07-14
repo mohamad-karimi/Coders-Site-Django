@@ -122,8 +122,9 @@
 					<div class="col-lg-8">
 
 						<!-- Title -->
-						<h5 class="mb-0">سلام، من هستم</h5>
-						<h1 class="mb-0">{{ instructor.name }}</h1>
+						<h1 class="mb-0">
+							{{ instructor.user.first_name }} {{ instructor.user.last_name }}
+						</h1>
 						<p>{{ instructor.expertise }}</p>
 
 						<!-- Content -->
@@ -139,7 +140,7 @@
 							<li class="list-group-item px-0">
 								<span class="h6 fw-light"><i
 										class="fas fa-fw fa-envelope text-primary me-1 me-sm-3"></i>ایمیل:</span>
-								<span>{{ instructor.email }}</span>
+								<span>{{ instructor.user.email }}</span>
 							</li>
 							<li class="list-group-item px-0">
 								<span class="h6 fw-light"><i

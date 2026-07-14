@@ -8,6 +8,7 @@ import jdatetime
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.db.models import Sum
 
 User = get_user_model()
 
@@ -102,6 +103,20 @@ class Course(models.Model):
         return Lesson.objects.filter(
             section__course=self
         ).count()
+    
+    @property
+    def total_sales_count(self):
+        return self.purchases.count()
+
+    @property
+    def total_sales_amount(self):
+        return self.purchases.aggregate(total=Sum('amount'))['total'] or 0
+    
+    @property
+    def months_since_published(self):
+        delta = timezone.now() - self.published_date
+        return delta.days // 30
+    
 
     def get_absolute_url(self):
         return reverse("course:course_detail", args=[self.slug])
@@ -268,3 +283,27 @@ class CourseProgress(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.course}"
+
+class FAQ(models.Model):
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name="faqs")
+    question = models.CharField(max_length=250)
+    answer = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["created_date"]
+
+    def __str__(self):
+        return self.question
+    
+class Purchase(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="purchases")
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name="purchases")
+    amount = models.PositiveIntegerField()
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} - {self.course} - {self.amount}"

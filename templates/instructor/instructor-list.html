@@ -119,7 +119,7 @@
 								<!-- Image -->
 								<div class="col-md-4">
 									<img src="{{ instructor.image.url }}" class="rounded-3"
-										alt="{{ instructor.name }}">
+										alt="{{ instructor.user.username }}">
 								</div>
 
 								<!-- Card body -->
@@ -129,7 +129,9 @@
 										<!-- Title -->
 										<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
 											<div>
-												<h5 class="card-title mb-0"><a href="{% url 'instructor:instructor_single' instructor.slug %}">{{ instructor.name }}</a></h5>
+												<h5 class="card-title mb-0"><a href="{% url 'instructor:instructor_single' instructor.slug %}">
+													{{ instructor.user.first_name }} {{ instructor.user.last_name }}
+												</a></h5>
 												<p class="small mb-2 mb-sm-0">{{ instructor.experience_of_the_year }}سال تجربه</p>
 											</div>
 											<span class="h6 fw-light">{{ instructor.instructor_avg_score }}<i

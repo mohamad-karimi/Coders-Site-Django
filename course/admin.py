@@ -1,5 +1,5 @@
 from django.contrib import admin
-from course.models import Course, Category, Section,  Lesson, Score, Comment, ReplayComment, Enrollment, LessonProgress, CourseProgress
+from course.models import Course, Category, Section,  Lesson, Score, Comment, ReplayComment, Enrollment, LessonProgress, CourseProgress, Purchase
 
 # Register your models here.
 @admin.register(Course)
@@ -75,3 +75,10 @@ class CourseProgressAdmin(admin.ModelAdmin):
     list_display = ["user", "course", "is_completed", "certificate_received"]
     search_fields = ["user", "course"]
     list_filter = ('user', "is_completed", "certificate_received")
+
+@admin.register(Purchase)
+class PurchaseAdmin(admin.ModelAdmin):
+    empty_value_display = "-empty-"
+    list_display = ["user", "course", "amount"]
+    search_fields = ["user", "course"]
+    list_filter = ('user', "amount")

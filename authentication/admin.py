@@ -6,18 +6,18 @@ from django.contrib.auth.admin import UserAdmin
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     empty_value_display = "-empty-"
-    list_display = ["username", "email"]
+    list_display = ["username", "email", "role"]
     search_fields = ["username"]
-    list_filter = ('username', "email")
+    list_filter = ('username', "email", "role")
 
     fieldsets = UserAdmin.fieldsets + (
-        ("اطلاعات اضافی", {
-            "fields": ("avatar",)
+        ("Extra Info", {
+            "fields": ("avatar", "role")
         }),
     )
 
     add_fieldsets = UserAdmin.add_fieldsets + (
-        ("اطلاعات اضافی", {
-            "fields": ("avatar",)
+        ("Extra Info", {
+            "fields": ("email", "avatar", "role")
         }),
     )

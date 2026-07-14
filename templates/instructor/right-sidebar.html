@@ -1,0 +1,75 @@
+
+
+					<!-- Left sidebar START -->
+					<div class="col-xl-3">
+						<!-- Responsive offcanvas body START -->
+						<div class="offcanvas-xl offcanvas-end" tabindex="-1" id="offcanvasSidebar">
+							<!-- Offcanvas header -->
+							<div class="offcanvas-header bg-light">
+								<h5 class="offcanvas-title" id="offcanvasNavbarLabel">پروفایل من</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+									data-bs-target="#offcanvasSidebar" aria-label="بستن"></button>
+							</div>
+							<!-- Offcanvas body -->
+							<div class="offcanvas-body p-3 p-xl-0">
+								<div class="bg-dark border rounded-3 p-3 w-100">
+									<!-- Dashboard menu -->
+									<div class="list-group list-group-dark list-group-borderless collapse-list">
+
+										<a class="list-group-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" 
+										href="{% url 'instructor:dashboard' %}"><i
+												class="bi bi-ui-checks-grid fa-fw me-2"></i>داشبورد</a>
+
+										<a class="list-group-item {% if request.resolver_match.url_name == 'course_list' %}active{% endif %}"
+										href="{% url 'instructor:create_course' %}"><i
+												class="bi bi-basket fa-fw me-2"></i>ایجاد دوره جدید</a>
+
+										<a class="list-group-item {% if request.resolver_match.url_name == 'edit_profile' %}active{% endif %}"
+										href="{% url 'instructor:edit_profile' %}"><i
+										class="bi bi-pencil-square fa-fw me-2"></i>ویرایش پروفایل</a>
+
+										<a class="list-group-item text-danger"
+										data-bs-toggle="modal"
+										data-bs-target="#deleteModal">
+											حذف پروفایل
+										</a>
+
+										<a class="list-group-item text-danger bg-danger-soft-hover"
+										href="{% url 'authentication:logout' %}"><i
+												class="fas fa-sign-out-alt fa-fw me-2"></i>خروج</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Responsive offcanvas body END -->
+					</div>
+					<!-- Left sidebar END -->
+					 <div class="modal fade" id="deleteModal" tabindex="-1">
+						<div class="modal-dialog">
+							<div class="modal-content">
+
+							<!-- Header -->
+							<div class="modal-header">
+								<h5 class="modal-title">حذف حساب کاربری</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+							</div>
+
+							<!-- Body -->
+							<div class="modal-body">
+								آیا مطمئن هستی که می‌خواهی حساب خود را حذف کنی؟
+							</div>
+
+							<!-- Footer -->
+							<div class="modal-footer">
+								<button class="btn btn-secondary" data-bs-dismiss="modal">
+								لغو
+								</button>
+
+								<a href="{% url 'instructor:delete_account' %}" class="btn btn-danger">
+								حذف
+								</a>
+							</div>
+
+							</div>
+						</div>
+					</div>

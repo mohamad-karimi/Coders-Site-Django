@@ -3,11 +3,24 @@ from instructor.models import Instructor, Education, Skill
 
 # Register your models here.
 @admin.register(Instructor)
-class PostAdmin(admin.ModelAdmin):
+class InstructorAdmin(admin.ModelAdmin):
     empty_value_display = "-empty-"
-    list_display = ["name","expertise","email", "experience_of_the_year"]
-    search_fields = ["name", "expertise"]
-    list_filter = ('email',"experience_of_the_year")
+
+    list_display = ["username", "expertise", "email", "experience_of_the_year",]
+
+    search_fields = ["user__username", "expertise", "user__email",]
+
+    list_filter = ("experience_of_the_year",)
+
+    def username(self, obj):
+        return obj.user.username
+
+    username.short_description = "Username"
+
+    def email(self, obj):
+        return obj.user.email
+
+    email.short_description = "Email"
 
 @admin.register(Education)
 class PostAdmin(admin.ModelAdmin):

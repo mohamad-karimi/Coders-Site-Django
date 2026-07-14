@@ -324,11 +324,13 @@
 							<!-- Avatar group -->
 							<ul class="avatar-group mb-0">
 								{% for user in users %}
-									<li class="avatar avatar-sm">
-										<img class="avatar-img rounded-circle border-white"
-											src="{{ user.avatar.url }}"
-											alt="{{ user.username }}">
-									</li>
+									{% if user.role == "student" %}
+										<li class="avatar avatar-sm">
+											<img class="avatar-img rounded-circle border-white"
+												src="{{ user.avatar.url }}"
+												alt="{{ user.username }}">
+										</li>
+									{% endif %}
 								{% endfor %}
 								<li class="avatar avatar-sm">
 									<div class="avatar-img rounded-circle border-white bg-primary">

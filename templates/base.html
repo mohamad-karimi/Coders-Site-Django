@@ -288,8 +288,17 @@
 										alt="{{ request.user.username }}">
 								</div>
 								<div>
-									<a class="h6" href="{% url 'dashboard:dashboard' %}">{{ request.user.username }}</a>
-									<p class="small m-0">{{ request.user.email }}</p>
+									{% if request.user.role == "student" %}
+										<a class="h6" href="{% url 'dashboard:dashboard' %}">
+											{{ request.user.username }}
+										</a>
+										<p class="small m-0">{{ request.user.email }}</p>
+									{% elif request.user.role == "instructor" %}
+										<a class="h6" href="{% url 'instructor:dashboard' %}">
+											{{ request.user.username }}
+										</a>
+										<p class="small m-0">{{ request.user.email }}</p>
+									{% endif %}
 								</div>
 							</div>
 						</li>
@@ -299,8 +308,13 @@
 						</li>
 
 						<!-- Links -->
-						<li><a class="dropdown-item" href="{% url 'dashboard:edit_profile' %}"><i class="bi bi-person fa-fw me-2"></i>ویرایش پروفایل</a>
-						</li>
+						{% if request.user.role == "student" %}
+							<li><a class="dropdown-item" href="{% url 'dashboard:edit_profile' %}"><i class="bi bi-person fa-fw me-2"></i>ویرایش پروفایل</a>
+							</li>
+						{% elif request.user.role == "instructor" %}
+							<li><a class="dropdown-item" href="{% url 'instructor:edit_profile' %}"><i class="bi bi-person fa-fw me-2"></i>ویرایش پروفایل</a>
+							</li>
+						{% endif %}
 						<li><a class="dropdown-item" href="{% url 'website:faq' %}"><i class="bi bi-info-circle fa-fw me-2"></i>راهنما</a>
 						</li>
 						<li><a class="dropdown-item bg-danger-soft-hover" href="{% url 'authentication:logout' %}"><i
@@ -490,7 +504,6 @@
 				<!-- Widget 3 END -->
 		</div>
 	</footer>
-	<!-- =======================Footer END -->
 
 	<!-- Back to top -->
 	<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
@@ -500,15 +513,21 @@
 
 	<!-- Bootstrap JS -->
 	<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'vendor/stepper/js/bs-stepper.min.js' %}"></script>
 
 	<!-- Vendors -->
+	<script src="{% static 'vendor/apexcharts/js/apexcharts.min.js' %}"></script>
 	<script src="{% static 'vendor/tiny-slider/tiny-slider-rtl.js' %}"></script>
 	<script src="{% static 'vendor/glightbox/js/glightbox.js' %}"></script>
 	<script src="{% static 'vendor/purecounterjs/dist/purecounter_vanilla.js' %}"></script>
 
 	<!-- Template Functions -->
 	<script src="{% static 'js/functions.js' %}"></script>
-
+	<script>
+	window.addEventListener("load", function () {
+		new PureCounter();
+	});
+	</script>
 </body>
 
 </html>

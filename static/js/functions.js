@@ -576,64 +576,64 @@ var e = {
     // END: AOS Animation
 
     // START: 13 Dashboard Chart
-    dashboardChart: function () {
-        var ac = e.select('#ChartPayout');
-        if (e.isVariableDefined(ac)) {
-        var options = {
-          series: [{
-            name: 'Payout',
-            data: [2909, 1259, 950, 1563, 1825, 2526, 2010, 3260, 3005, 3860, 4039]
-          }],
-          chart: {
-            height: 300,
-            type: 'area',
-            toolbar: {
-              show: false
-            },
-          },
+    // dashboardChart: function () {
+    //     var ac = e.select('#ChartPayout');
+    //     if (e.isVariableDefined(ac)) {
+    //     var options = {
+    //       series: [{
+    //         name: 'Payout',
+    //         data: [2909, 1259, 950, 1563, 1825, 2526, 2010, 3260, 3005, 3860, 4039]
+    //       }],
+    //       chart: {
+    //         height: 300,
+    //         type: 'area',
+    //         toolbar: {
+    //           show: false
+    //         },
+    //       },
           
-          dataLabels: {
-            enabled: true
-          },
-          stroke: {
-            curve: 'smooth'
-          },
-          colors: [ThemeColor.getCssVariableValue('--bs-primary')],
-          xaxis: {
-            type: 'Payout',
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct ', 'Nov', 'Dec'],
-            axisBorder: {
-               show: false
-            },
-            axisTicks: {
-                show: false
-            },
-          },
-          yaxis: [{
-              axisTicks: {
-                show: false
-              },
-              axisBorder: {
-                show: false
-              },
-            }],
-          tooltip: {
-            y: {
-              title: {
-                formatter: function (e) {
-                  return "" + "$";
-                }
-              }
-            },
-            marker: {
-              show: !1
-            }
-          }
-        };
-        var chart = new ApexCharts(document.querySelector("#ChartPayout"), options);
-        chart.render();
-        }
-    },
+    //       dataLabels: {
+    //         enabled: true
+    //       },
+    //       stroke: {
+    //         curve: 'smooth'
+    //       },
+    //       colors: [ThemeColor.getCssVariableValue('--bs-primary')],
+    //       xaxis: {
+    //         type: 'Payout',
+    //         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct ', 'Nov', 'Dec'],
+    //         axisBorder: {
+    //            show: false
+    //         },
+    //         axisTicks: {
+    //             show: false
+    //         },
+    //       },
+    //       yaxis: [{
+    //           axisTicks: {
+    //             show: false
+    //           },
+    //           axisBorder: {
+    //             show: false
+    //           },
+    //         }],
+    //       tooltip: {
+    //         y: {
+    //           title: {
+    //             formatter: function (e) {
+    //               return "" + "$";
+    //             }
+    //           }
+    //         },
+    //         marker: {
+    //           show: !1
+    //         }
+    //       }
+    //     };
+    //     var chart = new ApexCharts(document.querySelector("#ChartPayout"), options);
+    //     chart.render();
+    //     }
+    // },
     // END: Dashboard Chart
 
     // START: 14 Earning Chart
