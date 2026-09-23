@@ -35,19 +35,40 @@ The platform provides separate functionality for students and instructors, with 
 
 ## 📸 Screenshots
 
-<p align="center">
-  <img src="screenshots/Homepage.png" width="48%" />
-  <img src="screenshots/Shop%20Page.png" width="48%" />
-</p>
+### Homepage
 
 <p align="center">
-  <img src="screenshots/Product%20Detail%20Page.png" width="48%" />
-  <img src="screenshots/Cart%20Page.png" width="48%" />
+  <img src="screenshots/Homepage.png" width="800" />
 </p>
 
+### Shop
+
 <p align="center">
-  <img src="screenshots/Vendor%20Dashboard%20%E2%80%93%20Overview.png" width="48%" />
-  <img src="screenshots/Vendor%20Dashboard%20%E2%80%93%20Add%20Product.png" width="48%" />
+  <img src="screenshots/Shop%20Page.png" width="800" />
+</p>
+
+### Product Detail
+
+<p align="center">
+  <img src="screenshots/Product%20Detail%20Page.png" width="800" />
+</p>
+
+### Shopping Cart
+
+<p align="center">
+  <img src="screenshots/Cart%20Page.png" width="800" />
+</p>
+
+### Vendor Dashboard
+
+<p align="center">
+  <img src="screenshots/Vendor%20Dashboard%20%E2%80%93%20Overview.png" width="800" />
+</p>
+
+### Add Product
+
+<p align="center">
+  <img src="screenshots/Vendor%20Dashboard%20%E2%80%93%20Add%20Product.png" width="800" />
 </p>
 
 ## 🛠️ Tech Stack
