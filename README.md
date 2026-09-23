@@ -33,6 +33,23 @@ The platform provides separate functionality for students and instructors, with 
 * ☁️ Cloudinary media storage
 * 📱 Responsive Bootstrap interface
 
+## 📸 Screenshots
+
+<p align="center">
+  <img src="screenshots/Homepage.png" width="48%" />
+  <img src="screenshots/Shop%20Page.png" width="48%" />
+</p>
+
+<p align="center">
+  <img src="screenshots/Product%20Detail%20Page.png" width="48%" />
+  <img src="screenshots/Cart%20Page.png" width="48%" />
+</p>
+
+<p align="center">
+  <img src="screenshots/Vendor%20Dashboard%20%E2%80%93%20Overview.png" width="48%" />
+  <img src="screenshots/Vendor%20Dashboard%20%E2%80%93%20Add%20Product.png" width="48%" />
+</p>
+
 ## 🛠️ Tech Stack
 
 | Technology    | Usage                |
