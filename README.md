@@ -38,37 +38,31 @@ The platform provides separate functionality for students and instructors, with 
 ### Homepage
 
 <p align="center">
-  <img src="screenshots/Homepage.png" width="800" />
+  <img src="screenshots/Homepage.png" width="900" />
 </p>
 
-### Shop
+### Course Detail Page
 
 <p align="center">
-  <img src="screenshots/Shop%20Page.png" width="800" />
+  <img src="screenshots/Course%20Detail%20Page.png" width="900" />
 </p>
 
-### Product Detail
+### Instructor Dashboard
 
 <p align="center">
-  <img src="screenshots/Product%20Detail%20Page.png" width="800" />
+  <img src="screenshots/Instructor%20Dashboard.png" width="900" />
 </p>
 
-### Shopping Cart
+### Student Dashboard
 
 <p align="center">
-  <img src="screenshots/Cart%20Page.png" width="800" />
+  <img src="screenshots/Student%20Dashboard.png" width="900" />
 </p>
 
-### Vendor Dashboard
+### Add / Edit Course Form
 
 <p align="center">
-  <img src="screenshots/Vendor%20Dashboard%20%E2%80%93%20Overview.png" width="800" />
-</p>
-
-### Add Product
-
-<p align="center">
-  <img src="screenshots/Vendor%20Dashboard%20%E2%80%93%20Add%20Product.png" width="800" />
+  <img src="screenshots/AddEdit%20Course%20Form.png" width="900" />
 </p>
 
 ## 🛠️ Tech Stack
